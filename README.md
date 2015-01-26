@@ -5,10 +5,14 @@ A simple tool to check a file hash by drag and drop
 
 ![Screenshot](https://github.com/emoacht/FileHashChecker/blob/master/filehashchecker.png)
 
-#Requirements
+##Requirements
 
  * .NET Framework 4.5
 
-#License
+##Download
+
+ - [Executable](https://github.com/emoacht/FileHashChecker/releases/download/1.0.0/FileHashChecker100.zip)
+
+##License
 
  - MIT License
