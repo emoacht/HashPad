@@ -42,11 +42,25 @@ namespace FileHashChecker
         }
         private string _compareToTarget;
 
-        public bool IsReady
+        public bool IsReading
         {
-            get { return !Sha1IsReading && !Md5IsReading; }
+            get { return Sha1IsReading || Md5IsReading; }
         }
-                
+
+        public double CombinedProgress
+        {
+            get
+            {
+                if (Sha1IsReading)
+                    return Sha1Progress;
+
+                if (Md5IsReading)
+                    return Md5Progress;
+
+                return 0D;
+            }
+        }
+
 
         #region SHA1
 
@@ -81,7 +95,7 @@ namespace FileHashChecker
             {
                 _sha1IsReading = value;
                 RaisePropertyChanged();
-                RaisePropertyChanged("IsReady");
+                RaisePropertyChanged("IsReading");
             }
         }
         private bool _sha1IsReading;
@@ -93,6 +107,7 @@ namespace FileHashChecker
             {
                 _sha1Progress = value;
                 RaisePropertyChanged();
+                RaisePropertyChanged("CombinedProgress");
             }
         }
         private double _sha1Progress;
@@ -144,7 +159,7 @@ namespace FileHashChecker
             {
                 _md5IsReading = value;
                 RaisePropertyChanged();
-                RaisePropertyChanged("IsReady");
+                RaisePropertyChanged("IsReading");
             }
         }
         private bool _md5IsReading;
@@ -156,6 +171,7 @@ namespace FileHashChecker
             {
                 _md5Progress = value;
                 RaisePropertyChanged();
+                RaisePropertyChanged("CombinedProgress");
             }
         }
         private double _md5Progress;

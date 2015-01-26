@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FileHashChecker.Converters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,10 +30,11 @@ namespace FileHashChecker
 
                 this.SetBinding(
                     UIElement.AllowDropProperty,
-                    new Binding("IsReady")
+                    new Binding("IsReading")
                     {
                         Source = mainWindowViewModel,
-                        Mode = BindingMode.OneWay
+                        Mode = BindingMode.OneWay,
+                        Converter = new BooleanInverseConverter()
                     });
             }
         }

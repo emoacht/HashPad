@@ -66,6 +66,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Common\NotificationObject.cs" />
+    <Compile Include="Converters\BooleanInverseConverter.cs" />
+    <Compile Include="Converters\BooleanToProgressStateConverter.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
