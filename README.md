@@ -11,7 +11,7 @@ A simple tool to check a file hash by drag and drop
 
 ##Download
 
- - [Executable](https://github.com/emoacht/FileHashChecker/releases/download/1.0.0/FileHashChecker100.zip)
+ - [Executable](https://github.com/emoacht/FileHashChecker/releases/download/1.1.0/FileHashChecker110.zip)
 
 ##License
 
