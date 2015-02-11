@@ -1,5 +1,4 @@
-﻿using FileHashChecker.Converters;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,45 +11,48 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
+using FileHashChecker.Converters;
+using FileHashChecker.ViewModels;
+
 namespace FileHashChecker
 {
-    public partial class MainWindow : Window
-    {
-        private readonly MainWindowViewModel mainWindowViewModel;
+	public partial class MainWindow : Window
+	{
+		private readonly MainWindowViewModel mainWindowViewModel;
 
-        public MainWindow()
-        {
-            InitializeComponent();
+		public MainWindow()
+		{
+			InitializeComponent();
 
-            mainWindowViewModel = this.DataContext as MainWindowViewModel;
-            if (mainWindowViewModel != null)
-            {
-                this.Loaded += OnLoaded;
-                this.Drop += OnDrop;
+			mainWindowViewModel = this.DataContext as MainWindowViewModel;
+			if (mainWindowViewModel != null)
+			{
+				this.Loaded += OnLoaded;
+				this.Drop += OnDrop;
 
-                this.SetBinding(
-                    UIElement.AllowDropProperty,
-                    new Binding("IsReading")
-                    {
-                        Source = mainWindowViewModel,
-                        Mode = BindingMode.OneWay,
-                        Converter = new BooleanInverseConverter()
-                    });
-            }
-        }
+				this.SetBinding(
+					UIElement.AllowDropProperty,
+					new Binding("IsReading")
+					{
+						Source = mainWindowViewModel,
+						Mode = BindingMode.OneWay,
+						Converter = new BooleanInverseConverter()
+					});
+			}
+		}
 
-        private async void OnLoaded(object sender, RoutedEventArgs e)
-        {
-            var args = Environment.GetCommandLineArgs().Skip(1); // The first element is this executable file path.
+		private async void OnLoaded(object sender, RoutedEventArgs e)
+		{
+			var args = Environment.GetCommandLineArgs().Skip(1); // The first element is this executable file path.
 
-            await mainWindowViewModel.CheckFileAsync(args);
-        }
+			await mainWindowViewModel.CheckFileAsync(args);
+		}
 
-        private async void OnDrop(object sender, DragEventArgs e)
-        {
-            var paths = ((DataObject)e.Data).GetFileDropList().Cast<string>();
+		private async void OnDrop(object sender, DragEventArgs e)
+		{
+			var paths = ((DataObject)e.Data).GetFileDropList().Cast<string>();
 
-            await mainWindowViewModel.CheckFileAsync(paths);
-        }
-    }
+			await mainWindowViewModel.CheckFileAsync(paths);
+		}
+	}
 }
