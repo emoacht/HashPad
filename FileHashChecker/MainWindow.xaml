@@ -36,7 +36,6 @@
 					  IsEnabled="{Binding Sha1IsReading, Converter={StaticResource BooleanInverseConverterKey}}"
 					  IsChecked="{Binding Sha1IsEnabled}"/>
 			<Label VerticalAlignment="Center"
-				   IsEnabled="{Binding Sha1IsEnabled}"
 				   Content="SHA1 Hash"/>
 			<ProgressBar Width="100" Height="16" VerticalAlignment="Center"
 						 Visibility="{Binding Sha1IsReading, Converter={StaticResource BooleanToVisibilityConverterKey}}"
@@ -51,7 +50,7 @@
 		</StackPanel>
 		<TextBox Height="24" Margin="4,0,4,4" HorizontalAlignment="Stretch"
 				 IsReadOnly="True" VerticalContentAlignment="Center"
-				 IsEnabled="{Binding Sha1IsEnabled}"
+				 Visibility="{Binding Sha1IsEnabled, Converter={StaticResource BooleanToVisibilityConverterKey}}"
 				 Text="{Binding Sha1Hash, Mode=OneWay}"/>
 
 		<!-- SHA256 Hash -->
@@ -61,7 +60,6 @@
 					  IsEnabled="{Binding Sha256IsReading, Converter={StaticResource BooleanInverseConverterKey}}"
 					  IsChecked="{Binding Sha256IsEnabled}"/>
 			<Label VerticalAlignment="Center"
-				   IsEnabled="{Binding Sha256IsEnabled}"
 				   Content="SHA256 Hash"/>
 			<ProgressBar Width="100" Height="16" VerticalAlignment="Center"
 						 Visibility="{Binding Sha256IsReading, Converter={StaticResource BooleanToVisibilityConverterKey}}"
@@ -76,7 +74,7 @@
 		</StackPanel>
 		<TextBox Height="24" Margin="4,0,4,4" HorizontalAlignment="Stretch"
 				 IsReadOnly="True" VerticalContentAlignment="Center"
-				 IsEnabled="{Binding Sha256IsEnabled}"
+				 Visibility="{Binding Sha256IsEnabled, Converter={StaticResource BooleanToVisibilityConverterKey}}"
 				 Text="{Binding Sha256Hash, Mode=OneWay}"/>
 
 		<!-- MD5 Hash -->
@@ -86,7 +84,6 @@
 					  IsEnabled="{Binding Md5IsReading, Converter={StaticResource BooleanInverseConverterKey}}"
 					  IsChecked="{Binding Md5IsEnabled}"/>
 			<Label VerticalAlignment="Center"
-				   IsEnabled="{Binding Md5IsEnabled}"
 				   Content="MD5 Hash"/>
 			<ProgressBar Width="100" Height="16" VerticalAlignment="Center"
 						 Visibility="{Binding Md5IsReading, Converter={StaticResource BooleanToVisibilityConverterKey}}"
@@ -101,7 +98,7 @@
 		</StackPanel>
 		<TextBox Height="24" Margin="4,0,4,4" HorizontalAlignment="Stretch"
 				 IsReadOnly="True" VerticalContentAlignment="Center"
-				 IsEnabled="{Binding Md5IsEnabled}"
+				 Visibility="{Binding Md5IsEnabled, Converter={StaticResource BooleanToVisibilityConverterKey}}"
 				 Text="{Binding Md5Hash, Mode=OneWay}"/>
 
 		<!-- Compare to -->
