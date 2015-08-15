@@ -7,11 +7,7 @@ namespace FileHashChecker.Common
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		protected virtual void RaisePropertyChanged([CallerMemberName]string propertyName = null)
-		{
-			var handler = this.PropertyChanged;
-			if (handler != null)
-				handler(this, new PropertyChangedEventArgs(propertyName));
-		}
+		protected void RaisePropertyChanged([CallerMemberName]string propertyName = null)
+			=> PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 	}
 }

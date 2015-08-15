@@ -18,23 +18,23 @@ namespace FileHashChecker
 {
 	public partial class MainWindow : Window
 	{
-		private readonly MainWindowViewModel mainWindowViewModel;
+		private readonly MainWindowViewModel _mainWindowViewModel;
 
 		public MainWindow()
 		{
 			InitializeComponent();
 
-			mainWindowViewModel = this.DataContext as MainWindowViewModel;
-			if (mainWindowViewModel != null)
+			_mainWindowViewModel = this.DataContext as MainWindowViewModel;
+			if (_mainWindowViewModel != null)
 			{
 				this.Loaded += OnLoaded;
 				this.Drop += OnDrop;
 
 				this.SetBinding(
-					UIElement.AllowDropProperty,
-					new Binding("IsReading")
+					AllowDropProperty,
+					new Binding(nameof(MainWindowViewModel.IsReading))
 					{
-						Source = mainWindowViewModel,
+						Source = _mainWindowViewModel,
 						Mode = BindingMode.OneWay,
 						Converter = new BooleanInverseConverter()
 					});
@@ -45,14 +45,14 @@ namespace FileHashChecker
 		{
 			var args = Environment.GetCommandLineArgs().Skip(1); // The first element is this executable file path.
 
-			await mainWindowViewModel.CheckFileAsync(args);
+			await _mainWindowViewModel.CheckFileAsync(args);
 		}
 
 		private async void OnDrop(object sender, DragEventArgs e)
 		{
 			var paths = ((DataObject)e.Data).GetFileDropList().Cast<string>();
 
-			await mainWindowViewModel.CheckFileAsync(paths);
+			await _mainWindowViewModel.CheckFileAsync(paths);
 		}
 	}
 }

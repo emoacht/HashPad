@@ -4,9 +4,8 @@
 		xmlns:viewModels="clr-namespace:FileHashChecker.ViewModels"
 		xmlns:converters="clr-namespace:FileHashChecker.Converters"
 		Title="File Hash Checker"
-		Width="540" Height="300" SizeToContent="Height"
-		ResizeMode="NoResize"
-		Icon="Resources/hash.ico">
+		Icon="Resources/hash.ico"
+		Width="540" Height="300" SizeToContent="Height" ResizeMode="NoResize">
 	<Window.DataContext>
 		<viewModels:MainWindowViewModel/>
 	</Window.DataContext>
@@ -25,7 +24,8 @@
 		<!-- File Path -->
 		<Label HorizontalAlignment="Left"
 			   Content="File Path"/>
-		<TextBox Height="24" Margin="4,0,4,4" HorizontalAlignment="Stretch"
+		<TextBox Height="24"
+				 Margin="4,0,4,4" HorizontalAlignment="Stretch"
 				 IsReadOnly="True" VerticalContentAlignment="Center"
 				 Text="{Binding SourceFilePath, Mode=OneWay}"/>
 
@@ -37,7 +37,8 @@
 					  IsChecked="{Binding Sha1IsEnabled}"/>
 			<Label VerticalAlignment="Center"
 				   Content="SHA1 Hash"/>
-			<ProgressBar Width="100" Height="16" VerticalAlignment="Center"
+			<ProgressBar Width="100" Height="16"
+						 VerticalAlignment="Center"
 						 Visibility="{Binding Sha1IsReading, Converter={StaticResource BooleanToVisibilityConverterKey}}"
 						 Maximum="1"
 						 Value="{Binding Sha1Progress}"/>
@@ -48,7 +49,8 @@
 					   Content="Match!"/>
 			</Grid>
 		</StackPanel>
-		<TextBox Height="24" Margin="4,0,4,4" HorizontalAlignment="Stretch"
+		<TextBox Height="24" Margin="4,0,4,4"
+				 HorizontalAlignment="Stretch"
 				 IsReadOnly="True" VerticalContentAlignment="Center"
 				 Visibility="{Binding Sha1IsEnabled, Converter={StaticResource BooleanToVisibilityConverterKey}}"
 				 Text="{Binding Sha1Hash, Mode=OneWay}"/>
@@ -61,7 +63,8 @@
 					  IsChecked="{Binding Sha256IsEnabled}"/>
 			<Label VerticalAlignment="Center"
 				   Content="SHA256 Hash"/>
-			<ProgressBar Width="100" Height="16" VerticalAlignment="Center"
+			<ProgressBar Width="100" Height="16"
+						 VerticalAlignment="Center"
 						 Visibility="{Binding Sha256IsReading, Converter={StaticResource BooleanToVisibilityConverterKey}}"
 						 Maximum="1"
 						 Value="{Binding Sha256Progress}"/>
@@ -72,7 +75,8 @@
 					   Content="Match!"/>
 			</Grid>
 		</StackPanel>
-		<TextBox Height="24" Margin="4,0,4,4" HorizontalAlignment="Stretch"
+		<TextBox Height="24" Margin="4,0,4,4"
+				 HorizontalAlignment="Stretch"
 				 IsReadOnly="True" VerticalContentAlignment="Center"
 				 Visibility="{Binding Sha256IsEnabled, Converter={StaticResource BooleanToVisibilityConverterKey}}"
 				 Text="{Binding Sha256Hash, Mode=OneWay}"/>
@@ -85,7 +89,8 @@
 					  IsChecked="{Binding Md5IsEnabled}"/>
 			<Label VerticalAlignment="Center"
 				   Content="MD5 Hash"/>
-			<ProgressBar Width="100" Height="16" VerticalAlignment="Center"
+			<ProgressBar Width="100" Height="16"
+						 VerticalAlignment="Center"
 						 Visibility="{Binding Md5IsReading, Converter={StaticResource BooleanToVisibilityConverterKey}}"
 						 Maximum="1"
 						 Value="{Binding Md5Progress}"/>
@@ -96,7 +101,8 @@
 					   Content="Match!"/>
 			</Grid>
 		</StackPanel>
-		<TextBox Height="24" Margin="4,0,4,4" HorizontalAlignment="Stretch"
+		<TextBox Height="24" Margin="4,0,4,4"
+				 HorizontalAlignment="Stretch"
 				 IsReadOnly="True" VerticalContentAlignment="Center"
 				 Visibility="{Binding Md5IsEnabled, Converter={StaticResource BooleanToVisibilityConverterKey}}"
 				 Text="{Binding Md5Hash, Mode=OneWay}"/>
@@ -104,7 +110,8 @@
 		<!-- Compare to -->
 		<Label HorizontalAlignment="Left"
 			   Content="Compare to"/>
-		<TextBox Height="24" Margin="4,0,4,4" HorizontalAlignment="Stretch"
+		<TextBox Height="24" Margin="4,0,4,4"
+				 HorizontalAlignment="Stretch"
 				 VerticalContentAlignment="Center"
 				 Text="{Binding CompareToTarget, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=200}"/>
 	</StackPanel>

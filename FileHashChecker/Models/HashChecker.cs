@@ -36,7 +36,6 @@ namespace FileHashChecker.Models
 			}
 		}
 
-
 		#region Base
 
 		private static async Task<string> GetHashAsync(Stream stream, HashAlgorithm algorithm, IProgress<StreamProgress> progress, CancellationToken cancellationToken)
@@ -52,8 +51,7 @@ namespace FileHashChecker.Models
 				{
 					await Task.Delay(TimeSpan.FromMilliseconds(100), cancellationToken);
 
-					if (progress != null)
-						progress.Report(new StreamProgress(position: stream.Position, length: stream.Length));
+					progress?.Report(new StreamProgress(position: stream.Position, length: stream.Length));
 				}
 			});
 

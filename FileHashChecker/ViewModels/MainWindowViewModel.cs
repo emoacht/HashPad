@@ -16,7 +16,6 @@ namespace FileHashChecker.ViewModels
 		{
 		}
 
-
 		#region Property
 
 		public string SourceFilePath
@@ -42,10 +41,7 @@ namespace FileHashChecker.ViewModels
 		}
 		private string _compareToTarget;
 
-		public bool IsReading
-		{
-			get { return Sha1IsReading || Sha256IsReading || Md5IsReading; }
-		}
+		public bool IsReading => Sha1IsReading || Sha256IsReading || Md5IsReading;
 
 		public double CombinedProgress
 		{
@@ -63,7 +59,6 @@ namespace FileHashChecker.ViewModels
 				return 0D;
 			}
 		}
-
 
 		#region SHA1
 
@@ -97,7 +92,7 @@ namespace FileHashChecker.ViewModels
 			{
 				_sha1IsReading = value;
 				RaisePropertyChanged();
-				RaisePropertyChanged("IsReading");
+				RaisePropertyChanged(nameof(IsReading));
 			}
 		}
 		private bool _sha1IsReading;
@@ -109,7 +104,7 @@ namespace FileHashChecker.ViewModels
 			{
 				_sha1Progress = value;
 				RaisePropertyChanged();
-				RaisePropertyChanged("CombinedProgress");
+				RaisePropertyChanged(nameof(CombinedProgress));
 			}
 		}
 		private double _sha1Progress;
@@ -126,7 +121,6 @@ namespace FileHashChecker.ViewModels
 		private bool _sha1HasMatch;
 
 		#endregion
-
 
 		#region SHA256
 
@@ -160,7 +154,7 @@ namespace FileHashChecker.ViewModels
 			{
 				_sha256IsReading = value;
 				RaisePropertyChanged();
-				RaisePropertyChanged("IsReading");
+				RaisePropertyChanged(nameof(IsReading));
 			}
 		}
 		private bool _sha256IsReading;
@@ -172,7 +166,7 @@ namespace FileHashChecker.ViewModels
 			{
 				_sha256Progress = value;
 				RaisePropertyChanged();
-				RaisePropertyChanged("CombinedProgress");
+				RaisePropertyChanged(nameof(CombinedProgress));
 			}
 		}
 		private double _sha256Progress;
@@ -189,7 +183,6 @@ namespace FileHashChecker.ViewModels
 		private bool _sha256HasMatch;
 
 		#endregion
-
 
 		#region MD5
 
@@ -223,7 +216,7 @@ namespace FileHashChecker.ViewModels
 			{
 				_md5IsReading = value;
 				RaisePropertyChanged();
-				RaisePropertyChanged("IsReading");
+				RaisePropertyChanged(nameof(IsReading));
 			}
 		}
 		private bool _md5IsReading;
@@ -235,7 +228,7 @@ namespace FileHashChecker.ViewModels
 			{
 				_md5Progress = value;
 				RaisePropertyChanged();
-				RaisePropertyChanged("CombinedProgress");
+				RaisePropertyChanged(nameof(CombinedProgress));
 			}
 		}
 		private double _md5Progress;
@@ -255,7 +248,6 @@ namespace FileHashChecker.ViewModels
 
 		#endregion
 
-
 		public async Task CheckFileAsync(IEnumerable<string> filePaths)
 		{
 			if (filePaths == null)
@@ -274,10 +266,10 @@ namespace FileHashChecker.ViewModels
 
 		public async Task GetHashAsync(string filePath)
 		{
-			if (String.IsNullOrEmpty(filePath))
+			if (string.IsNullOrWhiteSpace(filePath))
 				return;
 
-			Md5Hash = Sha256Hash = Sha1Hash = String.Empty;
+			Md5Hash = Sha256Hash = Sha1Hash = string.Empty;
 			Md5Progress = Sha256Progress = Sha1Progress = 0;
 
 			try
@@ -338,9 +330,9 @@ namespace FileHashChecker.ViewModels
 
 		private void CompareHash()
 		{
-			Sha1HasMatch = !String.IsNullOrEmpty(Sha1Hash) && Sha1Hash.Equals(CompareToTarget, StringComparison.OrdinalIgnoreCase);
-			Sha256HasMatch = !String.IsNullOrEmpty(Sha256Hash) && Sha256Hash.Equals(CompareToTarget, StringComparison.OrdinalIgnoreCase);
-			Md5HasMatch = !String.IsNullOrEmpty(Md5Hash) && Md5Hash.Equals(CompareToTarget, StringComparison.OrdinalIgnoreCase);
+			Sha1HasMatch = !string.IsNullOrEmpty(Sha1Hash) && Sha1Hash.Equals(CompareToTarget, StringComparison.OrdinalIgnoreCase);
+			Sha256HasMatch = !string.IsNullOrEmpty(Sha256Hash) && Sha256Hash.Equals(CompareToTarget, StringComparison.OrdinalIgnoreCase);
+			Md5HasMatch = !string.IsNullOrEmpty(Md5Hash) && Md5Hash.Equals(CompareToTarget, StringComparison.OrdinalIgnoreCase);
 		}
 	}
 }
