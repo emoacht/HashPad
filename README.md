@@ -7,11 +7,11 @@ A simple tool to check a file hash by drag and drop
 
 ##Requirements
 
- * .NET Framework 4.5
+ * .NET Framework 4.5.2
 
 ##Download
 
-<a href="https://github.com/emoacht/FileHashChecker/releases/download/1.1.1/FileHashChecker111.zip">Download</a>
+<a href="https://github.com/emoacht/FileHashChecker/releases/download/1.2.0/FileHashChecker120.zip">Download</a>
 
 ##License
 
