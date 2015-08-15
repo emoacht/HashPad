@@ -1,9 +1,10 @@
-﻿File Hash Checker
+﻿<link href="Materials/markdown.css" rel="stylesheet"></link>
+File Hash Checker
 =================
 
 A simple tool to check a file hash by drag and drop
 
-![Screenshot](https://github.com/emoacht/FileHashChecker/blob/master/filehashchecker.png)
+![Screenshot](Materials/filehashchecker.png)
 
 ##Requirements
 
@@ -11,8 +12,7 @@ A simple tool to check a file hash by drag and drop
 
 ##Executable
 
-<a style="display: block; color: white; background: deepskyblue; text-decoration: none; text-align: center; width: 100px; margin: 8px 8px 22px 0; padding: 6px;"
- href="https://github.com/emoacht/FileHashChecker/releases/download/1.1.1/FileHashChecker111.zip">DownLoad</a>
+<a class="download" href="https://github.com/emoacht/FileHashChecker/releases/download/1.1.1/FileHashChecker111.zip">Download</a>
 
 ##License
 
