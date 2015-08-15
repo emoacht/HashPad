@@ -1,5 +1,4 @@
-﻿<link href="Materials/markdown.css" rel="stylesheet"></link>
-File Hash Checker
+﻿File Hash Checker
 =================
 
 A simple tool to check a file hash by drag and drop
@@ -12,7 +11,7 @@ A simple tool to check a file hash by drag and drop
 
 ##Executable
 
-<a class="download" href="https://github.com/emoacht/FileHashChecker/releases/download/1.1.1/FileHashChecker111.zip">Download</a>
+<a href="https://github.com/emoacht/FileHashChecker/releases/download/1.1.1/FileHashChecker111.zip">![Download](Materials/download.png)</a>
 
 ##License
 
