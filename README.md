@@ -13,6 +13,11 @@ A simple tool to check a file hash by drag and drop
 
 <a href="https://github.com/emoacht/FileHashChecker/releases/download/1.2.0/FileHashChecker120.zip">Download</a>
 
+##Usage
+
+ - Drag and drop a file to be checked to the window.
+ - Paste a string of expected hash in "Compare to" box to check if the hash matches it.
+
 ##License
 
  - MIT License
