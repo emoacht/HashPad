@@ -6,7 +6,7 @@ namespace FileHashChecker.Models
 		public long Position { get; }
 		public long Length { get; }
 
-		public double Percentage => (0L < Length) ? (double)Position / (double)Length : 0D;
+		public double Rate => (0L < Length) ? (double)Position / (double)Length : 0D;
 
 		public StreamProgress(long position, long length)
 		{

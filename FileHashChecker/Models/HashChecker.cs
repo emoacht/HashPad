@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Threading;
@@ -29,6 +28,8 @@ namespace FileHashChecker.Models
 					return new SHA1CryptoServiceProvider();
 				case HashType.Sha256:
 					return new SHA256CryptoServiceProvider();
+				case HashType.Sha512:
+					return new SHA512CryptoServiceProvider();
 				case HashType.Md5:
 					return new MD5CryptoServiceProvider();
 				default: // HashType.None
@@ -55,8 +56,8 @@ namespace FileHashChecker.Models
 				}
 			});
 
-			// Wait on both tasks to complete. If wait on only one task, the stream may be disposed before 
-			// the other task will complete and so cause an ObjectDisposedException.
+			// Wait for both tasks to complete. If wait for only one task, the stream may be disposed before 
+			// the completion of the other task and so cause an ObjectDisposedException.
 			await Task.WhenAll(getTask, monitorTask);
 
 			return await getTask;

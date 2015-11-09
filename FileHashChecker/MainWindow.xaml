@@ -16,7 +16,7 @@
 	</Window.Resources>
 	<Window.TaskbarItemInfo>
 		<TaskbarItemInfo ProgressState="{Binding IsReading, Converter={StaticResource BooleanToProgressStateConverterKey}}"
-						 ProgressValue="{Binding CombinedProgress}"/>
+						 ProgressValue="{Binding ProgressRate}"/>
 	</Window.TaskbarItemInfo>
 
 	<StackPanel Margin="4"
@@ -25,93 +25,62 @@
 		<Label HorizontalAlignment="Left"
 			   Content="File Path"/>
 		<TextBox Height="24"
-				 Margin="4,0,4,4" HorizontalAlignment="Stretch"
+				 Margin="4,0,4,4"
 				 IsReadOnly="True" VerticalContentAlignment="Center"
 				 Text="{Binding SourceFilePath, Mode=OneWay}"/>
 
-		<!-- SHA1 Hash -->
-		<StackPanel Margin="4,0,0,0"
-					Orientation="Horizontal">
-			<CheckBox VerticalAlignment="Center"
-					  IsEnabled="{Binding Sha1IsReading, Converter={StaticResource BooleanInverseConverterKey}}"
-					  IsChecked="{Binding Sha1IsEnabled}"/>
-			<Label VerticalAlignment="Center"
-				   Content="SHA1 Hash"/>
-			<ProgressBar Width="100" Height="16"
-						 VerticalAlignment="Center"
-						 Visibility="{Binding Sha1IsReading, Converter={StaticResource BooleanToVisibilityConverterKey}}"
-						 Maximum="1"
-						 Value="{Binding Sha1Progress}"/>
-			<Grid Background="DeepSkyBlue"
-				  Visibility="{Binding Sha1HasMatch, Converter={StaticResource BooleanToVisibilityConverterKey}}">
-				<Label VerticalAlignment="Center"
-					   Foreground="White" FontWeight="Bold"
-					   Content="Match!"/>
-			</Grid>
-		</StackPanel>
-		<TextBox Height="24" Margin="4,0,4,4"
-				 HorizontalAlignment="Stretch"
-				 IsReadOnly="True" VerticalContentAlignment="Center"
-				 Visibility="{Binding Sha1IsEnabled, Converter={StaticResource BooleanToVisibilityConverterKey}}"
-				 Text="{Binding Sha1Hash, Mode=OneWay}"/>
-
-		<!-- SHA256 Hash -->
-		<StackPanel Margin="4,0,0,0"
-					Orientation="Horizontal">
-			<CheckBox VerticalAlignment="Center"
-					  IsEnabled="{Binding Sha256IsReading, Converter={StaticResource BooleanInverseConverterKey}}"
-					  IsChecked="{Binding Sha256IsEnabled}"/>
-			<Label VerticalAlignment="Center"
-				   Content="SHA256 Hash"/>
-			<ProgressBar Width="100" Height="16"
-						 VerticalAlignment="Center"
-						 Visibility="{Binding Sha256IsReading, Converter={StaticResource BooleanToVisibilityConverterKey}}"
-						 Maximum="1"
-						 Value="{Binding Sha256Progress}"/>
-			<Grid Background="DeepSkyBlue"
-				  Visibility="{Binding Sha256HasMatch, Converter={StaticResource BooleanToVisibilityConverterKey}}">
-				<Label VerticalAlignment="Center"
-					   Foreground="White" FontWeight="Bold"
-					   Content="Match!"/>
-			</Grid>
-		</StackPanel>
-		<TextBox Height="24" Margin="4,0,4,4"
-				 HorizontalAlignment="Stretch"
-				 IsReadOnly="True" VerticalContentAlignment="Center"
-				 Visibility="{Binding Sha256IsEnabled, Converter={StaticResource BooleanToVisibilityConverterKey}}"
-				 Text="{Binding Sha256Hash, Mode=OneWay}"/>
-
-		<!-- MD5 Hash -->
-		<StackPanel Margin="4,0,0,0"
-					Orientation="Horizontal">
-			<CheckBox VerticalAlignment="Center"
-					  IsEnabled="{Binding Md5IsReading, Converter={StaticResource BooleanInverseConverterKey}}"
-					  IsChecked="{Binding Md5IsEnabled}"/>
-			<Label VerticalAlignment="Center"
-				   Content="MD5 Hash"/>
-			<ProgressBar Width="100" Height="16"
-						 VerticalAlignment="Center"
-						 Visibility="{Binding Md5IsReading, Converter={StaticResource BooleanToVisibilityConverterKey}}"
-						 Maximum="1"
-						 Value="{Binding Md5Progress}"/>
-			<Grid Background="DeepSkyBlue"
-				  Visibility="{Binding Md5HasMatch, Converter={StaticResource BooleanToVisibilityConverterKey}}">
-				<Label VerticalAlignment="Center"
-					   Foreground="White" FontWeight="Bold"
-					   Content="Match!"/>
-			</Grid>
-		</StackPanel>
-		<TextBox Height="24" Margin="4,0,4,4"
-				 HorizontalAlignment="Stretch"
-				 IsReadOnly="True" VerticalContentAlignment="Center"
-				 Visibility="{Binding Md5IsEnabled, Converter={StaticResource BooleanToVisibilityConverterKey}}"
-				 Text="{Binding Md5Hash, Mode=OneWay}"/>
+		<!-- Hash -->
+		<ListBox BorderThickness="0"
+				 ItemsSource="{Binding Hashes}">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<StackPanel>
+						<StackPanel Margin="4,0,0,0"
+									Orientation="Horizontal">
+							<CheckBox VerticalAlignment="Center"
+									  IsEnabled="{Binding IsReading, Converter={StaticResource BooleanInverseConverterKey}}"
+									  IsChecked="{Binding IsEnabled}"/>
+							<Label VerticalAlignment="Center"
+								   Content="{Binding Name, Mode=OneTime}"/>
+							<ProgressBar Width="100" Height="16"
+										 VerticalAlignment="Center"
+										 Visibility="{Binding IsReading, Converter={StaticResource BooleanToVisibilityConverterKey}}"
+										 Maximum="1"
+										 Value="{Binding ProgressRate}"/>
+							<Grid Background="DeepSkyBlue"
+								  Visibility="{Binding HasMatch, Converter={StaticResource BooleanToVisibilityConverterKey}}">
+								<Label VerticalAlignment="Center"
+									   Foreground="White" FontWeight="Bold"
+									   Content="Match!"/>
+							</Grid>
+						</StackPanel>
+						<TextBox Height="24" Margin="4,0,4,4"
+								 IsReadOnly="True" VerticalContentAlignment="Center"
+								 Visibility="{Binding IsEnabled, Converter={StaticResource BooleanToVisibilityConverterKey}}"
+								 Text="{Binding Hash, Mode=OneWay}"/>
+					</StackPanel>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+			<ListBox.ItemContainerStyle>
+				<Style TargetType="ListBoxItem">
+					<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+					<Setter Property="Template">
+						<Setter.Value>
+							<ControlTemplate TargetType="ListBoxItem">
+								<Border Background="Transparent">
+									<ContentPresenter/>
+								</Border>
+							</ControlTemplate>
+						</Setter.Value>
+					</Setter>
+				</Style>
+			</ListBox.ItemContainerStyle>
+		</ListBox>
 
 		<!-- Compare to -->
 		<Label HorizontalAlignment="Left"
 			   Content="Compare to"/>
 		<TextBox Height="24" Margin="4,0,4,4"
-				 HorizontalAlignment="Stretch"
 				 VerticalContentAlignment="Center"
 				 Text="{Binding CompareToTarget, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=200}"/>
 	</StackPanel>
