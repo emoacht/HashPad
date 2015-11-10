@@ -8,16 +8,16 @@ namespace FileHashChecker.Common
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		protected void SetProperty<T>(ref T store, T value, [CallerMemberName]string propertyName = null)
+		protected void SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
 		{
-			if (EqualityComparer<T>.Default.Equals(store, value))
+			if (EqualityComparer<T>.Default.Equals(storage, value))
 				return;
 
-			store = value;
+			storage = value;
 			RaisePropertyChanged(propertyName);
 		}
 
-		protected void RaisePropertyChanged([CallerMemberName]string propertyName = null)
+		protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
 			=> PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 	}
 }
