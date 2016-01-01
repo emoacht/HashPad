@@ -56,7 +56,7 @@ namespace FileHashChecker.Models
 				}
 			});
 
-			// Wait for both tasks to complete. If wait for only one task, the stream may be disposed before 
+			// Wait for both tasks to complete. If wait for only one task, the stream may be disposed before
 			// the completion of the other task and so cause an ObjectDisposedException.
 			await Task.WhenAll(getTask, monitorTask);
 
