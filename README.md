@@ -1,23 +1,22 @@
-﻿File Hash Checker
-=================
+﻿# File Hash Checker
 
 A simple tool to check a file hash by drag and drop
 
 ![Screenshot](Images/filehashchecker.png)
 
-##Requirements
+## Requirements
 
  * .NET Framework 4.5.2
 
-##Download
+## Download
 
-<a href="https://github.com/emoacht/FileHashChecker/releases/download/1.3.0/FileHashChecker130.zip">:floppy_disk: Download</a>
+:floppy_disk: <a href="https://github.com/emoacht/FileHashChecker/releases/download/1.3.0/FileHashChecker130.zip">Download</a>
 
-##Usage
+## Usage
 
  - Drag and drop a file to be checked to the window.
  - Paste a string of expected hash in "Compare to" box to check if the hash matches it.
 
-##License
+## License
 
  - MIT License
