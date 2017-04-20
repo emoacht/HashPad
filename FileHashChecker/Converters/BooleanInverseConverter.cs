@@ -20,10 +20,10 @@ namespace FileHashChecker.Converters
 
 		private static object ConvertBase(object value)
 		{
-			if (!(value is bool))
+			if (!(value is bool sourceValue))
 				return DependencyProperty.UnsetValue;
 
-			return !(bool)value;
+			return !sourceValue;
 		}
 	}
 }

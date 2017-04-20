@@ -72,15 +72,16 @@ namespace FileHashChecker.ViewModels
 
 		public IReadOnlyCollection<HashViewModel> Hashes { get; }
 
-		public MainWindowViewModel()
+		public MainWindowViewModel() : this(new[] { HashType.Sha1, HashType.Sha256, HashType.Sha512, HashType.Md5 })
+		{ }
+
+		public MainWindowViewModel(IEnumerable<HashType> types)
 		{
-			Hashes = new[]
-			{
-				new HashViewModel(HashType.Sha1) { IsEnabled = true },
-				new HashViewModel(HashType.Sha256),
-				new HashViewModel(HashType.Sha512),
-				new HashViewModel(HashType.Md5)
-			};
+			if (types?.Any() != true)
+				throw new ArgumentNullException(nameof(types));
+
+			Hashes = types.Select(x => new HashViewModel(x)).ToArray();
+			Hashes.First().IsEnabled = true;
 		}
 
 		public async Task CheckFileAsync(IEnumerable<string> filePaths)

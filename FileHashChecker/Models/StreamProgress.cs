@@ -1,6 +1,9 @@
 ﻿
 namespace FileHashChecker.Models
 {
+	/// <summary>
+	/// Progress data of Stream for IProgress
+	/// </summary>
 	internal class StreamProgress
 	{
 		public long Position { get; }

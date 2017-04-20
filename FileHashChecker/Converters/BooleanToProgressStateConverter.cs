@@ -11,10 +11,10 @@ namespace FileHashChecker.Converters
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			if (!(value is bool))
+			if (!(value is bool sourceValue))
 				return DependencyProperty.UnsetValue;
 
-			return (bool)value
+			return sourceValue
 				? TaskbarItemProgressState.Normal
 				: TaskbarItemProgressState.None;
 		}
