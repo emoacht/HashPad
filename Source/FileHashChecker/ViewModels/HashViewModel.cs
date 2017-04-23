@@ -17,7 +17,7 @@ namespace FileHashChecker.ViewModels
 		#region Property
 
 		public HashType HashType { get; }
-		public string Name => $"{HashType.ToString().ToUpper()} Hash";
+		public string Name => HashType.ToString().ToUpper();
 
 		public string Hash
 		{

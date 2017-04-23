@@ -29,6 +29,8 @@
 				 IsReadOnly="True" VerticalContentAlignment="Center"
 				 Text="{Binding SourceFilePath, Mode=OneWay}"/>
 
+		<Separator Margin="0,4,0,2"/>
+		
 		<!-- Hash -->
 		<ListBox BorderThickness="0"
 				 ItemsSource="{Binding Hashes}">
