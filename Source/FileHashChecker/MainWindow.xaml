@@ -5,7 +5,7 @@
 		xmlns:converters="clr-namespace:FileHashChecker.Converters"
 		Title="File Hash Checker"
 		Icon="Resources/hash.ico"
-		Width="540" Height="300" SizeToContent="Height" ResizeMode="NoResize">
+		Width="500" Height="300" SizeToContent="Height" ResizeMode="NoResize">
 	<Window.DataContext>
 		<viewModels:MainWindowViewModel/>
 	</Window.DataContext>
