@@ -10,7 +10,7 @@ A simple tool to check a file hash by drag and drop
 
 ## Download
 
-:floppy_disk: <a href="https://github.com/emoacht/FileHashChecker/releases/download/1.4.0/FileHashChecker140.zip">Download</a>
+:floppy_disk: <a href="https://github.com/emoacht/FileHashChecker/releases/download/1.4.1/FileHashChecker141.zip">Download</a>
 
 ## Usage
 
