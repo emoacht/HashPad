@@ -21,36 +21,36 @@ namespace FileHashChecker.ViewModels
 
 		public string Hash
 		{
-			get { return _hash; }
-			set { SetProperty(ref _hash, value); }
+			get => _hash;
+			set => SetProperty(ref _hash, value);
 		}
 		private string _hash;
 
 		public bool IsEnabled
 		{
-			get { return _isEnabled; }
-			set { SetProperty(ref _isEnabled, value); }
+			get => _isEnabled;
+			set => SetProperty(ref _isEnabled, value);
 		}
 		private bool _isEnabled;
 
 		public bool IsReading
 		{
-			get { return _isReading; }
-			set { SetProperty(ref _isReading, value); }
+			get => _isReading;
+			set => SetProperty(ref _isReading, value);
 		}
 		private bool _isReading;
 
 		public double ProgressRate
 		{
-			get { return _progressRate; }
-			set { SetProperty(ref _progressRate, value); }
+			get => _progressRate;
+			set => SetProperty(ref _progressRate, value);
 		}
 		private double _progressRate;
 
 		public bool HasMatch
 		{
-			get { return _hasMatch; }
-			set { SetProperty(ref _hasMatch, value); }
+			get => _hasMatch;
+			set => SetProperty(ref _hasMatch, value);
 		}
 		private bool _hasMatch;
 
@@ -73,9 +73,10 @@ namespace FileHashChecker.ViewModels
 			HasMatch = false;
 			ProgressRate = 0;
 
-			IsReading = true;
 			try
 			{
+				IsReading = true;
+
 				var progress = new Progress<StreamProgress>(x => ProgressRate = x.Rate);
 				Hash = await HashChecker.GetHashAsync(stream, HashType, progress, CancellationToken.None);
 				SystemSounds.Asterisk.Play();

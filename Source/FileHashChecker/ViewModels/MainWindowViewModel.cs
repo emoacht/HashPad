@@ -22,14 +22,14 @@ namespace FileHashChecker.ViewModels
 		}
 		public static readonly DependencyProperty SourceFilePathProperty =
 			DependencyProperty.Register(
-				"SourceFilePath",
+				nameof(SourceFilePath),
 				typeof(string),
 				typeof(MainWindowViewModel),
 				new PropertyMetadata(null));
 
 		public string CompareToTarget
 		{
-			get { return _compareToTarget; }
+			get => _compareToTarget;
 			set
 			{
 				_compareToTarget = value;
@@ -45,7 +45,7 @@ namespace FileHashChecker.ViewModels
 		}
 		public static readonly DependencyProperty IsReadingProperty =
 			DependencyProperty.Register(
-				"IsReading",
+				nameof(IsReading),
 				typeof(bool),
 				typeof(MainWindowViewModel),
 				new PropertyMetadata(
@@ -60,7 +60,7 @@ namespace FileHashChecker.ViewModels
 		}
 		public static readonly DependencyProperty ProgressRateProperty =
 			DependencyProperty.Register(
-				"ProgressRate",
+				nameof(ProgressRate),
 				typeof(double),
 				typeof(MainWindowViewModel),
 				new PropertyMetadata(
