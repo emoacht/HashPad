@@ -4,7 +4,6 @@
 		xmlns:viewModels="clr-namespace:FileHashChecker.ViewModels"
 		xmlns:converters="clr-namespace:FileHashChecker.Converters"
 		Title="File Hash Checker"
-		Icon="Resources/hash.ico"
 		Width="500" Height="300" SizeToContent="Height" ResizeMode="NoResize">
 	<Window.DataContext>
 		<viewModels:MainWindowViewModel/>
