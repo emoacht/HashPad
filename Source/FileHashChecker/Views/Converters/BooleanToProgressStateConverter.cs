@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Shell;
 
-namespace FileHashChecker.Converters
+namespace FileHashChecker.Views.Converters
 {
 	[ValueConversion(typeof(bool), typeof(TaskbarItemProgressState))]
 	public class BooleanToProgressStateConverter : IValueConverter

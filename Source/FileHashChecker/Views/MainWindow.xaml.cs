@@ -11,10 +11,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-using FileHashChecker.Converters;
 using FileHashChecker.ViewModels;
+using FileHashChecker.Views.Converters;
 
-namespace FileHashChecker
+namespace FileHashChecker.Views
 {
 	public partial class MainWindow : Window
 	{

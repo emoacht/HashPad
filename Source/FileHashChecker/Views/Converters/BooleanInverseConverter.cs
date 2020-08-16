@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace FileHashChecker.Converters
+namespace FileHashChecker.Views.Converters
 {
 	[ValueConversion(typeof(bool), typeof(bool))]
 	public class BooleanInverseConverter : IValueConverter
