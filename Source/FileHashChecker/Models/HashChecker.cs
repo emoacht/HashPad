@@ -16,25 +16,8 @@ namespace FileHashChecker.Models
 
 		public static async Task<string> GetHashAsync(Stream stream, HashType type, IProgress<StreamProgress> progress, CancellationToken cancellationToken)
 		{
-			using (var algorithm = GetAlgorithm(type))
+			using (var algorithm = type.GetAlgorithm())
 				return await GetHashAsync(stream, algorithm, progress, cancellationToken);
-		}
-
-		private static HashAlgorithm GetAlgorithm(HashType type)
-		{
-			switch (type)
-			{
-				case HashType.Sha1:
-					return new SHA1CryptoServiceProvider();
-				case HashType.Sha256:
-					return new SHA256CryptoServiceProvider();
-				case HashType.Sha512:
-					return new SHA512CryptoServiceProvider();
-				case HashType.Md5:
-					return new MD5CryptoServiceProvider();
-				default: // HashType.None
-					throw new NotSupportedException();
-			}
 		}
 
 		#region Base
