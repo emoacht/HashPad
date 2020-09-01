@@ -68,6 +68,26 @@ namespace FileHashChecker.ViewModels
 					null,
 					(d, e) => ((MainWindowViewModel)d).Hashes.FirstOrDefault(x => x.IsReading)?.ProgressRate ?? 0D));
 
+		public bool IsSendToEnabled
+		{
+			get { return (bool)GetValue(IsSendToEnabledProperty); }
+			set { SetValue(IsSendToEnabledProperty, value); }
+		}
+		public static readonly DependencyProperty IsSendToEnabledProperty =
+			DependencyProperty.Register(
+				"IsSendToEnabled",
+				typeof(bool),
+				typeof(MainWindowViewModel),
+				new PropertyMetadata(
+					ShortcutHelper.Exists(),
+					(_, e) =>
+					{
+						if ((bool)e.NewValue)
+							ShortcutHelper.Create();
+						else
+							ShortcutHelper.Remove();
+					}));
+
 		#endregion
 
 		public IReadOnlyCollection<HashViewModel> Hashes { get; }

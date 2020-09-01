@@ -61,6 +61,7 @@
     <Compile Include="Common\NotificationObject.cs" />
     <Compile Include="Models\HashChecker.cs" />
     <Compile Include="Models\HashType.cs" />
+    <Compile Include="Models\ShortcutHelper.cs" />
     <Compile Include="Models\StreamProgress.cs" />
     <Compile Include="ViewModels\HashViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
@@ -115,6 +116,17 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\hh.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="IWshRuntimeLibrary">
+      <Guid>{F935DC20-1CF0-11D0-ADB9-00C04FD58A0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
