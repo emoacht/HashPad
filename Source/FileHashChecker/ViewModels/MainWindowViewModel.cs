@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
+using Microsoft.Win32;
 
 using FileHashChecker.Models;
 
@@ -110,7 +110,17 @@ namespace FileHashChecker.ViewModels
 			if (filePath != null)
 			{
 				SourceFilePath = filePath;
-				await GetHashAsync(filePath);
+				await GetHashAsync(SourceFilePath);
+			}
+		}
+
+		public async Task SelectFileAsync()
+		{
+			var ofd = new OpenFileDialog { InitialDirectory = Path.GetDirectoryName(SourceFilePath) };
+			if (ofd.ShowDialog(Application.Current.MainWindow) == true)
+			{
+				SourceFilePath = ofd.FileName;
+				await GetHashAsync(SourceFilePath);
 			}
 		}
 
