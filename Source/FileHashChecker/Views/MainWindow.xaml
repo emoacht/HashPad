@@ -4,85 +4,219 @@
 		xmlns:viewModels="clr-namespace:FileHashChecker.ViewModels"
 		xmlns:converters="clr-namespace:FileHashChecker.Views.Converters"
 		Title="File Hash Checker"
-		Width="500" Height="300" SizeToContent="Height" ResizeMode="NoResize">
+		Width="320" MaxWidth="320"
+		Height="400" SizeToContent="Height"
+		WindowStyle="None">
+	<WindowChrome.WindowChrome>
+		<WindowChrome CaptionHeight="0"
+					  GlassFrameThickness="-1"
+					  CornerRadius="0"
+					  ResizeBorderThickness="0"/>
+	</WindowChrome.WindowChrome>
+
+	<Window.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="Chrome.xaml"/>
+				<ResourceDictionary>
+					<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverterKey"/>
+					<converters:BooleanInverseConverter x:Key="BooleanInverseConverterKey"/>
+					<converters:BooleanToProgressStateConverter x:Key="BooleanToProgressStateConverterKey"/>
+
+					<SolidColorBrush x:Key="Window.Border" Color="#AA6a6a6a"/>
+					<SolidColorBrush x:Key="Input.Background" Color="#FFf4f4f4"/>
+					<SolidColorBrush x:Key="Output.Background" Color="White"/>
+					<SolidColorBrush x:Key="Menu.Background" Color="#FFe1e1e1"/>
+				</ResourceDictionary>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</Window.Resources>
+
 	<Window.DataContext>
 		<viewModels:MainWindowViewModel/>
 	</Window.DataContext>
-	<Window.Resources>
-		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverterKey"/>
-		<converters:BooleanInverseConverter x:Key="BooleanInverseConverterKey"/>
-		<converters:BooleanToProgressStateConverter x:Key="BooleanToProgressStateConverterKey"/>
-	</Window.Resources>
+
 	<Window.TaskbarItemInfo>
 		<TaskbarItemInfo ProgressState="{Binding IsReading, Converter={StaticResource BooleanToProgressStateConverterKey}}"
 						 ProgressValue="{Binding ProgressRate}"/>
 	</Window.TaskbarItemInfo>
 
-	<StackPanel Margin="4"
-				UseLayoutRounding="True">
-		<!-- File Path -->
-		<Label HorizontalAlignment="Left"
-			   Content="File Path"/>
-		<TextBox Height="24"
-				 Margin="4,0,4,4"
-				 IsReadOnly="True" VerticalContentAlignment="Center"
-				 Text="{Binding SourceFilePath, Mode=OneWay}"/>
+	<Border BorderThickness="1"
+			BorderBrush="{StaticResource Window.Border}"
+			UseLayoutRounding="True">
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
 
-		<Separator Margin="0,4,0,2"/>
-		
-		<!-- Hash -->
-		<ListBox BorderThickness="0"
-				 ItemsSource="{Binding Hashes}">
-			<ListBox.ItemTemplate>
-				<DataTemplate>
-					<StackPanel>
-						<StackPanel Margin="4,0,0,0"
-									Orientation="Horizontal">
-							<CheckBox VerticalAlignment="Center"
-									  IsEnabled="{Binding IsReading, Converter={StaticResource BooleanInverseConverterKey}}"
-									  IsChecked="{Binding IsEnabled}"/>
-							<Label VerticalAlignment="Center"
-								   Content="{Binding Name, Mode=OneTime}"/>
-							<ProgressBar Width="100" Height="16"
-										 VerticalAlignment="Center"
-										 Visibility="{Binding IsReading, Converter={StaticResource BooleanToVisibilityConverterKey}}"
-										 Maximum="1"
-										 Value="{Binding ProgressRate}"/>
-							<Grid Background="DeepSkyBlue"
-								  Visibility="{Binding HasMatch, Converter={StaticResource BooleanToVisibilityConverterKey}}">
-								<Label VerticalAlignment="Center"
-									   Foreground="White" FontWeight="Bold"
-									   Content="Match!"/>
-							</Grid>
+			<!-- Title bar -->
+			<Grid Grid.Row="0"
+				  x:Name="TitleBar"
+				  Background="{StaticResource Input.Background}">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition/>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+
+				<TextBlock Grid.Column="1"
+						   Margin="8,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+						   Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+
+				<Button Grid.Column="2"
+						Style="{StaticResource CaptionButton.MenuStyle}"
+						Click="Menu_Click"/>
+				<Button Grid.Column="3"
+						Style="{StaticResource CaptionButton.MinimizeStyle}"
+						Click="Minimize_Click"/>
+				<Button Grid.Column="4"
+						Style="{StaticResource CaptionButton.CloseStyle}"
+						Click="Close_Click"/>
+			</Grid>
+
+			<StackPanel Grid.Row="1"
+						x:Name="MainPain">
+				<ListBox BorderThickness="0"
+						 Background="{StaticResource Input.Background}"
+						 HorizontalContentAlignment="Stretch"
+						 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+					<ListBoxItem>
+						<StackPanel Margin="6,0">
+							<!-- File Path -->
+							<Label Content="File Path"/>
+							<TextBox MinHeight="24" Margin="4,0"
+									 VerticalContentAlignment="Center"
+									 IsReadOnly="True"
+									 Text="{Binding SourceFilePath, Mode=OneWay}"/>
+							<Button Margin="4,-1,4,0" HorizontalAlignment="Right"
+									Padding="6,0"
+									TextElement.FontSize="11.5"
+									Content="Browse"
+									Click="Browse_Click"/>
 						</StackPanel>
-						<TextBox Height="24" Margin="4,0,4,4"
-								 IsReadOnly="True" VerticalContentAlignment="Center"
-								 Visibility="{Binding IsEnabled, Converter={StaticResource BooleanToVisibilityConverterKey}}"
-								 Text="{Binding Hash, Mode=OneWay}"/>
-					</StackPanel>
-				</DataTemplate>
-			</ListBox.ItemTemplate>
-			<ListBox.ItemContainerStyle>
-				<Style TargetType="ListBoxItem">
-					<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-					<Setter Property="Template">
-						<Setter.Value>
-							<ControlTemplate TargetType="ListBoxItem">
-								<Border Background="Transparent">
-									<ContentPresenter/>
-								</Border>
-							</ControlTemplate>
-						</Setter.Value>
-					</Setter>
-				</Style>
-			</ListBox.ItemContainerStyle>
-		</ListBox>
+					</ListBoxItem>
+					<ListBoxItem>
+						<StackPanel Margin="6,0,6,8">
+							<!-- Expected Value -->
+							<Label Content="Expected Value"/>
+							<TextBox MinHeight="24" Margin="4,0"
+									 VerticalContentAlignment="Center"
+									 FontFamily="Consolas" FontSize="13" TextWrapping="Wrap"
+									 Text="{Binding ExpectedValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=200}"/>
+							<Button Margin="4,-1,4,0" HorizontalAlignment="Right"
+									Padding="6,0"
+									TextElement.FontSize="11.5"
+									Content="Read Clipboard"
+									Click="Clipboard_Click"/>
+						</StackPanel>
+					</ListBoxItem>
+					<ListBox.ItemContainerStyle>
+						<Style TargetType="{x:Type ListBoxItem}">
+							<Setter Property="OverridesDefaultStyle" Value="True"/>
+							<Setter Property="Margin" Value="0"/>
+							<Setter Property="Template">
+								<Setter.Value>
+									<ControlTemplate TargetType="{x:Type ListBoxItem}">
+										<ContentPresenter/>
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>
+						</Style>
+					</ListBox.ItemContainerStyle>
+				</ListBox>
 
-		<!-- Compare to -->
-		<Label HorizontalAlignment="Left"
-			   Content="Compare to"/>
-		<TextBox Height="24" Margin="4,0,4,4"
-				 VerticalContentAlignment="Center"
-				 Text="{Binding CompareToTarget, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=200}"/>
-	</StackPanel>
+				<!-- Hash -->
+				<ListBox Margin="0,6"
+						 BorderThickness="0"
+						 Background="{StaticResource Output.Background}"
+						 HorizontalContentAlignment="Stretch"
+						 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+						 ItemsSource="{Binding Hashes}">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<StackPanel>
+								<StackPanel Margin="9,0,0,0"
+											Orientation="Horizontal">
+									<CheckBox VerticalAlignment="Center"
+											  IsEnabled="{Binding IsReading, Mode=OneWay, Converter={StaticResource BooleanInverseConverterKey}}"
+											  IsChecked="{Binding IsEnabled, Mode=TwoWay}"/>
+									<Label VerticalAlignment="Center"
+										   Content="{Binding Name, Mode=OneTime}"/>
+									<ProgressBar Width="100" Height="16"
+												 VerticalAlignment="Center"
+												 Visibility="{Binding IsReading, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverterKey}}"
+												 Maximum="1"
+												 Value="{Binding ProgressRate, Mode=OneWay}"/>
+									<Grid Background="DeepSkyBlue"
+										  Visibility="{Binding HasMatch, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverterKey}}">
+										<Label VerticalAlignment="Center"
+											   Foreground="White" FontWeight="Bold"
+											   Content="Match!"/>
+									</Grid>
+								</StackPanel>
+
+								<TextBox MinHeight="24" Margin="10,0,10,8"
+										 VerticalContentAlignment="Center"
+										 IsReadOnly="True" FontFamily="Consolas" FontSize="13" TextWrapping="Wrap"
+										 Text="{Binding HashValue, Mode=OneWay}"
+										 Visibility="{Binding IsEnabled, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverterKey}}"/>
+							</StackPanel>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+					<ListBox.ItemContainerStyle>
+						<Style TargetType="{x:Type ListBoxItem}">
+							<Setter Property="OverridesDefaultStyle" Value="True"/>
+							<Setter Property="Margin" Value="0"/>
+							<Setter Property="Template">
+								<Setter.Value>
+									<ControlTemplate TargetType="{x:Type ListBoxItem}">
+										<ContentPresenter/>
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>
+						</Style>
+					</ListBox.ItemContainerStyle>
+				</ListBox>
+
+				<Grid Margin="-1,0,-1,-1">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="3*"/>
+						<ColumnDefinition Width="1*"/>
+					</Grid.ColumnDefinitions>
+
+					<!-- Compute -->
+					<Button Grid.Column="0"
+							Padding="6"
+							Content="Compute Hash Value"
+							IsEnabled="{Binding CanCompute, Mode=OneWay}"
+							Click="Compute_Click"/>
+
+					<!-- Stop -->
+					<Button Grid.Column="1"
+							Padding="6"
+							Content="Stop"
+							IsEnabled="{Binding IsReading, Mode=OneWay}"
+							Click="Stop_Click"/>
+				</Grid>
+			</StackPanel>
+
+			<!-- Menu -->
+			<Grid Grid.Row="1"
+				  x:Name="MenuPain"
+				  Width="180" HorizontalAlignment="Right"
+				  Background="{StaticResource Menu.Background}"
+				  Visibility="{Binding IsMenuOpen, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type Window}}, Mode=OneWay, FallbackValue=Collapsed, Converter={StaticResource BooleanToVisibilityConverterKey}}">
+				<StackPanel Margin="8">
+					<CheckBox Margin="4"
+							  IsChecked="{Binding IsSendToEnabled, Mode=TwoWay}">
+						<TextBlock TextWrapping="Wrap"
+								   Text="Enable to send file from explorer's context menu"/>
+					</CheckBox>
+				</StackPanel>
+			</Grid>
+		</Grid>
+	</Border>
 </Window>

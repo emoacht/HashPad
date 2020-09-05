@@ -1,0 +1,180 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<!-- CaptionButton -->
+	<Color x:Key="CaptionButton.State.MouseOver.ForegroundColor">Black</Color>
+	<Color x:Key="CaptionButton.State.MouseOver.BackgroundColor">#88cccccc</Color>
+	<Color x:Key="CaptionButton.State.Pressed.ForegroundColor">Black</Color>
+	<Color x:Key="CaptionButton.State.Pressed.BackgroundColor">#88aaaaaa</Color>
+
+	<Color x:Key="CaptionButton.Close.MouseOver.ForegroundColor">White</Color>
+	<Color x:Key="CaptionButton.Close.MouseOver.BackgroundColor">#FFe04343</Color>
+	<Color x:Key="CaptionButton.Close.Pressed.ForegroundColor">White</Color>
+	<Color x:Key="CaptionButton.Close.Pressed.BackgroundColor">#FF993d3d</Color>
+
+	<ControlTemplate x:Key="CaptionButton.MenuTemplate" TargetType="{x:Type Button}">
+		<Border x:Name="border"
+				Background="{TemplateBinding Background}"
+				Opacity="1"
+				UseLayoutRounding="True"
+				SnapsToDevicePixels="True">
+			<Grid Width="12" Height="10"
+				  Focusable="False">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="1"/>
+					<RowDefinition/>
+					<RowDefinition Height="1"/>
+					<RowDefinition/>
+					<RowDefinition Height="1"/>
+				</Grid.RowDefinitions>
+
+				<Rectangle Grid.Row="0"
+						   Fill="{TemplateBinding Foreground}"/>
+				<Rectangle Grid.Row="2"
+						   Fill="{TemplateBinding Foreground}"/>
+				<Rectangle Grid.Row="4"
+						   Fill="{TemplateBinding Foreground}"/>
+			</Grid>
+
+			<VisualStateManager.VisualStateGroups>
+				<VisualStateGroup x:Name="CommonStates">
+					<VisualState x:Name="Normal"/>
+					<VisualState x:Name="MouseOver">
+						<Storyboard>
+							<ColorAnimation
+								Storyboard.TargetName="border"
+								Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+								Duration="0:0:0.1"
+								To="{StaticResource CaptionButton.State.MouseOver.BackgroundColor}"/>
+						</Storyboard>
+					</VisualState>
+					<VisualState x:Name="Pressed">
+						<Storyboard>
+							<ColorAnimation
+								Storyboard.TargetName="border"
+								Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+								Duration="0:0:0.1"
+								To="{StaticResource CaptionButton.State.Pressed.BackgroundColor}"/>
+						</Storyboard>
+					</VisualState>
+					<VisualState x:Name="Disabled"/>
+				</VisualStateGroup>
+			</VisualStateManager.VisualStateGroups>
+		</Border>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="CaptionButton.MinimizeTemplate" TargetType="{x:Type Button}">
+		<Border x:Name="border"
+				Background="{TemplateBinding Background}"
+				Opacity="1"
+				UseLayoutRounding="True"
+				SnapsToDevicePixels="True">
+			<Path x:Name="icon"
+				  Width="12" Height="10"
+				  Focusable="False"
+				  Data="M 0,5 L 12,5"
+				  StrokeThickness="1"
+				  Stroke="{TemplateBinding Foreground}"/>
+
+			<VisualStateManager.VisualStateGroups>
+				<VisualStateGroup x:Name="CommonStates">
+					<VisualState x:Name="Normal"/>
+					<VisualState x:Name="MouseOver">
+						<Storyboard>
+							<ColorAnimation
+								Storyboard.TargetName="border"
+								Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+								Duration="0:0:0.1"
+								To="{StaticResource CaptionButton.State.MouseOver.BackgroundColor}"/>
+						</Storyboard>
+					</VisualState>
+					<VisualState x:Name="Pressed">
+						<Storyboard>
+							<ColorAnimation
+								Storyboard.TargetName="border"
+								Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+								Duration="0:0:0.1"
+								To="{StaticResource CaptionButton.State.Pressed.BackgroundColor}"/>
+						</Storyboard>
+					</VisualState>
+					<VisualState x:Name="Disabled"/>
+				</VisualStateGroup>
+			</VisualStateManager.VisualStateGroups>
+		</Border>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="CaptionButton.CloseTemplate" TargetType="{x:Type Button}">
+		<Border x:Name="border"
+				Background="{TemplateBinding Background}"
+				Opacity="1"
+				UseLayoutRounding="True"
+				SnapsToDevicePixels="True">
+			<Path x:Name="icon"
+				  Width="10" Height="10"
+				  Focusable="False"
+				  Data="M 0,0 L 10,10 M 0,10 L 10,0"
+				  StrokeThickness="1"
+				  Stroke="{TemplateBinding Foreground}"/>
+
+			<VisualStateManager.VisualStateGroups>
+				<VisualStateGroup x:Name="CommonStates">
+					<VisualState x:Name="Normal"/>
+					<VisualState x:Name="MouseOver">
+						<Storyboard>
+							<ColorAnimation
+								Storyboard.TargetName="border"
+								Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+								Duration="0:0:0.1"
+								To="{StaticResource CaptionButton.Close.MouseOver.BackgroundColor}"/>
+							<ColorAnimation
+								Storyboard.TargetName="icon"
+								Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)"
+								Duration="0:0:0.1"
+								To="{StaticResource CaptionButton.Close.MouseOver.ForegroundColor}"/>
+						</Storyboard>
+					</VisualState>
+					<VisualState x:Name="Pressed">
+						<Storyboard>
+							<ColorAnimation
+								Storyboard.TargetName="border"
+								Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+								Duration="0:0:0.1"
+								To="{StaticResource CaptionButton.Close.Pressed.BackgroundColor}"/>
+							<ColorAnimation
+								Storyboard.TargetName="icon"
+								Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)"
+								Duration="0:0:0.1"
+								To="{StaticResource CaptionButton.Close.Pressed.ForegroundColor}"/>
+						</Storyboard>
+					</VisualState>
+					<VisualState x:Name="Disabled"/>
+				</VisualStateGroup>
+			</VisualStateManager.VisualStateGroups>
+		</Border>
+	</ControlTemplate>
+
+	<Style x:Key="CaptionButton.BaseStyle" TargetType="{x:Type Button}">
+		<Setter Property="OverridesDefaultStyle" Value="True"/>
+		<Setter Property="Foreground" Value="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="Width" Value="40"/>
+		<Setter Property="Height" Value="30"/>
+		<Setter Property="HorizontalContentAlignment" Value="Center"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="IsTabStop" Value="False"/>
+		<Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
+		<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+	</Style>
+
+	<Style x:Key="CaptionButton.MenuStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource CaptionButton.BaseStyle}">
+		<Setter Property="Template" Value="{StaticResource CaptionButton.MenuTemplate}"/>
+	</Style>
+
+	<Style x:Key="CaptionButton.MinimizeStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource CaptionButton.BaseStyle}">
+		<Setter Property="Template" Value="{StaticResource CaptionButton.MinimizeTemplate}"/>
+	</Style>
+
+	<Style x:Key="CaptionButton.CloseStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource CaptionButton.BaseStyle}">
+		<Setter Property="Template" Value="{StaticResource CaptionButton.CloseTemplate}"/>
+	</Style>
+</ResourceDictionary>
