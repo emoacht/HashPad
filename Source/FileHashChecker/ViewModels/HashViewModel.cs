@@ -78,7 +78,7 @@ namespace FileHashChecker.ViewModels
 				IsReading = true;
 
 				var progress = new Progress<StreamProgress>(x => ProgressRate = x.Rate);
-				Hash = await HashChecker.GetHashAsync(stream, HashType, progress, CancellationToken.None);
+				Hash = await HashChecker.ComputeHashAsync(stream, HashType, progress, CancellationToken.None);
 				SystemSounds.Asterisk.Play();
 			}
 			catch (Exception ex)
