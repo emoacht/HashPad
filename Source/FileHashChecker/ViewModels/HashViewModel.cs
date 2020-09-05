@@ -19,12 +19,12 @@ namespace FileHashChecker.ViewModels
 		public HashType HashType { get; }
 		public string Name => HashType.ToString().ToUpper();
 
-		public string Hash
+		public string HashValue
 		{
-			get => _hash;
-			set => SetProperty(ref _hash, value);
+			get => MainWindowViewModel.IsExpectedValueLower ? _hashValue?.ToLower() : _hashValue;
+			set => SetProperty(ref _hashValue, value);
 		}
-		private string _hash;
+		private string _hashValue;
 
 		public bool IsEnabled
 		{
@@ -36,14 +36,14 @@ namespace FileHashChecker.ViewModels
 		public bool IsReading
 		{
 			get => _isReading;
-			set => SetProperty(ref _isReading, value);
+			private set => SetProperty(ref _isReading, value);
 		}
 		private bool _isReading;
 
 		public double ProgressRate
 		{
 			get => _progressRate;
-			set => SetProperty(ref _progressRate, value);
+			private set => SetProperty(ref _progressRate, value);
 		}
 		private double _progressRate;
 
@@ -56,20 +56,17 @@ namespace FileHashChecker.ViewModels
 
 		#endregion
 
-		public HashViewModel(HashType hashType)
-		{
-			this.HashType = hashType;
-		}
+		public HashViewModel(HashType hashType) => this.HashType = hashType;
 
-		public async Task GetHashAsync(Stream stream)
+		public async Task ComputeAsync(Stream stream, CancellationToken cancellationToken)
 		{
-			if (stream == null)
+			if (stream is null)
 				throw new ArgumentNullException(nameof(stream));
 
 			if (!IsEnabled)
 				return;
 
-			Hash = string.Empty;
+			HashValue = string.Empty;
 			HasMatch = false;
 			ProgressRate = 0;
 
@@ -78,12 +75,8 @@ namespace FileHashChecker.ViewModels
 				IsReading = true;
 
 				var progress = new Progress<StreamProgress>(x => ProgressRate = x.Rate);
-				Hash = await HashChecker.ComputeHashAsync(stream, HashType, progress, CancellationToken.None);
+				HashValue = await HashChecker.ComputeHashAsync(stream, HashType, progress, cancellationToken);
 				SystemSounds.Asterisk.Play();
-			}
-			catch (Exception ex)
-			{
-				Hash = ex.Message;
 			}
 			finally
 			{
@@ -91,14 +84,19 @@ namespace FileHashChecker.ViewModels
 			}
 		}
 
-		public void CompareHash(string compareToTarget)
+		public void Compare(string expectedValue)
 		{
-			HasMatch = !string.IsNullOrEmpty(Hash) && Hash.Equals(compareToTarget, StringComparison.OrdinalIgnoreCase);
+			HasMatch = !string.IsNullOrEmpty(HashValue) && HashValue.Equals(expectedValue, StringComparison.OrdinalIgnoreCase);
 		}
 
-		public void ClearHash()
+		public void Update()
 		{
-			Hash = string.Empty;
+			RaisePropertyChanged(nameof(HashValue));
+		}
+
+		public void Clear()
+		{
+			HashValue = string.Empty;
 			HasMatch = false;
 		}
 	}
