@@ -145,11 +145,6 @@
 											  IsChecked="{Binding IsEnabled, Mode=TwoWay}"/>
 									<Label VerticalAlignment="Center"
 										   Content="{Binding Name, Mode=OneTime}"/>
-									<ProgressBar Width="100" Height="16"
-												 VerticalAlignment="Center"
-												 Visibility="{Binding IsReading, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverterKey}}"
-												 Maximum="1"
-												 Value="{Binding ProgressRate, Mode=OneWay}"/>
 									<Grid Background="DeepSkyBlue"
 										  Visibility="{Binding HasMatch, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverterKey}}">
 										<Label VerticalAlignment="Center"
@@ -157,6 +152,14 @@
 											   Content="Match!"/>
 									</Grid>
 								</StackPanel>
+
+								<ProgressBar Height="3" Margin="10,-3,10,0"
+											 BorderThickness="0"
+											 Background="Transparent"
+											 Foreground="SkyBlue"
+											 Visibility="{Binding IsReading, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverterKey}}"
+											 Maximum="1"
+											 Value="{Binding ProgressRate, Mode=OneWay}"/>
 
 								<TextBox MinHeight="24" Margin="10,0,10,8"
 										 VerticalContentAlignment="Center"
