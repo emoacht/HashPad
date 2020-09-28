@@ -27,6 +27,9 @@
 					<SolidColorBrush x:Key="Input.Background" Color="#FFf4f4f4"/>
 					<SolidColorBrush x:Key="Output.Background" Color="White"/>
 					<SolidColorBrush x:Key="Menu.Background" Color="#FFe1e1e1"/>
+					<SolidColorBrush x:Key="Match.Background" Color="DeepSkyBlue"/>
+					<SolidColorBrush x:Key="Progress.Foreground" Color="LightSkyBlue"/>
+					<SolidColorBrush x:Key="Progress.Background" Color="#FFe2e2e2"/>					
 				</ResourceDictionary>
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
@@ -145,7 +148,7 @@
 											  IsChecked="{Binding IsEnabled, Mode=TwoWay}"/>
 									<Label VerticalAlignment="Center"
 										   Content="{Binding Name, Mode=OneTime}"/>
-									<Grid Background="DeepSkyBlue"
+									<Grid Background="{StaticResource Match.Background}"
 										  Visibility="{Binding HasMatch, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverterKey}}">
 										<Label VerticalAlignment="Center"
 											   Foreground="White" FontWeight="Bold"
@@ -155,8 +158,8 @@
 
 								<ProgressBar Height="3" Margin="10,-3,10,0"
 											 BorderThickness="0"
-											 Background="Transparent"
-											 Foreground="SkyBlue"
+											 Background="{StaticResource Progress.Background}"
+											 Foreground="{StaticResource Progress.Foreground}"
 											 Visibility="{Binding IsReading, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverterKey}}"
 											 Maximum="1"
 											 Value="{Binding ProgressRate, Mode=OneWay}"/>
