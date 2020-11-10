@@ -11,11 +11,20 @@
 		<SolidColorBrush x:Key="LightBrush" Color="White"/>
 		<LinearGradientBrush x:Key="FrameBrush" StartPoint="0,0" EndPoint="1,1">
 			<GradientStop Color="#FFc2c2c2" Offset="0"/>
-			<GradientStop Color="#FFadadad" Offset="1"/>
+			<!-- Brightness -16 -->
+			<GradientStop Color="#FFb1b1b1" Offset="1"/>
 		</LinearGradientBrush>
-		<LinearGradientBrush x:Key="BackBrush" StartPoint="0,0" EndPoint="1,1">
+
+		<LinearGradientBrush x:Key="GrayBackBrush" StartPoint="0,0" EndPoint="1,1">
 			<GradientStop Color="#FF8f8f8f" Offset="0"/>
-			<GradientStop Color="#FF7a7a7a" Offset="1"/>
+			<!-- Brightness -16 -->
+			<GradientStop Color="#FF7e7e7e" Offset="1"/>
+		</LinearGradientBrush>
+
+		<LinearGradientBrush x:Key="BlueBackBrush" StartPoint="0,0" EndPoint="1,1">
+			<GradientStop Color="#FF00bfff" Offset="0"/>
+			<!-- Brightness -16 -->
+			<GradientStop Color="#FF00a6dd" Offset="1"/>
 		</LinearGradientBrush>
 
 		<Style TargetType="{x:Type Rectangle}">
@@ -33,7 +42,7 @@
 			<!-- 24x24 - Margin="192" -->
 			<!-- 36x36 - Height="176" -->
 			<Grid Height="176"
-				  Background="{StaticResource BackBrush}">
+				  Background="{StaticResource BlueBackBrush}">
 
 				<Rectangle Width="160" Margin="0,-64,0,0"/>
 				<Rectangle Width="160" Margin="0,64,0,0"/>
