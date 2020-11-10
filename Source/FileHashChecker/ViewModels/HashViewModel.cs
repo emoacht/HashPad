@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Media;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -26,12 +25,12 @@ namespace FileHashChecker.ViewModels
 		}
 		private string _hashValue;
 
-		public bool IsEnabled
+		public bool IsTarget
 		{
-			get => _isEnabled;
-			set => SetProperty(ref _isEnabled, value);
+			get => _isTarget;
+			set => SetProperty(ref _isTarget, value);
 		}
-		private bool _isEnabled;
+		private bool _isTarget;
 
 		public bool IsReading
 		{
@@ -47,6 +46,8 @@ namespace FileHashChecker.ViewModels
 		}
 		private double _progressRate;
 
+		internal bool HasRead => !string.IsNullOrEmpty(HashValue);
+
 		public bool HasMatch
 		{
 			get => _hasMatch;
@@ -58,12 +59,12 @@ namespace FileHashChecker.ViewModels
 
 		public HashViewModel(HashType hashType) => this.HashType = hashType;
 
-		public async Task ComputeAsync(Stream stream, CancellationToken cancellationToken)
+		internal async Task ComputeAsync(Stream stream, CancellationToken cancellationToken)
 		{
 			if (stream is null)
 				throw new ArgumentNullException(nameof(stream));
 
-			if (!IsEnabled)
+			if (!IsTarget)
 				return;
 
 			HashValue = string.Empty;
@@ -76,7 +77,6 @@ namespace FileHashChecker.ViewModels
 
 				var progress = new Progress<StreamProgress>(x => ProgressRate = x.Rate);
 				HashValue = await HashChecker.ComputeHashAsync(stream, HashType, progress, cancellationToken);
-				SystemSounds.Asterisk.Play();
 			}
 			finally
 			{
@@ -84,17 +84,17 @@ namespace FileHashChecker.ViewModels
 			}
 		}
 
-		public void Compare(string expectedValue)
+		internal void Compare(string expectedValue)
 		{
 			HasMatch = !string.IsNullOrEmpty(HashValue) && HashValue.Equals(expectedValue, StringComparison.OrdinalIgnoreCase);
 		}
 
-		public void Update()
+		internal void Update()
 		{
 			RaisePropertyChanged(nameof(HashValue));
 		}
 
-		public void Clear()
+		internal void Clear()
 		{
 			HashValue = string.Empty;
 			HasMatch = false;

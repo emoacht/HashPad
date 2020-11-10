@@ -29,7 +29,7 @@
 					<SolidColorBrush x:Key="Menu.Background" Color="#FFe1e1e1"/>
 					<SolidColorBrush x:Key="Match.Background" Color="DeepSkyBlue"/>
 					<SolidColorBrush x:Key="Progress.Foreground" Color="LightSkyBlue"/>
-					<SolidColorBrush x:Key="Progress.Background" Color="#FFe2e2e2"/>					
+					<SolidColorBrush x:Key="Progress.Background" Color="#FFe2e2e2"/>
 				</ResourceDictionary>
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
@@ -148,7 +148,7 @@
 											Orientation="Horizontal">
 									<CheckBox VerticalAlignment="Center"
 											  IsEnabled="{Binding IsReading, Mode=OneWay, Converter={StaticResource BooleanInverseConverterKey}}"
-											  IsChecked="{Binding IsEnabled, Mode=TwoWay}"/>
+											  IsChecked="{Binding IsTarget, Mode=TwoWay}"/>
 									<Label VerticalAlignment="Center"
 										   Content="{Binding Name, Mode=OneTime}"/>
 									<Grid Background="{StaticResource Match.Background}"
@@ -171,7 +171,7 @@
 										 VerticalContentAlignment="Center"
 										 IsReadOnly="True" FontFamily="Consolas" FontSize="13" TextWrapping="Wrap"
 										 Text="{Binding HashValue, Mode=OneWay}"
-										 Visibility="{Binding IsEnabled, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverterKey}}"/>
+										 Visibility="{Binding IsTarget, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverterKey}}"/>
 							</StackPanel>
 						</DataTemplate>
 					</ListBox.ItemTemplate>

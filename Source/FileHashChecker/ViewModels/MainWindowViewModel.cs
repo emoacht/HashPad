@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Media;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -142,13 +143,13 @@ namespace FileHashChecker.ViewModels
 		{
 			if (expectedValueLength == 0)
 			{
-				if (Hashes.All(x => !x.IsEnabled))
-					Hashes.First().IsEnabled = true;
+				if (Hashes.All(x => !x.IsTarget))
+					Hashes.First().IsTarget = true;
 			}
 			else if (HashTypeHelper.TryGetHashType(expectedValueLength, out HashType type))
 			{
-				foreach (var h in Hashes)
-					h.IsEnabled = h.HashType == type;
+				foreach (var h in Hashes.Where(x => !(x.IsTarget && (x.IsReading || x.HasRead))))
+					h.IsTarget = (h.HashType == type);
 			}
 		}
 
@@ -204,14 +205,20 @@ namespace FileHashChecker.ViewModels
 
 				using (var fs = new FileStream(SourceFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
 				{
-					foreach (var h in Hashes.Where(x => x.IsEnabled))
+					while (true)
 					{
+						var h = Hashes.FirstOrDefault(x => x.IsTarget && !x.HasRead);
+						if (h is null)
+							break;
+
 						SetBindings(h); // Bindings will be overwritten and so only the last set ones remain.
 
 						await h.ComputeAsync(fs, _computeTokenSource.Token);
 						h.Compare(ExpectedValue);
 					}
 				}
+
+				SystemSounds.Asterisk.Play();
 			}
 			catch (Exception ex)
 			{
