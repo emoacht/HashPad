@@ -70,6 +70,8 @@ namespace FileHashChecker.Views
 					this.DragMove();
 			};
 			this.MenuPain.MouseDown += (_, e) => { e.Handled = true; };
+			this.FilePathBox.MouseDown += (_, e) => { IsMenuOpen = false; };
+			this.ExpectedValueBox.MouseDown += (_, e) => { IsMenuOpen = false; };
 			this.MouseDown += (_, e) => { IsMenuOpen = false; };
 		}
 

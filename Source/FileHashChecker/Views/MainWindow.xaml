@@ -24,7 +24,7 @@
 					<converters:BooleanToProgressStateConverter x:Key="BooleanToProgressStateConverterKey"/>
 
 					<SolidColorBrush x:Key="Window.Border" Color="#AA6a6a6a"/>
-					<SolidColorBrush x:Key="Input.Background" Color="#FFf4f4f4"/>
+					<SolidColorBrush x:Key="Input.Background" Color="#FFf3f3f3"/>
 					<SolidColorBrush x:Key="Output.Background" Color="White"/>
 					<SolidColorBrush x:Key="Menu.Background" Color="#FFe1e1e1"/>
 					<SolidColorBrush x:Key="Match.Background" Color="DeepSkyBlue"/>
@@ -87,7 +87,9 @@
 						 HorizontalContentAlignment="Stretch"
 						 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
 					<ListBoxItem>
-						<StackPanel Margin="6,0">
+						<StackPanel x:Name="FilePathBox"
+									Margin="6,0"
+									IsEnabled="{Binding IsReading, Mode=OneWay, Converter={StaticResource BooleanInverseConverterKey}}">
 							<!-- File Path -->
 							<Label Content="File Path"/>
 							<TextBox MinHeight="24" Margin="4,0"
@@ -102,7 +104,8 @@
 						</StackPanel>
 					</ListBoxItem>
 					<ListBoxItem>
-						<StackPanel Margin="6,0,6,8">
+						<StackPanel x:Name="ExpectedValueBox"
+									Margin="6,0,6,8">
 							<!-- Expected Value -->
 							<Label Content="Expected Value"/>
 							<TextBox MinHeight="24" Margin="4,0"
@@ -187,7 +190,7 @@
 					</ListBox.ItemContainerStyle>
 				</ListBox>
 
-				<Grid Margin="-1,0,-1,-1">
+				<Grid Margin="10,0,10,10">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="3*"/>
 						<ColumnDefinition Width="1*"/>
@@ -205,7 +208,20 @@
 							Padding="6"
 							Content="Stop"
 							IsEnabled="{Binding IsReading, Mode=OneWay}"
-							Click="Stop_Click"/>
+							Click="Stop_Click">
+						<Button.Style>
+							<Style TargetType="{x:Type Button}">
+								<Setter Property="Margin" Value="0"/>
+								<Setter Property="BorderThickness" Value="0,1,1,1"/>
+								<Style.Triggers>
+									<Trigger Property="IsEnabled" Value="True">
+										<Setter Property="Margin" Value="-1,0,0,0"/>
+										<Setter Property="BorderThickness" Value="1"/>
+									</Trigger>
+								</Style.Triggers>
+							</Style>
+						</Button.Style>
+					</Button>
 				</Grid>
 			</StackPanel>
 
