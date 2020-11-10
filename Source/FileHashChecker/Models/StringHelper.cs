@@ -8,7 +8,7 @@ namespace FileHashChecker.Models
 {
 	public static class StringHelper
 	{
-		public static bool IsLower(string source)
+		public static bool IsOverHalfLower(string source)
 		{
 			if (string.IsNullOrEmpty(source))
 				return false;

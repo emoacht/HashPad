@@ -48,7 +48,7 @@ namespace FileHashChecker.ViewModels
 					{
 						var instance = (MainWindowViewModel)d;
 						var value = (string)e.NewValue;
-						IsExpectedValueLower = StringHelper.IsLower(value);
+						IsExpectedValueLower = StringHelper.IsOverHalfLower(value);
 						instance.SetEnabled(value.Length);
 						instance.UpdateHashValues();
 						instance.CompareHashValues(value);

@@ -53,9 +53,9 @@ namespace FileHashChecker.Models
 			try
 			{
 				// Wait for both tasks to complete.
-				// If compute task completes, progress task will stop when it finds completion of compute
-				// task by the position of stream.
-				// If progress task is canceled, a TaskCanceledException will be thrown and it will trigger
+				// If compute task completes, progress task will stop when it finds compute task completed
+				// by checking the position of stream.
+				// If progress task is canceled, a TaskCanceledException will be thrown. It will trigger
 				// closure of stream so as to make compute task stop with an ObjectDisposedException.
 				await Task.WhenAll(computeTask, progressTask);
 			}
