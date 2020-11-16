@@ -23,13 +23,78 @@
 					<converters:BooleanInverseConverter x:Key="BooleanInverseConverterKey"/>
 					<converters:BooleanToProgressStateConverter x:Key="BooleanToProgressStateConverterKey"/>
 
+					<Color x:Key="LightShadowColor">#FFf3f3f3</Color>
+					<Color x:Key="DarkShadowColor">#FFe1e1e1</Color>
+
 					<SolidColorBrush x:Key="Window.Border" Color="#AA6a6a6a"/>
-					<SolidColorBrush x:Key="Input.Background" Color="#FFf3f3f3"/>
+					<SolidColorBrush x:Key="Input.Background" Color="{StaticResource LightShadowColor}"/>
 					<SolidColorBrush x:Key="Output.Background" Color="White"/>
-					<SolidColorBrush x:Key="Menu.Background" Color="#FFe1e1e1"/>
+					<SolidColorBrush x:Key="Menu.Background" Color="{StaticResource DarkShadowColor}"/>
+					<SolidColorBrush x:Key="Match.Foregroud" Color="White"/>
 					<SolidColorBrush x:Key="Match.Background" Color="DeepSkyBlue"/>
 					<SolidColorBrush x:Key="Progress.Foreground" Color="LightSkyBlue"/>
-					<SolidColorBrush x:Key="Progress.Background" Color="#FFe2e2e2"/>
+					<SolidColorBrush x:Key="Progress.Background" Color="{StaticResource DarkShadowColor}"/>
+					<SolidColorBrush x:Key="CheckBox.Border" Color="LightGray"/>
+
+					<!-- Same color as TextBox.Static.Border -->
+					<SolidColorBrush x:Key="Button.Static.Border" Color="#FFabadb3"/>
+					<SolidColorBrush x:Key="Button.Static.Background" Color="{StaticResource DarkShadowColor}"/>
+					<SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+					<SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+					<SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+					<SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+					<SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF9c9c9c"/>
+					<SolidColorBrush x:Key="Button.Disabled.Background" Color="{StaticResource LightShadowColor}"/>
+					<SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFcbcccf"/>
+
+					<ControlTemplate x:Key="ActionButtonTemplate" TargetType="{x:Type ButtonBase}">
+						<Border x:Name="border"
+								BorderThickness="{TemplateBinding BorderThickness}"
+								BorderBrush="{TemplateBinding BorderBrush}"
+								Background="{TemplateBinding Background}"
+								TextBlock.Foreground="{TemplateBinding Foreground}"
+								SnapsToDevicePixels="True">
+							<ContentPresenter x:Name="contentPresenter"
+											  Margin="{TemplateBinding Padding}"
+											  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+											  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+											  Content="{TemplateBinding Content}"
+											  ContentTemplate="{TemplateBinding ContentTemplate}"
+											  ContentStringFormat="{TemplateBinding ContentStringFormat}"
+											  Focusable="False"
+											  RecognizesAccessKey="True"
+											  SnapsToDevicePixels="True"/>
+						</Border>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsMouseOver" Value="True">
+								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+								<Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+								<Setter Property="TextBlock.Foreground" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+							</Trigger>
+							<Trigger Property="IsPressed" Value="True">
+								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+								<Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+								<Setter Property="TextBlock.Foreground" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+							</Trigger>
+							<Trigger Property="IsEnabled" Value="False">
+								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+								<Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+								<Setter Property="TextBlock.Foreground" TargetName="border" Value="{StaticResource Button.Disabled.Foreground}"/>
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+
+					<Style x:Key="ActionButtonStyle" TargetType="{x:Type Button}">
+						<Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+						<Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+						<Setter Property="Foreground" Value="Black"/>
+						<Setter Property="Template" Value="{StaticResource ActionButtonTemplate}"/>
+					</Style>
+
+					<Style x:Key="AncillaryButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ActionButtonStyle}">
+						<Setter Property="Foreground" Value="Gray"/>
+						<Setter Property="TextElement.FontSize" Value="11.5"/>
+					</Style>
 				</ResourceDictionary>
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
@@ -98,7 +163,7 @@
 									 Text="{Binding SourceFilePath, Mode=OneWay}"/>
 							<Button Margin="4,-1,4,0" HorizontalAlignment="Right"
 									Padding="6,0"
-									TextElement.FontSize="11.5"
+									Style="{StaticResource AncillaryButtonStyle}"
 									Content="Browse"
 									Click="Browse_Click"/>
 						</StackPanel>
@@ -114,7 +179,7 @@
 									 Text="{Binding ExpectedValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=200}"/>
 							<Button Margin="4,-1,4,0" HorizontalAlignment="Right"
 									Padding="6,0"
-									TextElement.FontSize="11.5"
+									Style="{StaticResource AncillaryButtonStyle}"
 									Content="Read Clipboard"
 									Click="Clipboard_Click"/>
 						</StackPanel>
@@ -147,6 +212,7 @@
 								<StackPanel Margin="9,0,0,0"
 											Orientation="Horizontal">
 									<CheckBox VerticalAlignment="Center"
+											  BorderBrush="{StaticResource CheckBox.Border}"
 											  IsEnabled="{Binding IsReading, Mode=OneWay, Converter={StaticResource BooleanInverseConverterKey}}"
 											  IsChecked="{Binding IsTarget, Mode=TwoWay}"/>
 									<Label VerticalAlignment="Center"
@@ -154,7 +220,8 @@
 									<Grid Background="{StaticResource Match.Background}"
 										  Visibility="{Binding HasMatch, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverterKey}}">
 										<Label VerticalAlignment="Center"
-											   Foreground="White" FontWeight="Bold"
+											   Foreground="{StaticResource Match.Foregroud}"
+											   FontWeight="Bold"
 											   Content="Match!"/>
 									</Grid>
 								</StackPanel>
@@ -199,9 +266,10 @@
 					<!-- Compute -->
 					<Button Grid.Column="0"
 							Padding="6"
+							Style="{StaticResource ActionButtonStyle}"
 							Content="Compute Hash Value"
-							IsEnabled="{Binding CanCompute, Mode=OneWay}"
-							Click="Compute_Click"/>
+							Click="Compute_Click"
+							IsEnabled="{Binding CanCompute, Mode=OneWay}"/>
 
 					<!-- Stop -->
 					<Button Grid.Column="1"
@@ -210,7 +278,7 @@
 							IsEnabled="{Binding IsReading, Mode=OneWay}"
 							Click="Stop_Click">
 						<Button.Style>
-							<Style TargetType="{x:Type Button}">
+							<Style TargetType="{x:Type Button}" BasedOn="{StaticResource ActionButtonStyle}">
 								<Setter Property="Margin" Value="0"/>
 								<Setter Property="BorderThickness" Value="0,1,1,1"/>
 								<Style.Triggers>
@@ -230,7 +298,7 @@
 				  x:Name="MenuPain"
 				  Width="180" HorizontalAlignment="Right"
 				  Background="{StaticResource Menu.Background}"
-				  Visibility="{Binding IsMenuOpen, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type Window}}, Mode=OneWay, FallbackValue=Collapsed, Converter={StaticResource BooleanToVisibilityConverterKey}}">
+				  Visibility="{Binding IsMenuOpen, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Mode=OneWay, FallbackValue=Collapsed, Converter={StaticResource BooleanToVisibilityConverterKey}}">
 				<StackPanel Margin="8">
 					<CheckBox Margin="4"
 							  IsChecked="{Binding IsSendToEnabled, Mode=TwoWay}">
