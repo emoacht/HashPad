@@ -201,8 +201,11 @@ namespace HashPad.ViewModels
 
 		public void ReadClipboard()
 		{
-			if (ClipboardHelper.TryReadHexText(out string text))
+			if (ClipboardHelper.TryReadHexText(out string text) &&
+				HashTypeHelper.TryGetHashType(text.Length, out _))
+			{
 				ExpectedValue = text;
+			}
 		}
 
 		private CancellationTokenSource _computeTokenSource;

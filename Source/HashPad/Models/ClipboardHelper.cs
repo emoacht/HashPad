@@ -20,9 +20,6 @@ namespace HashPad.Models
 			if (string.IsNullOrEmpty(buffer))
 				return false;
 
-			if (!HashTypeHelper.TryGetHashType(buffer.Length, out _))
-				return false;
-
 			if (!buffer.All(x => IsHex(x)))
 				return false;
 
