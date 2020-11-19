@@ -89,11 +89,15 @@ namespace HashPad.Views
 			base.OnClosing(e);
 
 			_mainWindowViewModel.Cancel();
+
+			WindowHelper.SaveWindowLocation(this);
 		}
 
 		private async void OnLoaded(object sender, RoutedEventArgs e)
 		{
-			var args = Environment.GetCommandLineArgs().Skip(1); // The first element is this executable file path.
+			var args = Environment.GetCommandLineArgs().Skip(1).ToArray(); // The first element is this executable file path.
+
+			WindowHelper.SetWindowLocation(this, args.Any());
 
 			await _mainWindowViewModel.CheckFileAsync(args);
 		}
