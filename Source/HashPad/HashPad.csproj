@@ -85,6 +85,7 @@
 		<Compile Include="Views\Controls\CaptionIcon.cs" />
 		<Compile Include="Views\Controls\MenuCaptionIcon.cs" />
 		<Compile Include="Views\Controls\MinimizeCaptionIcon.cs" />
+		<Compile Include="Views\Controls\TextBoxProperty.cs" />
 		<Compile Include="Views\Converters\BooleanInverseConverter.cs" />
 		<Compile Include="Views\Converters\BooleanToProgressStateConverter.cs" />
 		<Page Include="Views\Chrome.xaml">

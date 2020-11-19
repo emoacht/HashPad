@@ -3,6 +3,7 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:vm="clr-namespace:HashPad.ViewModels"
 		xmlns:models="clr-namespace:HashPad.Models"
+		xmlns:controls="clr-namespace:HashPad.Views.Controls"
 		xmlns:converters="clr-namespace:HashPad.Views.Converters"
 		xmlns:properties="clr-namespace:HashPad.Properties"
 		Title="{Binding Source={x:Static models:ProductInfo.Title}, Mode=OneTime}"
@@ -241,7 +242,8 @@
 										 VerticalContentAlignment="Center"
 										 IsReadOnly="True" FontFamily="Consolas" FontSize="13" TextWrapping="Wrap"
 										 Text="{Binding HashValue, Mode=OneWay}"
-										 Visibility="{Binding IsTarget, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverterKey}}"/>
+										 Visibility="{Binding IsTarget, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverterKey}}"
+										 controls:TextBoxProperty.SelectAllOnFocus="True"/>
 							</StackPanel>
 						</DataTemplate>
 					</ListBox.ItemTemplate>
