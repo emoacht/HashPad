@@ -48,8 +48,9 @@ namespace HashPad.ViewModels
 					{
 						var instance = (MainWindowViewModel)d;
 						var value = (string)e.NewValue;
+
 						IsExpectedValueLower = StringHelper.IsOverHalfLower(value);
-						instance.SetEnabled(value.Length);
+						instance.SetEnabled(value);
 						instance.UpdateHashValues();
 						instance.CompareHashValues(value);
 					}));
@@ -127,6 +128,8 @@ namespace HashPad.ViewModels
 
 		public IReadOnlyCollection<HashViewModel> Hashes { get; }
 
+		public Settings Settings { get; } = new Settings();
+
 		public MainWindowViewModel() : this(HashType.Sha1, HashType.Sha256, HashType.Sha384, HashType.Sha512, HashType.Md5)
 		{ }
 
@@ -136,17 +139,36 @@ namespace HashPad.ViewModels
 				throw new ArgumentNullException(nameof(types));
 
 			Hashes = types.Select(x => new HashViewModel(x)).ToArray();
+
+			foreach (var h in Hashes)
+			{
+				h.PropertyChanged += (sender, e) =>
+				{
+					if (e.PropertyName == nameof(HashViewModel.IsTarget))
+					{
+						var h = (HashViewModel)sender;
+						if (h.IsTarget)
+							Settings.LastTargetHashType = h.HashType;
+					}
+				};
+			}
+
 			SetEnabled();
 		}
 
-		private void SetEnabled(int expectedValueLength = 0)
+		private void SetEnabled(in string expectedValue = null)
 		{
-			if (expectedValueLength == 0)
+			if (expectedValue is null)
 			{
 				if (Hashes.All(x => !x.IsTarget))
-					Hashes.First().IsTarget = true;
+				{
+					if (Settings.LastTargetHashType != default)
+						Hashes.First(x => x.HashType == Settings.LastTargetHashType).IsTarget = true;
+					else
+						Hashes.First().IsTarget = true;
+				}
 			}
-			else if (HashTypeHelper.TryGetHashType(expectedValueLength, out HashType type))
+			else if (HashTypeHelper.TryGetHashType(expectedValue.Length, out HashType type))
 			{
 				foreach (var h in Hashes.Where(x => !(x.IsTarget && (x.IsReading || x.HasRead))))
 					h.IsTarget = (h.HashType == type);
@@ -160,7 +182,9 @@ namespace HashPad.ViewModels
 				return;
 
 			SourceFilePath = filePath;
-			await ComputeHashValuesAsync();
+
+			if (Settings.ComputesAutomatically)
+				await ComputeHashValuesAsync();
 		}
 
 		public async Task SelectFileAsync()
@@ -170,7 +194,9 @@ namespace HashPad.ViewModels
 				return;
 
 			SourceFilePath = ofd.FileName;
-			await ComputeHashValuesAsync();
+
+			if (Settings.ComputesAutomatically)
+				await ComputeHashValuesAsync();
 		}
 
 		public void ReadClipboard()
@@ -193,7 +219,7 @@ namespace HashPad.ViewModels
 			if (!File.Exists(SourceFilePath))
 				return;
 
-			if (string.IsNullOrEmpty(ExpectedValue))
+			if (string.IsNullOrWhiteSpace(ExpectedValue) && Settings.ReadsAutomatically)
 				ReadClipboard();
 
 			ClearHashValues();

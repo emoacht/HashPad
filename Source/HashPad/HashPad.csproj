@@ -73,6 +73,9 @@
     <Compile Include="Models\ClipboardHelper.cs" />
     <Compile Include="Models\HashChecker.cs" />
     <Compile Include="Models\HashType.cs" />
+    <Compile Include="Models\PlatformInfo.cs" />
+    <Compile Include="Models\Settings.cs" />
+    <Compile Include="Models\SettingsAccessor.cs" />
     <Compile Include="Models\ShortcutHelper.cs" />
     <Compile Include="Models\StreamProgress.cs" />
     <Compile Include="Models\StringHelper.cs" />
