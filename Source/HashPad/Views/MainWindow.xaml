@@ -38,6 +38,7 @@
 					<SolidColorBrush x:Key="Progress.Foreground" Color="LightSkyBlue"/>
 					<SolidColorBrush x:Key="Progress.Background" Color="{StaticResource DarkShadowColor}"/>
 					<SolidColorBrush x:Key="CheckBox.Border" Color="LightGray"/>
+					<SolidColorBrush x:Key="Link.Foreground" Color="#FF6a6a6a"/>
 
 					<!-- Same color as TextBox.Static.Border -->
 					<SolidColorBrush x:Key="Button.Static.Border" Color="#FFabadb3"/>
@@ -97,6 +98,12 @@
 					<Style x:Key="AncillaryButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ActionButtonStyle}">
 						<Setter Property="Foreground" Value="Gray"/>
 						<Setter Property="TextElement.FontSize" Value="11.5"/>
+					</Style>
+
+					<Style x:Key="LinkTextStyle" TargetType="{x:Type Inline}">
+						<Setter Property="Foreground" Value="{StaticResource Link.Foreground}"/>
+						<Setter Property="TextDecorations" Value="Underline"/>
+						<Setter Property="Cursor" Value="Hand"/>
 					</Style>
 				</ResourceDictionary>
 			</ResourceDictionary.MergedDictionaries>
@@ -332,11 +339,11 @@
 					<TextBlock>
 						<Run Text="{Binding Source={x:Static models:ProductInfo.Version}, Mode=OneTime}"/>
 						<Run Text="|"/>
-						<Run TextDecorations="Underline" Cursor="Hand"
+						<Run Style="{StaticResource LinkTextStyle}"
 							 Text="{x:Static properties:Resources.Site}"
 							 MouseDown="Site_MouseDown"/>
 						<Run Text="|"/>
-						<Run TextDecorations="Underline" Cursor="Hand"
+						<Run Style="{StaticResource LinkTextStyle}"
 							 Text="{x:Static properties:Resources.License}"
 							 MouseDown="License_MouseDown"/>
 					</TextBlock>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -146,12 +147,12 @@ namespace HashPad.Views
 
 		private void Site_MouseDown(object sender, MouseButtonEventArgs e)
 		{
-			throw new NotImplementedException();
+			Process.Start(Properties.Resources.SiteUrl);
 		}
 
 		private void License_MouseDown(object sender, MouseButtonEventArgs e)
 		{
-			throw new NotImplementedException();
+			Process.Start(Properties.Resources.LicenseUrl);
 		}
 	}
 }

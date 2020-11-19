@@ -132,6 +132,9 @@
   <data name="License" xml:space="preserve">
     <value>License</value>
   </data>
+  <data name="LicenseUrl" xml:space="preserve">
+    <value>https://github.com/emoacht/HashPad/blob/master/LICENSE.txt</value>
+  </data>
   <data name="Match" xml:space="preserve">
     <value>Match!</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="Site" xml:space="preserve">
     <value>Site</value>
+  </data>
+  <data name="SiteUrl" xml:space="preserve">
+    <value>https://github.com/emoacht/HashPad</value>
   </data>
   <data name="Stop" xml:space="preserve">
     <value>Stop</value>

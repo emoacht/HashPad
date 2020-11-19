@@ -106,6 +106,15 @@ namespace HashPad.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to https://github.com/emoacht/HashPad/blob/master/LICENSE.txt.
+        /// </summary>
+        public static string LicenseUrl {
+            get {
+                return ResourceManager.GetString("LicenseUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Match!.
         /// </summary>
         public static string Match {
@@ -156,6 +165,15 @@ namespace HashPad.Properties {
         public static string Site {
             get {
                 return ResourceManager.GetString("Site", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://github.com/emoacht/HashPad.
+        /// </summary>
+        public static string SiteUrl {
+            get {
+                return ResourceManager.GetString("SiteUrl", resourceCulture);
             }
         }
         
