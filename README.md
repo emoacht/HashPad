@@ -1,23 +1,28 @@
-﻿# File Hash Checker
+﻿# Hash Pad
 
-A simple tool to check a file hash easily from explorer's context menu.
+Hash Pad is a simple tool to compute and compare hash value including from Explorer's context menu. It is designed to complete this task in short steps. It supports: SHA1, SHA256, SHA384, SHA512 and MD5.
 
-![Screenshot](Images/Screenshot.png)<br>
-(DPI: 125%)
+![Screenshot](Images/Screenshot_main.png)<br>
+(DPI: 175%)
 
 ## Requirements
 
- * .NET Framework 4.7.2
+ * Windows 10
+ * .NET Framework 4.8
 
 ## Download
 
-:floppy_disk: [Download](https://github.com/emoacht/FileHashChecker/releases/latest)
+:floppy_disk: [Download](https://github.com/emoacht/HashPad/releases/latest)
 
 ## Usage
 
- - Drag and drop a file to be checked to the window. Or select a file from file dialog.
+ - To send a file to be compared from `Send to` of Explorer's context menu, open the menu by tapping hamburger icon and check `Add to 'Send to' of Explorer's context menu`. Or drag and drop a file to the window. Or select a file from file dialog.
  - Paste a string of expected value in `Expected Value`. Or read it directly from clipboard.
- - To send a file from "Send to" of explorer's context menu, tap hamburger button in title bar and check `Enable to send file from explorer's context menu`.
+ - If the hash value computed matches the expected value, `Match` messages will appear.
+
+## Remarks
+
+ - Before uninstalling, if you checked `Add to 'Send to' of Explorer's context menu`, uncheck it to remove the the shortcut in `Send to` folder. If you choose to remove it manually, type `shell:SendTo` in address bar of Explorer to open the folder.
 
 ## License
 
