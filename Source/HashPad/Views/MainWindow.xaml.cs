@@ -125,7 +125,7 @@ namespace HashPad.Views
 			await _mainWindowViewModel.SelectFileAsync();
 		}
 
-		private void Clipboard_Click(object sender, RoutedEventArgs e)
+		private void Read_Click(object sender, RoutedEventArgs e)
 		{
 			_mainWindowViewModel.ReadClipboard();
 		}
@@ -138,6 +138,16 @@ namespace HashPad.Views
 		private void Stop_Click(object sender, RoutedEventArgs e)
 		{
 			_mainWindowViewModel.Cancel();
+		}
+
+		private void Site_MouseDown(object sender, MouseButtonEventArgs e)
+		{
+			throw new NotImplementedException();
+		}
+
+		private void License_MouseDown(object sender, MouseButtonEventArgs e)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

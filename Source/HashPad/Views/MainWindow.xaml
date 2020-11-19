@@ -1,9 +1,11 @@
 ﻿<Window x:Class="HashPad.Views.MainWindow"
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-		xmlns:viewModels="clr-namespace:HashPad.ViewModels"
+		xmlns:vm="clr-namespace:HashPad.ViewModels"
+		xmlns:models="clr-namespace:HashPad.Models"
 		xmlns:converters="clr-namespace:HashPad.Views.Converters"
-		Title="Hash Pad"
+		xmlns:properties="clr-namespace:HashPad.Properties"
+		Title="{Binding Source={x:Static models:ProductInfo.Title}, Mode=OneTime}"
 		Width="320" MaxWidth="320"
 		Height="400" SizeToContent="Height"
 		WindowStyle="None">
@@ -101,7 +103,7 @@
 	</Window.Resources>
 
 	<Window.DataContext>
-		<viewModels:MainWindowViewModel/>
+		<vm:MainWindowViewModel/>
 	</Window.DataContext>
 
 	<Window.TaskbarItemInfo>
@@ -156,7 +158,7 @@
 									Margin="6,0"
 									IsEnabled="{Binding IsReading, Mode=OneWay, Converter={StaticResource BooleanInverseConverterKey}}">
 							<!-- File Path -->
-							<Label Content="File Path"/>
+							<Label Content="{x:Static properties:Resources.FilePath}"/>
 							<TextBox MinHeight="24" Margin="4,0"
 									 VerticalContentAlignment="Center"
 									 IsReadOnly="True"
@@ -164,7 +166,7 @@
 							<Button Margin="4,-1,4,0" HorizontalAlignment="Right"
 									Padding="6,0"
 									Style="{StaticResource AncillaryButtonStyle}"
-									Content="Browse"
+									Content="{x:Static properties:Resources.Browse}"
 									Click="Browse_Click"/>
 						</StackPanel>
 					</ListBoxItem>
@@ -172,7 +174,7 @@
 						<StackPanel x:Name="ExpectedValueBox"
 									Margin="6,0,6,8">
 							<!-- Expected Value -->
-							<Label Content="Expected Value"/>
+							<Label Content="{x:Static properties:Resources.ExpectedValue}"/>
 							<TextBox MinHeight="24" Margin="4,0"
 									 VerticalContentAlignment="Center"
 									 FontFamily="Consolas" FontSize="13" TextWrapping="Wrap"
@@ -180,13 +182,14 @@
 							<Button Margin="4,-1,4,0" HorizontalAlignment="Right"
 									Padding="6,0"
 									Style="{StaticResource AncillaryButtonStyle}"
-									Content="Read Clipboard"
-									Click="Clipboard_Click"/>
+									Content="{x:Static properties:Resources.Read}"
+									Click="Read_Click"/>
 						</StackPanel>
 					</ListBoxItem>
 					<ListBox.ItemContainerStyle>
 						<Style TargetType="{x:Type ListBoxItem}">
 							<Setter Property="OverridesDefaultStyle" Value="True"/>
+							<Setter Property="Focusable" Value="False"/>
 							<Setter Property="Margin" Value="0"/>
 							<Setter Property="Template">
 								<Setter.Value>
@@ -222,7 +225,7 @@
 										<Label VerticalAlignment="Center"
 											   Foreground="{StaticResource Match.Foregroud}"
 											   FontWeight="Bold"
-											   Content="Match!"/>
+											   Content="{x:Static properties:Resources.Match}"/>
 									</Grid>
 								</StackPanel>
 
@@ -245,6 +248,7 @@
 					<ListBox.ItemContainerStyle>
 						<Style TargetType="{x:Type ListBoxItem}">
 							<Setter Property="OverridesDefaultStyle" Value="True"/>
+							<Setter Property="Focusable" Value="False"/>
 							<Setter Property="Margin" Value="0"/>
 							<Setter Property="Template">
 								<Setter.Value>
@@ -267,14 +271,14 @@
 					<Button Grid.Column="0"
 							Padding="6"
 							Style="{StaticResource ActionButtonStyle}"
-							Content="Compute Hash Value"
-							Click="Compute_Click"
-							IsEnabled="{Binding CanCompute, Mode=OneWay}"/>
+							Content="{x:Static properties:Resources.Compute}"
+							IsEnabled="{Binding CanCompute, Mode=OneWay}"
+							Click="Compute_Click"/>
 
 					<!-- Stop -->
 					<Button Grid.Column="1"
 							Padding="6"
-							Content="Stop"
+							Content="{x:Static properties:Resources.Stop}"
 							IsEnabled="{Binding IsReading, Mode=OneWay}"
 							Click="Stop_Click">
 						<Button.Style>
@@ -301,10 +305,39 @@
 				  Visibility="{Binding IsMenuOpen, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Mode=OneWay, FallbackValue=Collapsed, Converter={StaticResource BooleanToVisibilityConverterKey}}">
 				<StackPanel Margin="8">
 					<CheckBox Margin="4"
-							  IsChecked="{Binding IsSendToEnabled, Mode=TwoWay}">
+							  IsChecked="{Binding IsSendToAdded, Mode=TwoWay}">
 						<TextBlock TextWrapping="Wrap"
-								   Text="Enable to send file from explorer's context menu"/>
+								   Text="{x:Static properties:Resources.MenuAdd}"/>
 					</CheckBox>
+
+					<CheckBox Margin="4"
+							  Visibility="{Binding Settings.IsPersistent, Mode=OneTime, Converter={StaticResource BooleanToVisibilityConverterKey}}"
+							  IsChecked="{Binding Settings.ComputesAutomatically, Mode=TwoWay}">
+						<TextBlock TextWrapping="Wrap"
+								   Text="{x:Static properties:Resources.MenuCompute}"/>
+					</CheckBox>
+
+					<CheckBox Margin="4"
+							  Visibility="{Binding Settings.IsPersistent, Mode=OneTime, Converter={StaticResource BooleanToVisibilityConverterKey}}"
+							  IsChecked="{Binding Settings.ReadsAutomatically, Mode=TwoWay}">
+						<TextBlock TextWrapping="Wrap"
+								   Text="{x:Static properties:Resources.MenuRead}"/>
+					</CheckBox>
+				</StackPanel>
+
+				<StackPanel Margin="12,4,12,12" VerticalAlignment="Bottom">
+					<TextBlock Text="{Binding Source={x:Static models:ProductInfo.Title}, Mode=OneTime}"/>
+					<TextBlock>
+						<Run Text="{Binding Source={x:Static models:ProductInfo.Version}, Mode=OneTime}"/>
+						<Run Text="|"/>
+						<Run TextDecorations="Underline" Cursor="Hand"
+							 Text="{x:Static properties:Resources.Site}"
+							 MouseDown="Site_MouseDown"/>
+						<Run Text="|"/>
+						<Run TextDecorations="Underline" Cursor="Hand"
+							 Text="{x:Static properties:Resources.License}"
+							 MouseDown="License_MouseDown"/>
+					</TextBlock>
 				</StackPanel>
 			</Grid>
 		</Grid>

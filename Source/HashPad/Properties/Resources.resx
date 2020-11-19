@@ -117,4 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Browse" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="Compute" xml:space="preserve">
+    <value>Compute Hash Value</value>
+  </data>
+  <data name="ExpectedValue" xml:space="preserve">
+    <value>Expected Value</value>
+  </data>
+  <data name="FilePath" xml:space="preserve">
+    <value>File Path</value>
+  </data>
+  <data name="License" xml:space="preserve">
+    <value>License</value>
+  </data>
+  <data name="Match" xml:space="preserve">
+    <value>Match!</value>
+  </data>
+  <data name="MenuAdd" xml:space="preserve">
+    <value>Add to 'Send to' of Explorer's context menu</value>
+  </data>
+  <data name="MenuCompute" xml:space="preserve">
+    <value>Compute hash value automatically after file path is filled</value>
+  </data>
+  <data name="MenuRead" xml:space="preserve">
+    <value>Read clipboard automatically before computing hash value</value>
+  </data>
+  <data name="Read" xml:space="preserve">
+    <value>Read Clipboard</value>
+  </data>
+  <data name="Site" xml:space="preserve">
+    <value>Site</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
 </root>

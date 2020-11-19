@@ -104,14 +104,14 @@ namespace HashPad.ViewModels
 					null,
 					(d, _) => ((MainWindowViewModel)d).Hashes.FirstOrDefault(x => x.IsReading)?.ProgressRate ?? 0D));
 
-		public bool IsSendToEnabled
+		public bool IsSendToAdded
 		{
-			get { return (bool)GetValue(IsSendToEnabledProperty); }
-			set { SetValue(IsSendToEnabledProperty, value); }
+			get { return (bool)GetValue(IsSendToAddedProperty); }
+			set { SetValue(IsSendToAddedProperty, value); }
 		}
-		public static readonly DependencyProperty IsSendToEnabledProperty =
+		public static readonly DependencyProperty IsSendToAddedProperty =
 			DependencyProperty.Register(
-				"IsSendToEnabled",
+				"IsSendToAdded",
 				typeof(bool),
 				typeof(MainWindowViewModel),
 				new PropertyMetadata(
