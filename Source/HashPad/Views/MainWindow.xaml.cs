@@ -40,6 +40,9 @@ namespace HashPad.Views
 
 		public MainWindow()
 		{
+#if DEBUG
+			SetCulture("en");
+#endif
 			InitializeComponent();
 
 			_mainWindowViewModel = (MainWindowViewModel)this.DataContext;
@@ -153,6 +156,17 @@ namespace HashPad.Views
 		private void License_MouseDown(object sender, MouseButtonEventArgs e)
 		{
 			Process.Start(Properties.Resources.LicenseUrl);
+		}
+
+		private void SetCulture(string cultureName)
+		{
+			var culture = System.Globalization.CultureInfo.GetCultures(System.Globalization.CultureTypes.AllCultures)
+				.FirstOrDefault(x => x.Name == cultureName);
+			if (culture is null)
+				return;
+
+			System.Threading.Thread.CurrentThread.CurrentCulture = culture;
+			System.Threading.Thread.CurrentThread.CurrentUICulture = culture;
 		}
 	}
 }
