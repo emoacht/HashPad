@@ -5,6 +5,12 @@ Hash Pad is a simple tool to compute and compare hash value including from Explo
 ![Screenshot](Images/Screenshot_main.png)<br>
 (DPI: 175%)
 
+Additonal languages:
+
+ + ja-JP by @emoacht
+ + zh-CN by @nkh0472
+ + zh-TW by @nkh0472
+
 ## Requirements
 
  * Windows 10
@@ -25,6 +31,12 @@ Hash Pad is a simple tool to compute and compare hash value including from Explo
  - Before uninstalling, if you checked `Add to 'Send to' of Explorer's context menu`, uncheck it to remove the shortcut in `Send to` folder. If you choose to remove it manually, type `shell:SendTo` in address bar of Explorer to open that folder.
 
 ## History
+
+Ver 2.1 2020-11-27
+
+- Add ja-JP, zh-CN, zh-TW languages. Thanks to @nkh0472!
+- Change to remember folder path
+- Change to remove spaces from expected value
 
 Ver 2.0 2020-11-20
 
