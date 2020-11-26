@@ -25,6 +25,13 @@ namespace HashPad.Models
 		}
 		private bool _readsAutomatically = true;
 
+		internal string LastSourceFolderPath
+		{
+			get => GetValue(ref _lastSourceFolderPath);
+			set => SetValue(ref _lastSourceFolderPath, value);
+		}
+		private string _lastSourceFolderPath;
+
 		internal HashType LastTargetHashType
 		{
 			get => GetValue(ref _lastTargetHashType);
