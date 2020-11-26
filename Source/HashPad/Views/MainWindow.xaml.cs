@@ -92,7 +92,7 @@ namespace HashPad.Views
 		{
 			base.OnClosing(e);
 
-			_mainWindowViewModel.Cancel();
+			_mainWindowViewModel.Close();
 
 			WindowHelper.SaveWindowLocation(this);
 		}

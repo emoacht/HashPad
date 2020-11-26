@@ -175,6 +175,14 @@ namespace HashPad.ViewModels
 			}
 		}
 
+		public void Close()
+		{
+			if (!string.IsNullOrWhiteSpace(SourceFilePath))
+				Settings.LastSourceFolderPath = Path.GetDirectoryName(SourceFilePath);
+
+			Cancel();
+		}
+
 		public async Task CheckFileAsync(IEnumerable<string> filePaths)
 		{
 			var filePath = filePaths?.FirstOrDefault(x => File.Exists(x));
@@ -189,7 +197,11 @@ namespace HashPad.ViewModels
 
 		public async Task SelectFileAsync()
 		{
-			var ofd = new OpenFileDialog { InitialDirectory = Path.GetDirectoryName(SourceFilePath) };
+			var initialFolder = !string.IsNullOrWhiteSpace(SourceFilePath)
+				? Path.GetDirectoryName(SourceFilePath)
+				: Settings.LastSourceFolderPath;
+
+			var ofd = new OpenFileDialog { InitialDirectory = initialFolder };
 			if (!(ofd.ShowDialog(Application.Current.MainWindow) == true))
 				return;
 
