@@ -53,7 +53,8 @@ namespace HashPad.ViewModels
 						instance.SetEnabled(value);
 						instance.UpdateHashValues();
 						instance.CompareHashValues(value);
-					}));
+					},
+					(d, baseValue) => ((string)baseValue).Trim()));
 
 		public static bool IsExpectedValueLower { get; private set; }
 
@@ -214,7 +215,7 @@ namespace HashPad.ViewModels
 		public void ReadClipboard()
 		{
 			if (ClipboardHelper.TryReadHexText(out string text) &&
-				HashTypeHelper.TryGetHashType(text.Length, out _))
+				HashTypeHelper.TryGetHashType(text.Trim().Length, out _))
 			{
 				ExpectedValue = text;
 			}
