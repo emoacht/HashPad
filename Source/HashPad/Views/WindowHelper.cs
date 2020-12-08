@@ -87,6 +87,11 @@ namespace HashPad.Views
 			POINT pt,
 			MONITOR_DEFAULTTO dwFlags);
 
+		[DllImport("User32.dll")]
+		private static extern IntPtr MonitorFromWindow(
+			IntPtr hwnd,
+			MONITOR_DEFAULTTO dwFlags);
+
 		private enum MONITOR_DEFAULTTO : uint
 		{
 			/// <summary>
@@ -215,6 +220,37 @@ namespace HashPad.Views
 				return;
 
 			SettingsAccessor.SetValue((Windows.Foundation.Point)placement.rcNormalPosition.Location, WindowLocationName);
+		}
+
+		public static void EnsureWindowLocation(Window window, Size newSize)
+		{
+			var windowHandle = new WindowInteropHelper(window).Handle;
+			if (!GetWindowPlacement(windowHandle, out WINDOWPLACEMENT windowPlacement))
+				return;
+
+			var monitorHandle = MonitorFromWindow(windowHandle, MONITOR_DEFAULTTO.MONITOR_DEFAULTTONEAREST);
+			if (!TryGetMonitorRect(monitorHandle, out _, out Windows.Foundation.Rect workRect))
+				return;
+
+			var currentDpi = VisualTreeHelper.GetDpi(window);
+
+			var width = newSize.Width * currentDpi.DpiScaleX;
+			var height = newSize.Height * currentDpi.DpiScaleY;
+
+			// Make sure window's right-bottom corner is inside the work area of monitor.			
+			var x = Math.Min(windowPlacement.rcNormalPosition.left + width, workRect.Right) - width;
+			var y = Math.Min(windowPlacement.rcNormalPosition.top + height, workRect.Bottom) - height;
+
+			// Make sure window's left-top corner as well.
+			x = Math.Max(x, workRect.Left);
+			y = Math.Max(y, workRect.Top);
+
+			POINT newLocation = new Windows.Foundation.Point(x, y);
+			if (windowPlacement.rcNormalPosition.Location.Equals(newLocation))
+				return;
+
+			windowPlacement.rcNormalPosition.Location = newLocation;
+			SetWindowPlacement(windowHandle, ref windowPlacement);
 		}
 
 		private static bool TryGetMonitorDpi(IntPtr monitorHandle, out DpiScale dpi)
