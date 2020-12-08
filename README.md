@@ -32,6 +32,10 @@ Additonal languages:
 
 ## History
 
+Ver 2.2 2020-12-9
+
+- Adjust location when called from Explorer's context menu
+
 Ver 2.1 2020-11-27
 
 - Add ja-JP, zh-CN, zh-TW languages. Thanks to @nkh0472!
