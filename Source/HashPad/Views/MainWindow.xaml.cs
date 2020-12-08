@@ -57,6 +57,7 @@ namespace HashPad.Views
 				});
 
 			this.Loaded += OnLoaded;
+			this.SizeChanged += OnSizeChanged;
 			this.Drop += OnDrop;
 		}
 
@@ -104,6 +105,12 @@ namespace HashPad.Views
 			WindowHelper.SetWindowLocation(this, args.Any());
 
 			await _mainWindowViewModel.CheckFileAsync(args);
+		}
+
+		private void OnSizeChanged(object sender, SizeChangedEventArgs e)
+		{
+			if (!e.WidthChanged && e.HeightChanged)
+				WindowHelper.EnsureWindowLocation(this, e.NewSize);
 		}
 
 		private async void OnDrop(object sender, DragEventArgs e)
