@@ -109,7 +109,7 @@ namespace HashPad.Views
 
 		private void OnSizeChanged(object sender, SizeChangedEventArgs e)
 		{
-			if (!e.WidthChanged && e.HeightChanged)
+			if (e.HeightChanged && (Mouse.LeftButton != MouseButtonState.Pressed)) // Not being dragged
 				WindowHelper.EnsureWindowLocation(this, e.NewSize);
 		}
 
