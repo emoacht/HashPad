@@ -190,7 +190,7 @@ namespace HashPad.ViewModels
 			if (filePath is null)
 				return;
 
-			SourceFilePath = filePath;
+			SourceFilePath = Path.GetFullPath(filePath);
 
 			if (Settings.ComputesAutomatically)
 				await ComputeHashValuesAsync();
