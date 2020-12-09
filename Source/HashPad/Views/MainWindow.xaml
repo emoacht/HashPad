@@ -174,7 +174,7 @@
 							<Button Margin="4,-1,4,0" HorizontalAlignment="Right"
 									Padding="6,0"
 									Style="{StaticResource AncillaryButtonStyle}"
-									Content="{x:Static properties:Resources.Open}"
+									Content="{x:Static properties:Resources.Browse}"
 									Click="Browse_Click"/>
 						</StackPanel>
 					</ListBoxItem>
