@@ -71,7 +71,7 @@ namespace HashPad.Views
 
 				if (IsMenuOpen)
 					IsMenuOpen = false;
-				else
+				else if (Mouse.LeftButton == MouseButtonState.Pressed)
 					this.DragMove();
 			};
 			this.MenuPain.MouseDown += (_, e) => { e.Handled = true; };
