@@ -61,6 +61,15 @@ namespace HashPad.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Browse.
+        /// </summary>
+        public static string Browse {
+            get {
+                return ResourceManager.GetString("Browse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Compute Hash Value.
         /// </summary>
         public static string Compute {
@@ -138,15 +147,6 @@ namespace HashPad.Properties {
         public static string MenuRead {
             get {
                 return ResourceManager.GetString("MenuRead", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Open.
-        /// </summary>
-        public static string Open {
-            get {
-                return ResourceManager.GetString("Open", resourceCulture);
             }
         }
         
