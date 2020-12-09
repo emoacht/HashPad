@@ -32,6 +32,10 @@ Additonal languages:
 
 ## History
 
+Ver 2.3 2020-12-10
+
+- Fix bugs
+
 Ver 2.2 2020-12-9
 
 - Adjust location when called from Explorer's context menu
