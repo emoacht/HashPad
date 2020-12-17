@@ -155,15 +155,10 @@ namespace HashPad.Views
 			_mainWindowViewModel.Cancel();
 		}
 
-		private void Site_MouseDown(object sender, MouseButtonEventArgs e)
-		{
-			Process.Start(Properties.Resources.SiteUrl);
-		}
+		private void Site_MouseDown(object sender, MouseButtonEventArgs e) => OpenUrl(Properties.Resources.SiteUrl);
+		private void License_MouseDown(object sender, MouseButtonEventArgs e) => OpenUrl(Properties.Resources.LicenseUrl);
 
-		private void License_MouseDown(object sender, MouseButtonEventArgs e)
-		{
-			Process.Start(Properties.Resources.LicenseUrl);
-		}
+		private static void OpenUrl(string url) => Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
 
 		private void SetCulture(string cultureName)
 		{
