@@ -14,7 +14,7 @@ Additonal languages:
 ## Requirements
 
  * Windows 10
- * .NET Framework 4.8
+ * .NET 5.0
 
 ## Download
 
@@ -31,6 +31,10 @@ Additonal languages:
  - Before uninstalling, if you checked `Add to 'Send to' of Explorer's context menu`, uncheck it to remove the shortcut in `Send to` folder. If you choose to remove it manually, type `shell:SendTo` in address bar of Explorer to open that folder.
 
 ## History
+
+Ver 2.4 2020-12-17
+
+- Migrate to .NET 5.0
 
 Ver 2.3 2020-12-10
 
