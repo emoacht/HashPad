@@ -23,10 +23,13 @@ namespace HashPad.Models
 				var package = Package.Current;
 				return !string.IsNullOrEmpty(package.Id.FamilyName);
 			}
-			catch (InvalidOperationException ex) when ((uint)ex.HResult == 0x80073D54)
+			catch (InvalidOperationException ex) when (((uint)ex.HResult == 0x80131509) || ((uint)ex.HResult == 0x80073D54))
 			{
+				// Under .NET 5.0
+				// 0x80131509 means COR_E_INVALIDOPERATION
+				// Under .NET Framework 4.8
 				// Message: The process has no package identity. (Exception from HRESULT: 0x80073D54)
-				// This error code means 0x3D54 -> 15700 -> APPMODEL_ERROR_NO_PACKAGE
+				// 0x80073D54 means 0x3D54 -> 15700 -> APPMODEL_ERROR_NO_PACKAGE
 				return false;
 			}
 			catch (AggregateException ex) when (ex.InnerException is ArgumentException)
