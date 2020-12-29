@@ -225,9 +225,9 @@
 									<CheckBox VerticalAlignment="Center"
 											  BorderBrush="{StaticResource CheckBox.Border}"
 											  IsEnabled="{Binding IsReading, Mode=OneWay, Converter={StaticResource BooleanInverseConverterKey}}"
+											  Margin="0,5,0,5"
+											  Content="{Binding Name, Mode=OneTime}"
 											  IsChecked="{Binding IsTarget, Mode=TwoWay}"/>
-									<Label VerticalAlignment="Center"
-										   Content="{Binding Name, Mode=OneTime}"/>
 									<Grid Background="{StaticResource Match.Background}"
 										  Visibility="{Binding HasMatch, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverterKey}}">
 										<Label VerticalAlignment="Center"
