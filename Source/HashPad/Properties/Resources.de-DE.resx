@@ -144,9 +144,6 @@
   <data name="Read" xml:space="preserve">
     <value>Zwischenablage lesen</value>
   </data>
-  <data name="Site" xml:space="preserve">
-    <value>Website</value>
-  </data>
   <data name="Stop" xml:space="preserve">
     <value>Abbrechen</value>
   </data>
