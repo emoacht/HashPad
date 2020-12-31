@@ -54,6 +54,10 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Update="Properties\Resources.de-DE.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Update="Properties\Resources.ja-JP.resx">
       <SubType>Designer</SubType>
       <DependentUpon>Resources.resx</DependentUpon>
