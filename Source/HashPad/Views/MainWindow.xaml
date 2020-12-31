@@ -225,7 +225,7 @@
 									<CheckBox VerticalAlignment="Center"
 											  BorderBrush="{StaticResource CheckBox.Border}"
 											  IsEnabled="{Binding IsReading, Mode=OneWay, Converter={StaticResource BooleanInverseConverterKey}}"
-											  Margin="0,5,0,5"
+											  Margin="0,5,5,5"
 											  Content="{Binding Name, Mode=OneTime}"
 											  IsChecked="{Binding IsTarget, Mode=TwoWay}"/>
 									<Grid Background="{StaticResource Match.Background}"
