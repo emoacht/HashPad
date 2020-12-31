@@ -17,6 +17,7 @@ namespace HashPad.Models
 			string aliasPath = null;
 			if (PlatformInfo.IsPackaged)
 			{
+				// Get path to app execution alias.
 				var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
 					@"Microsoft\WindowsApps",
 					Path.GetFileName(ProductInfo.Location));
