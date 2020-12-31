@@ -7,9 +7,10 @@ Hash Pad is a simple tool to compute and compare hash value including from Explo
 
 Additonal languages:
 
- + ja-JP by @emoacht
- + zh-CN by @nkh0472
- + zh-TW by @nkh0472
+ + de-DE (German) by @DocBrown101
+ + ja-JP (Japanese) by @emoacht
+ + zh-CN (Simplified Chinese) by @nkh0472
+ + zh-TW (Traditional Chinese) by @nkh0472
 
 ## Requirements
 
@@ -31,6 +32,10 @@ Additonal languages:
  - Before uninstalling, if you checked `Add to 'Send to' of Explorer's context menu`, uncheck it to remove the shortcut in `Send to` folder. If you choose to remove it manually, type `shell:SendTo` in address bar of Explorer to open that folder.
 
 ## History
+
+Ver 2.5 2020-12-31
+
+- Add de-DE language. Thanks to @DocBrown101!
 
 Ver 2.4 2020-12-17
 
