@@ -33,6 +33,10 @@ Additonal languages:
 
 ## History
 
+Ver 2.6 2021-1-14
+
+- Enable to add to or remove from 'Send to' from JumpList
+
 Ver 2.5 2020-12-31
 
 - Add de-DE language. Thanks to @DocBrown101!
