@@ -129,6 +129,18 @@
   <data name="FilePath" xml:space="preserve">
     <value>ファイルパス</value>
   </data>
+  <data name="JumpAdd" xml:space="preserve">
+    <value>'送る' に追加する</value>
+  </data>
+  <data name="JumpAddDescription" xml:space="preserve">
+    <value>エクスプローラーのコンテキストメニューの '送る' に追加する</value>
+  </data>
+  <data name="JumpRemove" xml:space="preserve">
+    <value>'送る' から削除する</value>
+  </data>
+  <data name="JumpRemoveDescription" xml:space="preserve">
+    <value>エクスプローラーのコンテキストメニューの '送る' から削除する</value>
+  </data>
   <data name="Match" xml:space="preserve">
     <value>一致!</value>
   </data>

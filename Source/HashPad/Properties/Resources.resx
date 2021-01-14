@@ -129,6 +129,18 @@
   <data name="FilePath" xml:space="preserve">
     <value>File Path</value>
   </data>
+  <data name="JumpAdd" xml:space="preserve">
+    <value>Add to 'Send to'</value>
+  </data>
+  <data name="JumpAddDescription" xml:space="preserve">
+    <value>Add to 'Send to' of Explorer's context menu</value>
+  </data>
+  <data name="JumpRemove" xml:space="preserve">
+    <value>Remove from 'Send to'</value>
+  </data>
+  <data name="JumpRemoveDescription" xml:space="preserve">
+    <value>Remove from 'Send to' of Explorer's context menu</value>
+  </data>
   <data name="License" xml:space="preserve">
     <value>License</value>
   </data>

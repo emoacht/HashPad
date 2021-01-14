@@ -12,7 +12,7 @@ namespace HashPad.Models
 {
 	internal class ShortcutHelper
 	{
-		private static (string name, string executablePath, string aliasPath) GetNamePaths()
+		public static (string name, string executablePath, string aliasPath) GetNamePaths()
 		{
 			string aliasPath = null;
 			if (PlatformInfo.IsPackaged)
