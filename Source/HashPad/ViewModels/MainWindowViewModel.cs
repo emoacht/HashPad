@@ -120,10 +120,15 @@ namespace HashPad.ViewModels
 					(_, e) =>
 					{
 						if ((bool)e.NewValue)
-							ShortcutHelper.Create();
+							ShortcutManager.Add();
 						else
-							ShortcutHelper.Remove();
+							ShortcutManager.Remove();
 					}));
+
+		internal void Update()
+		{
+			IsSendToAdded = ShortcutHelper.Exists();
+		}
 
 		#endregion
 

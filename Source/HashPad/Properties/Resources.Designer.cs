@@ -97,6 +97,42 @@ namespace HashPad.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add to &apos;Send to&apos;.
+        /// </summary>
+        public static string JumpAdd {
+            get {
+                return ResourceManager.GetString("JumpAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add to &apos;Send to&apos; of Explorer&apos;s context menu.
+        /// </summary>
+        public static string JumpAddDescription {
+            get {
+                return ResourceManager.GetString("JumpAddDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove from &apos;Send to&apos;.
+        /// </summary>
+        public static string JumpRemove {
+            get {
+                return ResourceManager.GetString("JumpRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove from &apos;Send to&apos; of Explorer&apos;s context menu.
+        /// </summary>
+        public static string JumpRemoveDescription {
+            get {
+                return ResourceManager.GetString("JumpRemoveDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to License.
         /// </summary>
         public static string License {

@@ -32,7 +32,13 @@ namespace HashPad.Views
 				"IsMenuOpen",
 				typeof(bool),
 				typeof(MainWindow),
-				new PropertyMetadata(false));
+				new PropertyMetadata(
+					false,
+					(d, e) =>
+					{
+						if ((bool)e.NewValue)
+							((MainWindow)d)._mainWindowViewModel.Update();
+					}));
 
 		#endregion
 
