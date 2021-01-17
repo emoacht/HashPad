@@ -27,9 +27,13 @@ Additonal languages:
  - Paste a string of expected value in `Expected Value`. Or read it directly from clipboard.
  - If the computed hash value matches the expected value, `Match` message will appear.
 
-## Remarks
+## Uninstall
 
- - Before uninstalling, if you checked `Add to 'Send to' of Explorer's context menu`, uncheck it to remove the shortcut in `Send to` folder. If you choose to remove it manually, type `shell:SendTo` in address bar of Explorer to open that folder.
+Before uninstalling, if you checked `Add to 'Send to' of Explorer's context menu`, uncheck it to remove the shortcut in `Send to` folder. It can be done by `Remove from 'Send to'` in the jump list as well.
+
+![Jump list](Images/JumpList.png)<br>
+
+If you choose to remove it manually, type `shell:SendTo` in  Explorer's address bar to open that folder.
 
 ## History
 
