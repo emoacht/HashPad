@@ -9,8 +9,8 @@ Additonal languages:
 
  + de-DE (German) by @DocBrown101
  + ja-JP (Japanese) by @emoacht
- + zh-CN (Simplified Chinese) by @nkh0472
- + zh-TW (Traditional Chinese) by @nkh0472
+ + zh-Hans (Simplified Chinese) by @nkh0472
+ + zh-Hant (Traditional Chinese) by @nkh0472
 
 ## Requirements
 
@@ -36,6 +36,10 @@ Before uninstalling, if you checked `Add to 'Send to' of Explorer's context menu
 If you choose to remove it manually, type `shell:SendTo` in  Explorer's address bar to open that folder.
 
 ## History
+
+Ver 2.7 2021-1-31
+
+- Change to zh-Hans and zh-Hant
 
 Ver 2.6 2021-1-14
 
