@@ -39,7 +39,7 @@ If you choose to remove it manually, type `shell:SendTo` in  Explorer's address 
 
 Ver 2.7 2021-1-31
 
-- Change to zh-Hans and zh-Hant
+- Change to zh-Hans, zh-Hant languages
 
 Ver 2.6 2021-1-14
 
