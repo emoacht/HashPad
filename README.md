@@ -37,6 +37,10 @@ If you choose to remove it manually, type `shell:SendTo` in  Explorer's address 
 
 ## History
 
+Ver 2.8 2021-2-28
+
+- Reduce package size
+
 Ver 2.7 2021-1-31
 
 - Change to zh-Hans, zh-Hant languages
