@@ -19,7 +19,7 @@ Additonal languages:
 
 ## Download
 
-[Hash Pad](https://www.microsoft.com/store/apps/9nrdj8214gbt) (Microsoft Store)
+<a href='//www.microsoft.com/store/apps/9nrdj8214gbt?cid=storebadge&ocid=badge'><img src='https://developer.microsoft.com/store/badges/images/English_get-it-from-MS.png' alt='Hash Pad' width='142px' height='52px'/></a>
 
 ## Usage
 
