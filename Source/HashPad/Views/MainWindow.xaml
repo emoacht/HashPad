@@ -29,16 +29,22 @@
 					<Color x:Key="LightShadowColor">#FFf3f3f3</Color>
 					<Color x:Key="DarkShadowColor">#FFe1e1e1</Color>
 
+					<SolidColorBrush x:Key="App.Foreground" Color="Black"/>
+					<SolidColorBrush x:Key="Ancillary.Foreground" Color="Gray"/>
+					<SolidColorBrush x:Key="Link.Foreground" Color="#FF6a6a6a"/>
+
 					<SolidColorBrush x:Key="Window.Border" Color="#AA6a6a6a"/>
-					<SolidColorBrush x:Key="Input.Background" Color="{StaticResource LightShadowColor}"/>
-					<SolidColorBrush x:Key="Output.Background" Color="White"/>
+					<SolidColorBrush x:Key="InputArea.Background" Color="{StaticResource LightShadowColor}"/>
+					<SolidColorBrush x:Key="OutputArea.Background" Color="White"/>
 					<SolidColorBrush x:Key="Menu.Background" Color="{StaticResource DarkShadowColor}"/>
+
 					<SolidColorBrush x:Key="Match.Foregroud" Color="White"/>
 					<SolidColorBrush x:Key="Match.Background" Color="DeepSkyBlue"/>
+
 					<SolidColorBrush x:Key="Progress.Foreground" Color="LightSkyBlue"/>
 					<SolidColorBrush x:Key="Progress.Background" Color="{StaticResource DarkShadowColor}"/>
-					<SolidColorBrush x:Key="CheckBox.Border" Color="LightGray"/>
-					<SolidColorBrush x:Key="Link.Foreground" Color="#FF6a6a6a"/>
+
+					<SolidColorBrush x:Key="HashCheckBox.Border" Color="LightGray"/>
 
 					<!-- Same color as TextBox.Static.Border -->
 					<SolidColorBrush x:Key="Button.Static.Border" Color="#FFabadb3"/>
@@ -91,13 +97,102 @@
 					<Style x:Key="ActionButtonStyle" TargetType="{x:Type Button}">
 						<Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
 						<Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
-						<Setter Property="Foreground" Value="Black"/>
+						<Setter Property="Foreground" Value="{StaticResource App.Foreground}"/>
 						<Setter Property="Template" Value="{StaticResource ActionButtonTemplate}"/>
 					</Style>
 
 					<Style x:Key="AncillaryButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ActionButtonStyle}">
-						<Setter Property="Foreground" Value="Gray"/>
+						<Setter Property="Foreground" Value="{StaticResource Ancillary.Foreground}"/>
 						<Setter Property="TextElement.FontSize" Value="11.5"/>
+					</Style>
+
+					<SolidColorBrush x:Key="CheckBox.Static.Border" Color="#FF707070"/>
+					<SolidColorBrush x:Key="CheckBox.Static.Background" Color="#FFFFFFFF"/>
+					<SolidColorBrush x:Key="CheckBox.Static.Glyph" Color="#FFFFFFFF"/>
+					<SolidColorBrush x:Key="CheckBox.MouseOver.Border" Color="#FF5593FF"/>
+					<SolidColorBrush x:Key="CheckBox.MouseOver.Background" Color="#FFF3F9FF"/>
+					<SolidColorBrush x:Key="CheckBox.Disabled.Border" Color="#FFBCBCBC"/>
+					<SolidColorBrush x:Key="CheckBox.Disabled.Background" Color="#FFE6E6E6"/>
+					<SolidColorBrush x:Key="CheckBox.Pressed.Border" Color="#FF3C77DD"/>
+					<SolidColorBrush x:Key="CheckBox.Pressed.Background" Color="#FFD9ECFF"/>
+					<SolidColorBrush x:Key="CheckBox.Checked.Background" Color="#FF0090e0"/>
+
+					<Style x:Key="CheckBoxStyle" TargetType="{x:Type CheckBox}" BasedOn="{StaticResource {x:Type CheckBox}}">
+						<Setter Property="BorderThickness" Value="1"/>
+						<Setter Property="BorderBrush" Value="{StaticResource CheckBox.Static.Border}"/>
+						<Setter Property="Background" Value="{StaticResource CheckBox.Static.Background}"/>
+						<Setter Property="Foreground" Value="{StaticResource App.Foreground}"/>
+						<Setter Property="Padding" Value="4,-1,0,0"/>
+						<Setter Property="Template">
+							<Setter.Value>
+								<ControlTemplate TargetType="{x:Type CheckBox}">
+									<Grid Background="Transparent"
+										  SnapsToDevicePixels="True" UseLayoutRounding="True">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="Auto"/>
+											<ColumnDefinition Width="*"/>
+										</Grid.ColumnDefinitions>
+
+										<Border Grid.Column="0"
+												x:Name="checkBoxBorder"
+												Margin="1"
+												BorderThickness="{TemplateBinding BorderThickness}"
+												BorderBrush="{TemplateBinding BorderBrush}"
+												Background="{TemplateBinding Background}"
+												HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+												VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+											<Grid>
+												<Path x:Name="optionMark"
+													  Margin="1"
+													  Data="M 10.0,1.2L 4.7,9.1L 4.5,9.1L 0.0,5.2L 1.3,3.5L 4.3,6.1L 8.3,0.0 Z"
+													  Stretch="None"
+													  Fill="{StaticResource CheckBox.Static.Glyph}"
+													  Opacity="0"/>
+												<Rectangle x:Name="indeterminateMark"
+														   Height="2" Margin="2"
+														   Fill="{StaticResource CheckBox.Static.Glyph}"
+														   Opacity="0"/>
+											</Grid>
+										</Border>
+										<ContentPresenter Grid.Column="1"
+														  Margin="{TemplateBinding Padding}"
+														  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+														  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+														  Focusable="False" RecognizesAccessKey="True"/>
+									</Grid>
+									<ControlTemplate.Triggers>
+										<Trigger Property="IsMouseOver" Value="true">
+											<Setter TargetName="checkBoxBorder" Property="Background" Value="{StaticResource CheckBox.MouseOver.Background}"/>
+											<Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{StaticResource CheckBox.MouseOver.Border}"/>
+										</Trigger>
+										<Trigger Property="IsEnabled" Value="false">
+											<Setter TargetName="checkBoxBorder" Property="Background" Value="{StaticResource CheckBox.Disabled.Background}"/>
+											<Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{StaticResource CheckBox.Disabled.Border}"/>
+										</Trigger>
+										<Trigger Property="IsPressed" Value="true">
+											<Setter TargetName="checkBoxBorder" Property="Background" Value="{StaticResource CheckBox.Pressed.Background}"/>
+											<Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{StaticResource CheckBox.Pressed.Border}"/>
+										</Trigger>
+										<Trigger Property="IsChecked" Value="true">
+											<Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{StaticResource CheckBox.Checked.Background}"/>
+											<Setter TargetName="checkBoxBorder" Property="Background" Value="{StaticResource CheckBox.Checked.Background}"/>
+											<Setter TargetName="optionMark" Property="Opacity" Value="1"/>
+											<Setter TargetName="indeterminateMark" Property="Opacity" Value="0"/>
+										</Trigger>
+										<Trigger Property="IsChecked" Value="{x:Null}">
+											<Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{StaticResource CheckBox.Checked.Background}"/>
+											<Setter TargetName="checkBoxBorder" Property="Background" Value="{StaticResource CheckBox.Checked.Background}"/>
+											<Setter TargetName="optionMark" Property="Opacity" Value="0"/>
+											<Setter TargetName="indeterminateMark" Property="Opacity" Value="1"/>
+										</Trigger>
+									</ControlTemplate.Triggers>
+								</ControlTemplate>
+							</Setter.Value>
+						</Setter>
+					</Style>
+
+					<Style x:Key="HashCheckBoxStyle" TargetType="{x:Type CheckBox}" BasedOn="{StaticResource CheckBoxStyle}">
+						<Setter Property="BorderBrush" Value="{StaticResource HashCheckBox.Border}" />
 					</Style>
 
 					<Style x:Key="LinkTextStyle" TargetType="{x:Type Inline}">
@@ -119,6 +214,10 @@
 						 ProgressValue="{Binding ProgressRate}"/>
 	</Window.TaskbarItemInfo>
 
+	<Window.Foreground>
+		<StaticResource ResourceKey="App.Foreground"/>
+	</Window.Foreground>
+
 	<Border BorderThickness="1"
 			BorderBrush="{StaticResource Window.Border}"
 			UseLayoutRounding="True">
@@ -131,7 +230,7 @@
 			<!-- Title bar -->
 			<Grid Grid.Row="0"
 				  x:Name="TitleBar"
-				  Background="{StaticResource Input.Background}">
+				  Background="{StaticResource InputArea.Background}">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="Auto"/>
 					<ColumnDefinition/>
@@ -158,7 +257,7 @@
 			<StackPanel Grid.Row="1"
 						x:Name="MainPain">
 				<ListBox BorderThickness="0"
-						 Background="{StaticResource Input.Background}"
+						 Background="{StaticResource InputArea.Background}"
 						 HorizontalContentAlignment="Stretch"
 						 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
 					<ListBoxItem>
@@ -166,7 +265,8 @@
 									Margin="6,0"
 									IsEnabled="{Binding IsReading, Mode=OneWay, Converter={StaticResource BooleanInverseConverterKey}}">
 							<!-- File Path -->
-							<Label Content="{x:Static properties:Resources.FilePath}"/>
+							<Label Foreground="{StaticResource App.Foreground}"
+								   Content="{x:Static properties:Resources.FilePath}"/>
 							<TextBox MinHeight="24" Margin="4,0"
 									 VerticalContentAlignment="Center"
 									 IsReadOnly="True"
@@ -182,7 +282,8 @@
 						<StackPanel x:Name="ExpectedValueBox"
 									Margin="6,0,6,8">
 							<!-- Expected Value -->
-							<Label Content="{x:Static properties:Resources.ExpectedValue}"/>
+							<Label Foreground="{StaticResource App.Foreground}"
+								   Content="{x:Static properties:Resources.ExpectedValue}"/>
 							<TextBox MinHeight="24" Margin="4,0"
 									 VerticalContentAlignment="Center"
 									 FontFamily="Consolas" FontSize="13" TextWrapping="Wrap"
@@ -213,7 +314,7 @@
 				<!-- Hash -->
 				<ListBox Margin="0,6"
 						 BorderThickness="0"
-						 Background="{StaticResource Output.Background}"
+						 Background="{StaticResource OutputArea.Background}"
 						 HorizontalContentAlignment="Stretch"
 						 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
 						 ItemsSource="{Binding Hashes}">
@@ -222,15 +323,15 @@
 							<StackPanel>
 								<StackPanel Margin="9,0,0,0"
 											Orientation="Horizontal">
-									<CheckBox VerticalAlignment="Center"
-											  BorderBrush="{StaticResource CheckBox.Border}"
-											  IsEnabled="{Binding IsReading, Mode=OneWay, Converter={StaticResource BooleanInverseConverterKey}}"
-											  Margin="0,5,5,5"
+									<CheckBox Margin="0,5,5,5" VerticalAlignment="Center"
+											  Style="{StaticResource HashCheckBoxStyle}"
 											  Content="{Binding Name, Mode=OneTime}"
+											  IsEnabled="{Binding IsReading, Mode=OneWay, Converter={StaticResource BooleanInverseConverterKey}}"
 											  IsChecked="{Binding IsTarget, Mode=TwoWay}"/>
 									<Grid Background="{StaticResource Match.Background}"
 										  Visibility="{Binding HasMatch, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverterKey}}">
 										<Label VerticalAlignment="Center"
+											   Padding="6,0"
 											   Foreground="{StaticResource Match.Foregroud}"
 											   FontWeight="Bold"
 											   Content="{x:Static properties:Resources.Match}"/>
@@ -314,12 +415,14 @@
 				  Visibility="{Binding IsMenuOpen, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Mode=OneWay, FallbackValue=Collapsed, Converter={StaticResource BooleanToVisibilityConverterKey}}">
 				<StackPanel Margin="8">
 					<CheckBox Margin="4"
+							  Style="{StaticResource CheckBoxStyle}"
 							  IsChecked="{Binding IsSendToAdded, Mode=TwoWay}">
 						<TextBlock TextWrapping="Wrap"
 								   Text="{x:Static properties:Resources.MenuAdd}"/>
 					</CheckBox>
 
 					<CheckBox Margin="4"
+							  Style="{StaticResource CheckBoxStyle}"
 							  Visibility="{Binding Settings.IsPersistent, Mode=OneTime, Converter={StaticResource BooleanToVisibilityConverterKey}}"
 							  IsChecked="{Binding Settings.ComputesAutomatically, Mode=TwoWay}">
 						<TextBlock TextWrapping="Wrap"
@@ -327,6 +430,7 @@
 					</CheckBox>
 
 					<CheckBox Margin="4"
+							  Style="{StaticResource CheckBoxStyle}"
 							  Visibility="{Binding Settings.IsPersistent, Mode=OneTime, Converter={StaticResource BooleanToVisibilityConverterKey}}"
 							  IsChecked="{Binding Settings.ReadsAutomatically, Mode=TwoWay}">
 						<TextBlock TextWrapping="Wrap"
