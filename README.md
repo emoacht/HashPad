@@ -37,9 +37,9 @@ If you choose to remove it manually, type `shell:SendTo` in  Explorer's address 
 
 ## History
 
-Ver 2.8 2021-2-28
+Ver 2.9 2021-9-19
 
-- Reduce package size
+- Modify UI
 
 Ver 2.7 2021-1-31
 
