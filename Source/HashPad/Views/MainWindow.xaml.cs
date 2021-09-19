@@ -78,21 +78,22 @@ namespace HashPad.Views
 				if (IsMenuOpen)
 					IsMenuOpen = false;
 				else if (Mouse.LeftButton == MouseButtonState.Pressed)
+				{
+					// Prevent Aero Snap.
+					this.ResizeMode = ResizeMode.NoResize;
+
 					this.DragMove();
+				}
 			};
+			this.TitleBar.MouseUp += (_, _) =>
+			{
+				this.ResizeMode = ResizeMode.CanResize;
+			};
+
 			this.MenuPain.MouseDown += (_, e) => { e.Handled = true; };
 			this.FilePathBox.MouseDown += (_, e) => { IsMenuOpen = false; };
 			this.ExpectedValueBox.MouseDown += (_, e) => { IsMenuOpen = false; };
 			this.MouseDown += (_, e) => { IsMenuOpen = false; };
-		}
-
-		protected override void OnStateChanged(EventArgs e)
-		{
-			// Prevent Aero Snap.
-			if (WindowState == WindowState.Maximized)
-				WindowState = WindowState.Normal;
-
-			base.OnStateChanged(e);
 		}
 
 		protected override void OnClosing(CancelEventArgs e)

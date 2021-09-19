@@ -20,7 +20,7 @@ namespace HashPad.Views.Converters
 
 		private static object ConvertBase(object value)
 		{
-			if (!(value is bool sourceValue))
+			if (value is not bool sourceValue)
 				return DependencyProperty.UnsetValue;
 
 			return !sourceValue;
