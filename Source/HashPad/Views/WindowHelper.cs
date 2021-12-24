@@ -12,7 +12,7 @@ using HashPad.Models;
 
 namespace HashPad.Views
 {
-	internal class WindowHelper
+	internal static class WindowHelper
 	{
 		#region Win32
 

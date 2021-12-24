@@ -16,7 +16,7 @@ namespace HashPad.Models
 
 		public static bool Check(string[] args)
 		{
-			if (args?.Any() is true)
+			if (args is { Length: > 0 })
 			{
 				if (args.Contains(AddOption))
 				{
@@ -57,7 +57,7 @@ namespace HashPad.Models
 		{
 			var (_, executablePath, aliasPath) = ShortcutHelper.GetNamePaths();
 
-			JumpTask GetJumpTask() => new JumpTask
+			JumpTask GetJumpTask() => new()
 			{
 				Title = title,
 				Description = description,

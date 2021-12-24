@@ -28,7 +28,7 @@ namespace HashPad.Views.Controls
 
 		private static void OnSelectAllOnFocusPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
 		{
-			if (!(d is TextBox textBox))
+			if (d is not TextBox textBox)
 				return;
 
 			if ((bool)e.NewValue)

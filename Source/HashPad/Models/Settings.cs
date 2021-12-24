@@ -41,7 +41,7 @@ namespace HashPad.Models
 
 		#region Get/Set
 
-		public bool IsPersistent => PlatformInfo.IsPackaged;
+		public static bool IsPersistent => PlatformInfo.IsPackaged;
 
 		private T GetValue<T>(ref T storage, [CallerMemberName] string propertyName = null)
 		{
