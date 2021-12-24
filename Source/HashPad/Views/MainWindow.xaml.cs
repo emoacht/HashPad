@@ -71,6 +71,8 @@ namespace HashPad.Views
 		{
 			base.OnApplyTemplate();
 
+			WindowHelper.SetWindowCorners(this, CornerPreference.Round);
+
 			this.TitleBar.MouseDown += (_, e) =>
 			{
 				e.Handled = true;
