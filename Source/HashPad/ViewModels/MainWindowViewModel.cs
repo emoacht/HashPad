@@ -54,7 +54,7 @@ namespace HashPad.ViewModels
 						instance.UpdateHashValues();
 						instance.CompareHashValues(value);
 					},
-					(d, baseValue) => ((string)baseValue).Trim()));
+					(_, baseValue) => ((string)baseValue).Trim()));
 
 		public static bool IsExpectedValueLower { get; private set; }
 
@@ -141,7 +141,7 @@ namespace HashPad.ViewModels
 
 		public MainWindowViewModel(params HashType[] types)
 		{
-			if (!types.Any())
+			if (types is not { Length: > 0 })
 				throw new ArgumentNullException(nameof(types));
 
 			Hashes = types.Select(x => new HashViewModel(x)).ToArray();
@@ -208,7 +208,7 @@ namespace HashPad.ViewModels
 				: Settings.LastSourceFolderPath;
 
 			var ofd = new OpenFileDialog { InitialDirectory = initialFolder };
-			if (!(ofd.ShowDialog(Application.Current.MainWindow) == true))
+			if (ofd.ShowDialog(Application.Current.MainWindow) is not true)
 				return;
 
 			SourceFilePath = ofd.FileName;

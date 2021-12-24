@@ -17,7 +17,7 @@ namespace HashPad.Models
 	/// https://docs.microsoft.com/en-us/windows/uwp/design/app-settings/store-and-retrieve-app-data#types-of-app-data
 	/// plus byte[] and Enum.
 	/// </remarks>
-	internal class SettingsAccessor
+	internal static class SettingsAccessor
 	{
 		private static IPropertySet Values => ApplicationData.Current.LocalSettings.Values;
 

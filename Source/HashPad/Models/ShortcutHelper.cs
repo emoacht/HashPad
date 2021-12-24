@@ -10,7 +10,7 @@ using IWshRuntimeLibrary;
 
 namespace HashPad.Models
 {
-	internal class ShortcutHelper
+	internal static class ShortcutHelper
 	{
 		public static (string name, string executablePath, string aliasPath) GetNamePaths()
 		{

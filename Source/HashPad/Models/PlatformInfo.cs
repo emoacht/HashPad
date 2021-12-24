@@ -8,7 +8,7 @@ using Windows.ApplicationModel;
 
 namespace HashPad.Models
 {
-	internal class PlatformInfo
+	internal static class PlatformInfo
 	{
 		/// <summary>
 		/// Whether this assembly is packaged in AppX package
