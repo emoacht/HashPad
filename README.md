@@ -1,21 +1,23 @@
 ﻿# Hash Pad
 
-Hash Pad is a simple tool to compute and compare hash value including from Explorer's context menu. It is designed to complete this task in the minimum steps. SHA1, SHA256, SHA384, SHA512 and MD5 are supported.
+Hash Pad is a simple tool to compute and compare hash value including from Explorer's context menu. It is designed to complete this task in the minimum steps.
 
-![Screenshot](Images/Screenshot_main.png)<br>
+SHA1, SHA256, SHA384, SHA512 and MD5 are supported.
+
+![Screenshot](Images/Screenshot_main_win10.png)<br>
 (DPI: 175%)
 
 Additonal languages:
 
- + de-DE (German) by @DocBrown101
- + ja-JP (Japanese) by @emoacht
- + zh-Hans (Simplified Chinese) by @nkh0472
- + zh-Hant (Traditional Chinese) by @nkh0472
+ + German (de-DE) by @DocBrown101
+ + Japanese (ja-JP) by @emoacht
+ + Simplified Chinese (zh-Hans) by @nkh0472
+ + Traditional Chinese (zh-Hant) by @nkh0472
 
 ## Requirements
 
- * Windows 10
- * .NET 5.0
+ * Windows 10, 11
+ * .NET 6.0
 
 ## Download
 
@@ -37,13 +39,17 @@ If you choose to remove it manually, type `shell:SendTo` in  Explorer's address 
 
 ## History
 
+Ver 2.10 2021-12-24
+
+- Migrate to .NET 6.0
+
 Ver 2.9 2021-9-19
 
 - Modify UI
 
 Ver 2.7 2021-1-31
 
-- Change to zh-Hans, zh-Hant languages
+- Change locales of Simplified Chinese (zh-Hans), Traditional Chinese (zh-Hant) languages
 
 Ver 2.6 2021-1-14
 
@@ -51,7 +57,7 @@ Ver 2.6 2021-1-14
 
 Ver 2.5 2020-12-31
 
-- Add de-DE language. Thanks to @DocBrown101!
+- Add German (de-DE) language. Thanks to @DocBrown101!
 
 Ver 2.4 2020-12-17
 
@@ -67,7 +73,7 @@ Ver 2.2 2020-12-9
 
 Ver 2.1 2020-11-27
 
-- Add ja-JP, zh-CN, zh-TW languages. Thanks to @nkh0472!
+- Add Japanese (ja-JP), Simplified Chinese (zh-CN), Traditional Chinese (zh-TW) languages. Thanks to @nkh0472!
 - Change to remember folder path
 - Change to remove spaces from expected value
 
