@@ -20,11 +20,11 @@ namespace HashPad.Models
 		{
 			return type switch
 			{
-				HashType.Md5 => new MD5CryptoServiceProvider(),
-				HashType.Sha1 => new SHA1CryptoServiceProvider(),
-				HashType.Sha256 => new SHA256CryptoServiceProvider(),
-				HashType.Sha384 => new SHA384CryptoServiceProvider(),
-				HashType.Sha512 => new SHA512CryptoServiceProvider(),
+				HashType.Md5 => MD5.Create(),
+				HashType.Sha1 => SHA1.Create(),
+				HashType.Sha256 => SHA256.Create(),
+				HashType.Sha384 => SHA384.Create(),
+				HashType.Sha512 => SHA512.Create(),
 				_ => throw new NotSupportedException() // HashType.None
 			};
 		}
