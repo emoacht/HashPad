@@ -1,8 +1,8 @@
 ﻿# Hash Pad
 
-Hash Pad is a simple tool to compute and compare hash value including from Explorer's context menu. It is designed to complete this task in the minimum steps.
+Hash Pad is a simple tool to compute and compare hash value including from Explorer's context menu. It is specially designed to complete hash check in the minimum steps.
 
-SHA1, SHA256, SHA384, SHA512 and MD5 are supported.
+Currently, SHA1, SHA256, SHA384, SHA512 and MD5 are supported.
 
 ![Screenshot](Images/Screenshot_main_win10.png)<br>
 (DPI: 175%)
@@ -25,17 +25,28 @@ Additonal languages:
 
 ## Usage
 
- - To send a file to be compared from `Send to` of Explorer's context menu, open the menu by tapping hamburger button and check `Add to 'Send to' of Explorer's context menu`. Or drag and drop a file to the window. Or  select a file from file dialog.
- - Paste a string of expected value in `Expected Value`. Or read it directly from clipboard.
- - If the computed hash value matches the expected value, `Match` message will appear.
+ - To specify a file to be checked,
+   + Open Explorer's context menu on the file, go to `Send to` and then select this app. To add the shortcut of this app in `Send to`, tap the hamburger button of this app and check `Add to 'Send to' of Explorer's context menu`.<br />
+   or
+   + Drag and drop the file to this app's window.<br />
+   or
+   + Tap `Browse` button and select the file from file dialog.
+ - To fill `Expected Value` which is compared with computed hash value,
+   + Paste exepected value in that box.<br />
+   or
+   + Tap `Read clipboard` button to read it directly from clipboard.
+ - If computed hash value matches expected value, `Match` message will appear.
 
 ## Uninstall
 
-Before uninstalling, if you checked `Add to 'Send to' of Explorer's context menu`, uncheck it to remove the shortcut in `Send to` folder. It can be done by `Remove from 'Send to'` in the jump list as well.
+To remove the shortcut of this app from `Send to` if you checked `Add to 'Send to' of Explorer's context menu`,
+  + Uncheck it.<br />
+  or
+  + Tap `Remove from 'Send to'` of this app's jump list.<br />
+  or
+  + Type `shell:SendTo` in  Explorer's address bar to open `Send to` folder and delete the shortcut.
 
-![Jump list](Images/JumpList.png)<br>
-
-If you choose to remove it manually, type `shell:SendTo` in  Explorer's address bar to open that folder.
+![Jump list](Images/JumpList.png)
 
 ## History
 
