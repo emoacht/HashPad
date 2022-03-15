@@ -50,48 +50,56 @@ To remove the shortcut of this app from `Send to` if you checked `Add to 'Send t
 
 ## History
 
-Ver 2.10 2021-12-24
+v2.11 2022-3-15
 
-- Migrate to .NET 6.0
+ - Improve codes
 
-Ver 2.9 2021-9-19
+v2.10 2021-12-24
 
-- Modify UI
+ - Migrate to .NET 6.0
 
-Ver 2.7 2021-1-31
+v2.9 2021-9-19
 
-- Change locales of Simplified Chinese (zh-Hans), Traditional Chinese (zh-Hant) languages
+ - Modify UI
 
-Ver 2.6 2021-1-14
+v2.7 2021-1-31
 
-- Enable to add to or remove from 'Send to' from JumpList
+ - Change locales of Simplified Chinese (zh-Hans), Traditional Chinese (zh-Hant) languages
 
-Ver 2.5 2020-12-31
+v2.6 2021-1-14
 
-- Add German (de-DE) language. Thanks to @DocBrown101!
+ - Enable to add to or remove from 'Send to' from JumpList
 
-Ver 2.4 2020-12-17
+v2.5 2020-12-31
 
-- Migrate to .NET 5.0
+ - Add German (de-DE) language. Thanks to @DocBrown101!
 
-Ver 2.3 2020-12-10
+v2.4 2020-12-17
 
-- Fix bugs
+ - Migrate to .NET 5.0
 
-Ver 2.2 2020-12-9
+v2.3 2020-12-10
 
-- Adjust location when called from Explorer's context menu
+ - Fix bugs
 
-Ver 2.1 2020-11-27
+v2.2 2020-12-9
 
-- Add Japanese (ja-JP), Simplified Chinese (zh-CN), Traditional Chinese (zh-TW) languages. Thanks to @nkh0472!
-- Change to remember folder path
-- Change to remove spaces from expected value
+ - Adjust location when called from Explorer's context menu
 
-Ver 2.0 2020-11-20
+v2.1 2020-11-27
 
-- Redesign and improve usability
+ - Add Japanese (ja-JP), Simplified Chinese (zh-CN), Traditional Chinese (zh-TW) languages. Thanks to @nkh0472!
+ - Change to remember folder path
+ - Change to remove spaces from expected value
+
+v2.0 2020-11-20
+
+ - Redesign and improve usability
 
 ## License
 
  - MIT License
+
+## Library
+
+ - [Windows Community Toolkit](https://github.com/CommunityToolkit/WindowsCommunityToolkit)
