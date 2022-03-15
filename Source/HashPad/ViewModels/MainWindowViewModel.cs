@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -7,123 +8,84 @@ using System.Media;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Data;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.Win32;
 
 using HashPad.Models;
 
 namespace HashPad.ViewModels
 {
-	public class MainWindowViewModel : DependencyObject
+	public class MainWindowViewModel : ObservableObject
 	{
 		#region Property
 
 		public string SourceFilePath
 		{
-			get { return (string)GetValue(SourceFilePathProperty); }
-			set { SetValue(SourceFilePathProperty, value); }
+			get => _sourceFilePath;
+			set
+			{
+				if (SetProperty(ref _sourceFilePath, value))
+				{
+					OnCanComputeChanged();
+				}
+			}
 		}
-		public static readonly DependencyProperty SourceFilePathProperty =
-			DependencyProperty.Register(
-				nameof(SourceFilePath),
-				typeof(string),
-				typeof(MainWindowViewModel),
-				new PropertyMetadata(
-					null,
-					(d, _) => ((MainWindowViewModel)d).SetCanCompute()));
+		private string _sourceFilePath;
 
 		public string ExpectedValue
 		{
-			get { return (string)GetValue(ExpectedValueProperty); }
-			set { SetValue(ExpectedValueProperty, value); }
+			get => _expectedValue;
+			set
+			{
+				if (SetProperty(ref _expectedValue, value.Trim()))
+				{
+					IsExpectedValueLower = StringHelper.IsOverHalfLower(_expectedValue);
+					SetEnabled(_expectedValue);
+					UpdateHashValues();
+					CompareHashValues(_expectedValue);
+				}
+			}
 		}
-		public static readonly DependencyProperty ExpectedValueProperty =
-			DependencyProperty.Register(
-				"ExpectedValue",
-				typeof(string),
-				typeof(MainWindowViewModel),
-				new PropertyMetadata(
-					null,
-					(d, e) =>
-					{
-						var instance = (MainWindowViewModel)d;
-						var value = (string)e.NewValue;
-
-						IsExpectedValueLower = StringHelper.IsOverHalfLower(value);
-						instance.SetEnabled(value);
-						instance.UpdateHashValues();
-						instance.CompareHashValues(value);
-					},
-					(_, baseValue) => ((string)baseValue).Trim()));
+		private string _expectedValue = null;
 
 		public static bool IsExpectedValueLower { get; private set; }
 
-		public bool CanCompute
-		{
-			get { return (bool)GetValue(CanComputeProperty); }
-			set { SetValue(CanComputeProperty, value); }
-		}
-		public static readonly DependencyProperty CanComputeProperty =
-			DependencyProperty.Register(
-				"CanCompute",
-				typeof(bool),
-				typeof(MainWindowViewModel),
-				new PropertyMetadata(false));
-
-		private void SetCanCompute()
-		{
-			CanCompute = !string.IsNullOrEmpty(SourceFilePath) && !IsReading;
-		}
-
 		public bool IsReading
 		{
-			get { return (bool)GetValue(IsReadingProperty); }
-			set { SetValue(IsReadingProperty, value); }
+			get => _isReading;
+			set
+			{
+				if (SetProperty(ref _isReading, value))
+				{
+					OnCanComputeChanged();
+				}
+			}
 		}
-		public static readonly DependencyProperty IsReadingProperty =
-			DependencyProperty.Register(
-				nameof(IsReading),
-				typeof(bool),
-				typeof(MainWindowViewModel),
-				new PropertyMetadata(
-					false,
-					(d, _) => ((MainWindowViewModel)d).SetCanCompute(),
-					(d, _) => ((MainWindowViewModel)d).Hashes.Any(x => x.IsReading)));
+		private bool _isReading;
 
 		public double ProgressRate
 		{
-			get { return (double)GetValue(ProgressRateProperty); }
-			set { SetValue(ProgressRateProperty, value); }
+			get => _progressRate;
+			set => SetProperty(ref _progressRate, value);
 		}
-		public static readonly DependencyProperty ProgressRateProperty =
-			DependencyProperty.Register(
-				nameof(ProgressRate),
-				typeof(double),
-				typeof(MainWindowViewModel),
-				new PropertyMetadata(
-					0D,
-					null,
-					(d, _) => ((MainWindowViewModel)d).Hashes.FirstOrDefault(x => x.IsReading)?.ProgressRate ?? 0D));
+		private double _progressRate = 0D;
 
 		public bool IsSendToAdded
 		{
-			get { return (bool)GetValue(IsSendToAddedProperty); }
-			set { SetValue(IsSendToAddedProperty, value); }
+			get => _isSendToAdded;
+			set
+			{
+				if (SetProperty(ref _isSendToAdded, value))
+				{
+					if (_isSendToAdded)
+						ShortcutManager.Add();
+					else
+						ShortcutManager.Remove();
+				}
+			}
 		}
-		public static readonly DependencyProperty IsSendToAddedProperty =
-			DependencyProperty.Register(
-				"IsSendToAdded",
-				typeof(bool),
-				typeof(MainWindowViewModel),
-				new PropertyMetadata(
-					ShortcutHelper.Exists(),
-					(_, e) =>
-					{
-						if ((bool)e.NewValue)
-							ShortcutManager.Add();
-						else
-							ShortcutManager.Remove();
-					}));
+		private bool _isSendToAdded = ShortcutHelper.Exists();
 
 		internal void Update()
 		{
@@ -147,19 +109,30 @@ namespace HashPad.ViewModels
 			Hashes = types.Select(x => new HashViewModel(x)).ToArray();
 
 			foreach (var h in Hashes)
-			{
-				h.PropertyChanged += (sender, e) =>
-				{
-					if (e.PropertyName == nameof(HashViewModel.IsTarget))
-					{
-						var h = (HashViewModel)sender;
-						if (h.IsTarget)
-							Settings.LastTargetHashType = h.HashType;
-					}
-				};
-			}
+				h.PropertyChanged += OnHashPropertyChanged;
 
 			SetEnabled();
+		}
+
+		private void OnHashPropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			switch (e.PropertyName)
+			{
+				case nameof(HashViewModel.IsTarget):
+					var h = (HashViewModel)sender;
+					if (h.IsTarget)
+						Settings.LastTargetHashType = h.HashType;
+
+					break;
+
+				case nameof(HashViewModel.IsReading):
+					IsReading = Hashes.Any(x => x.IsReading);
+					break;
+
+				case nameof(HashViewModel.ProgressRate):
+					ProgressRate = Hashes.FirstOrDefault(x => x.IsReading)?.ProgressRate ?? 0D;
+					break;
+			}
 		}
 
 		private void SetEnabled(in string expectedValue = null)
@@ -186,10 +159,29 @@ namespace HashPad.ViewModels
 			if (!string.IsNullOrWhiteSpace(SourceFilePath))
 				Settings.LastSourceFolderPath = Path.GetDirectoryName(SourceFilePath);
 
-			Cancel();
+			Stop();
 		}
 
-		public async Task CheckFileAsync(IEnumerable<string> filePaths)
+		#region Command
+
+		public IAsyncRelayCommand<IEnumerable<string>> CheckCommand => _checkCommand ??= new((paths) => CheckFileAsync(paths));
+		private AsyncRelayCommand<IEnumerable<string>> _checkCommand;
+
+		public IAsyncRelayCommand BrowseCommand => _browseCommand ??= new(() => SelectFileAsync());
+		private AsyncRelayCommand _browseCommand;
+
+		public IRelayCommand ReadCommand => _readCommand ??= new(() => ReadClipboard());
+		private RelayCommand _readCommand;
+
+		public IAsyncRelayCommand ComputeCommand => _computeCommand ??= new(() => ComputeHashValuesAsync(), () => CanCompute);
+		private AsyncRelayCommand _computeCommand;
+
+		public IRelayCommand StopCommand => _stopCommand ??= new(() => Stop(), () => CanStop);
+		private RelayCommand _stopCommand;
+
+		#endregion
+
+		private async Task CheckFileAsync(IEnumerable<string> filePaths)
 		{
 			var filePath = filePaths?.FirstOrDefault(x => File.Exists(x));
 			if (filePath is null)
@@ -201,7 +193,7 @@ namespace HashPad.ViewModels
 				await ComputeHashValuesAsync();
 		}
 
-		public async Task SelectFileAsync()
+		private async Task SelectFileAsync()
 		{
 			var initialFolder = !string.IsNullOrWhiteSpace(SourceFilePath)
 				? Path.GetDirectoryName(SourceFilePath)
@@ -217,7 +209,7 @@ namespace HashPad.ViewModels
 				await ComputeHashValuesAsync();
 		}
 
-		public void ReadClipboard()
+		private void ReadClipboard()
 		{
 			if (ClipboardHelper.TryReadHexText(out string text) &&
 				HashTypeHelper.TryGetHashType(text.Trim().Length, out _))
@@ -226,16 +218,23 @@ namespace HashPad.ViewModels
 			}
 		}
 
-		private CancellationTokenSource _computeTokenSource;
-		private bool _canCancel = false;
+		private bool CanCompute => !string.IsNullOrEmpty(SourceFilePath) && !IsReading;
 
-		public void Cancel()
+		private void OnCanComputeChanged() => ComputeCommand.NotifyCanExecuteChanged();
+
+		private bool CanStop { get; set; }
+
+		private void OnCanStopChanged() => StopCommand.NotifyCanExecuteChanged();
+
+		private CancellationTokenSource _computeTokenSource;
+
+		private void Stop()
 		{
-			if (_canCancel)
+			if (CanStop && _computeTokenSource is { IsCancellationRequested: false })
 				_computeTokenSource.Cancel();
 		}
 
-		public async Task ComputeHashValuesAsync()
+		private async Task ComputeHashValuesAsync()
 		{
 			if (!File.Exists(SourceFilePath))
 				return;
@@ -248,7 +247,8 @@ namespace HashPad.ViewModels
 			try
 			{
 				_computeTokenSource = new CancellationTokenSource();
-				_canCancel = true;
+				CanStop = true;
+				OnCanStopChanged();
 
 				using (var fs = new FileStream(SourceFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
 				{
@@ -257,8 +257,6 @@ namespace HashPad.ViewModels
 						var h = Hashes.FirstOrDefault(x => x.IsTarget && !x.HasRead);
 						if (h is null)
 							break;
-
-						SetBindings(h); // Bindings will be overwritten and so only the last set ones remain.
 
 						await h.ComputeAsync(fs, _computeTokenSource.Token);
 						h.Compare(ExpectedValue);
@@ -273,47 +271,12 @@ namespace HashPad.ViewModels
 			}
 			finally
 			{
-				_canCancel = false;
+				CanStop = false;
+				OnCanStopChanged();
 				_computeTokenSource.Dispose();
 				_computeTokenSource = null;
 			}
 		}
-
-		#region Binding
-
-		private void SetBindings(HashViewModel h)
-		{
-			BindingOperations.SetBinding(
-				this,
-				IsReadingProperty,
-				new Binding(nameof(HashViewModel.IsReading))
-				{
-					Source = h,
-					Mode = BindingMode.OneWay
-				});
-
-			BindingOperations.SetBinding(
-				this,
-				ProgressRateProperty,
-				new Binding(nameof(HashViewModel.ProgressRate))
-				{
-					Source = h,
-					Mode = BindingMode.OneWay
-				});
-		}
-
-		private void ClearBindings()
-		{
-			BindingOperations.ClearBinding(
-				this,
-				IsReadingProperty);
-
-			BindingOperations.ClearBinding(
-				this,
-				ProgressRateProperty);
-		}
-
-		#endregion
 
 		private void UpdateHashValues()
 		{

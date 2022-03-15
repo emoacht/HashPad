@@ -275,7 +275,7 @@
 									Padding="6,0"
 									Style="{StaticResource AncillaryButtonStyle}"
 									Content="{x:Static properties:Resources.Browse}"
-									Click="Browse_Click"/>
+									Command="{Binding BrowseCommand}"/>
 						</StackPanel>
 					</ListBoxItem>
 					<ListBoxItem>
@@ -292,7 +292,7 @@
 									Padding="6,0"
 									Style="{StaticResource AncillaryButtonStyle}"
 									Content="{x:Static properties:Resources.Read}"
-									Click="Read_Click"/>
+									Command="{Binding ReadCommand}"/>
 						</StackPanel>
 					</ListBoxItem>
 					<ListBox.ItemContainerStyle>
@@ -382,15 +382,13 @@
 							Padding="6"
 							Style="{StaticResource ActionButtonStyle}"
 							Content="{x:Static properties:Resources.Compute}"
-							IsEnabled="{Binding CanCompute, Mode=OneWay}"
-							Click="Compute_Click"/>
+							Command="{Binding ComputeCommand}"/>
 
 					<!-- Stop -->
 					<Button Grid.Column="1"
 							Padding="6"
 							Content="{x:Static properties:Resources.Stop}"
-							IsEnabled="{Binding IsReading, Mode=OneWay}"
-							Click="Stop_Click">
+							Command="{Binding StopCommand}">
 						<Button.Style>
 							<Style TargetType="{x:Type Button}" BasedOn="{StaticResource ActionButtonStyle}">
 								<Setter Property="Margin" Value="0"/>

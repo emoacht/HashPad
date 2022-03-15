@@ -4,12 +4,11 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-
-using HashPad.Common;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace HashPad.Models
 {
-	public class Settings : NotificationObject
+	public class Settings : ObservableObject
 	{
 		public bool ComputesAutomatically
 		{
