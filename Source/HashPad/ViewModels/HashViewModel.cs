@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
 
-using HashPad.Common;
 using HashPad.Models;
 
 namespace HashPad.ViewModels
 {
-	public class HashViewModel : NotificationObject
+	public class HashViewModel : ObservableObject
 	{
 		#region Property
 
@@ -91,7 +91,7 @@ namespace HashPad.ViewModels
 
 		internal void Update()
 		{
-			RaisePropertyChanged(nameof(HashValue));
+			OnPropertyChanged(nameof(HashValue));
 		}
 
 		internal void Clear()

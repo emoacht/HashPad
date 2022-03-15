@@ -145,7 +145,7 @@
     <value>License</value>
   </data>
   <data name="LicenseUrl" xml:space="preserve">
-    <value>https://github.com/emoacht/HashPad/blob/master/LICENSE.txt</value>
+    <value>https://github.com/emoacht/HashPad/blob/master/License.md</value>
   </data>
   <data name="Match" xml:space="preserve">
     <value>Match!</value>

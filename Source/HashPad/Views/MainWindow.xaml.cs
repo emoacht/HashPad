@@ -93,8 +93,6 @@ namespace HashPad.Views
 			};
 
 			this.MenuPain.MouseDown += (_, e) => { e.Handled = true; };
-			this.FilePathBox.MouseDown += (_, e) => { IsMenuOpen = false; };
-			this.ExpectedValueBox.MouseDown += (_, e) => { IsMenuOpen = false; };
 			this.MouseDown += (_, e) => { IsMenuOpen = false; };
 		}
 
@@ -113,7 +111,7 @@ namespace HashPad.Views
 
 			WindowHelper.SetWindowLocation(this, args.Any());
 
-			await _mainWindowViewModel.CheckFileAsync(args);
+			await _mainWindowViewModel.CheckCommand.ExecuteAsync(args);
 		}
 
 		private void OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -126,7 +124,7 @@ namespace HashPad.Views
 		{
 			var paths = ((DataObject)e.Data).GetFileDropList().Cast<string>();
 
-			await _mainWindowViewModel.CheckFileAsync(paths);
+			await _mainWindowViewModel.CheckCommand.ExecuteAsync(paths);
 		}
 
 		private void Menu_Click(object sender, RoutedEventArgs e)
@@ -142,26 +140,6 @@ namespace HashPad.Views
 		private void Close_Click(object sender, RoutedEventArgs e)
 		{
 			this.Close();
-		}
-
-		private async void Browse_Click(object sender, RoutedEventArgs e)
-		{
-			await _mainWindowViewModel.SelectFileAsync();
-		}
-
-		private void Read_Click(object sender, RoutedEventArgs e)
-		{
-			_mainWindowViewModel.ReadClipboard();
-		}
-
-		private async void Compute_Click(object sender, RoutedEventArgs e)
-		{
-			await _mainWindowViewModel.ComputeHashValuesAsync();
-		}
-
-		private void Stop_Click(object sender, RoutedEventArgs e)
-		{
-			_mainWindowViewModel.Cancel();
 		}
 
 		private void Site_MouseDown(object sender, MouseButtonEventArgs e) => OpenUrl(Properties.Resources.SiteUrl);
