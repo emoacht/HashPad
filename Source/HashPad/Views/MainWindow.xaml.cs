@@ -91,6 +91,11 @@ namespace HashPad.Views
 			{
 				this.ResizeMode = ResizeMode.CanResize;
 			};
+			// Handle MouseLeave event because MouseUp event may not fire.
+			this.TitleBar.MouseLeave += (_, _) =>
+			{
+				this.ResizeMode = ResizeMode.CanResize;
+			};
 
 			this.MenuPain.MouseDown += (_, e) => { e.Handled = true; };
 			this.MouseDown += (_, e) => { IsMenuOpen = false; };
