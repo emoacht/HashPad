@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace HashPad.Models
 {
-	internal class ClipboardHelper
+	internal static class ClipboardHelper
 	{
 		public static bool TryReadHexText(out string text)
 		{
@@ -26,7 +26,7 @@ namespace HashPad.Models
 			text = buffer;
 			return true;
 
-			static bool IsHex(char c) => char.IsDigit(c) || ('A' <= c && c <= 'F') || ('a' <= c && c <= 'f');
+			static bool IsHex(char c) => c is (>= '0' and <= '9') or (>= 'A' and <= 'F') or (>= 'a' and <= 'f');
 		}
 	}
 }
