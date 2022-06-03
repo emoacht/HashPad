@@ -11,6 +11,7 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Win32;
+using Windows.System;
 
 using HashPad.Models;
 
@@ -92,6 +93,13 @@ namespace HashPad.ViewModels
 			IsSendToAdded = ShortcutHelper.Exists();
 		}
 
+		public bool CanUpdateApp
+		{
+			get => _canUpdateApp;
+			private set => SetProperty(ref _canUpdateApp, value);
+		}
+		private bool _canUpdateApp;
+
 		#endregion
 
 		public IReadOnlyCollection<HashViewModel> Hashes { get; }
@@ -112,6 +120,12 @@ namespace HashPad.ViewModels
 				h.PropertyChanged += OnHashPropertyChanged;
 
 			SetEnabled();
+
+			StoreHelper.CheckUpdateAsync().ContinueWith(x =>
+			{
+				if (x.Result)
+					CanUpdateApp = true;
+			});
 		}
 
 		private void OnHashPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -162,7 +176,7 @@ namespace HashPad.ViewModels
 			Stop();
 		}
 
-		#region Command
+		#region Operation Command
 
 		public IAsyncRelayCommand<IEnumerable<string>> CheckCommand => _checkCommand ??= new((paths) => CheckFileAsync(paths));
 		private AsyncRelayCommand<IEnumerable<string>> _checkCommand;
@@ -294,5 +308,20 @@ namespace HashPad.ViewModels
 		{
 			Parallel.ForEach(Hashes, h => h.Compare(expectedValue));
 		}
+
+		#region Miscellaneous Command
+
+		public IAsyncRelayCommand OpenSiteCommand => _openSiteCommand ??= new(() => OpenUrlAsync(Properties.Resources.SiteUrl));
+		private AsyncRelayCommand _openSiteCommand;
+
+		public IAsyncRelayCommand OpenLicenseCommand => _openLicenseCommand ??= new(() => OpenUrlAsync(Properties.Resources.LicenseUrl));
+		private AsyncRelayCommand _openLicenseCommand;
+
+		public IAsyncRelayCommand UpdateAppCommand => _updateAppCommand ??= new(() => StoreHelper.ProceedUpdateAsync(Application.Current.MainWindow), () => CanUpdateApp);
+		private AsyncRelayCommand _updateAppCommand;
+
+		#endregion
+
+		private static Task OpenUrlAsync(string url) => Launcher.LaunchUriAsync(new Uri(url)).AsTask();
 	}
 }

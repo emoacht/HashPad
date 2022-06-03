@@ -14,7 +14,7 @@ namespace HashPad.Models
 		/// Whether this assembly is packaged in AppX package
 		/// </summary>
 		public static bool IsPackaged => _isPackaged.Value;
-		private static readonly Lazy<bool> _isPackaged = new Lazy<bool>(() => IsPackagedWithName());
+		private static readonly Lazy<bool> _isPackaged = new(() => IsPackagedWithName());
 
 		private static bool IsPackagedWithName()
 		{
@@ -23,7 +23,7 @@ namespace HashPad.Models
 				var package = Package.Current;
 				return !string.IsNullOrEmpty(package.Id.FamilyName);
 			}
-			catch (InvalidOperationException ex) when (((uint)ex.HResult == 0x80131509) || ((uint)ex.HResult == 0x80073D54))
+			catch (InvalidOperationException ex) when ((uint)ex.HResult is 0x80131509 or 0x80073D54)
 			{
 				// Under .NET 5.0
 				// 0x80131509 means COR_E_INVALIDOPERATION

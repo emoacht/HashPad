@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -146,11 +145,6 @@ namespace HashPad.Views
 		{
 			this.Close();
 		}
-
-		private void Site_MouseDown(object sender, MouseButtonEventArgs e) => OpenUrl(Properties.Resources.SiteUrl);
-		private void License_MouseDown(object sender, MouseButtonEventArgs e) => OpenUrl(Properties.Resources.LicenseUrl);
-
-		private static void OpenUrl(string url) => Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
 
 		private void SetCulture(string cultureName)
 		{

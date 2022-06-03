@@ -429,12 +429,25 @@
 						<Run Text="{Binding Source={x:Static models:ProductInfo.Version}, Mode=OneTime}"/>
 						<Run Text="|"/>
 						<Run Style="{StaticResource LinkTextStyle}"
-							 Text="{x:Static properties:Resources.Site}"
-							 MouseDown="Site_MouseDown"/>
+							 Text="{x:Static properties:Resources.Site}">
+							<Run.InputBindings>
+								<MouseBinding MouseAction="LeftClick" Command="{Binding OpenSiteCommand}"/>
+							</Run.InputBindings>
+						</Run>
 						<Run Text="|"/>
 						<Run Style="{StaticResource LinkTextStyle}"
-							 Text="{x:Static properties:Resources.License}"
-							 MouseDown="License_MouseDown"/>
+							 Text="{x:Static properties:Resources.License}">
+							<Run.InputBindings>
+								<MouseBinding MouseAction="LeftClick" Command="{Binding OpenLicenseCommand}"/>
+							</Run.InputBindings>
+						</Run>
+					</TextBlock>
+					<TextBlock Cursor="Hand"
+							   Text="{x:Static properties:Resources.Update}"
+							   Visibility="{Binding CanUpdateApp, Converter={StaticResource BooleanToVisibilityConverterKey}}">
+						<TextBlock.InputBindings>
+							<MouseBinding MouseAction="LeftClick" Command="{Binding UpdateAppCommand}"/>
+						</TextBlock.InputBindings>
 					</TextBlock>
 				</StackPanel>
 			</Grid>
