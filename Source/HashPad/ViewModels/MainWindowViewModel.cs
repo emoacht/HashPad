@@ -93,12 +93,23 @@ namespace HashPad.ViewModels
 			IsSendToAdded = ShortcutHelper.Exists();
 		}
 
+		public bool IsUpdateAppAvailable
+		{
+			get => _isUpdateAppAvailable;
+			private set => SetProperty(ref _isUpdateAppAvailable, value);
+		}
+		private bool _isUpdateAppAvailable;
+
 		public bool CanUpdateApp
 		{
 			get => _canUpdateApp;
-			private set => SetProperty(ref _canUpdateApp, value);
+			private set
+			{
+				if (SetProperty(ref _canUpdateApp, value))
+					UpdateAppCommand.NotifyCanExecuteChanged();
+			}
 		}
-		private bool _canUpdateApp;
+		private bool _canUpdateApp = true;
 
 		#endregion
 
@@ -121,10 +132,10 @@ namespace HashPad.ViewModels
 
 			SetEnabled();
 
-			StoreHelper.CheckUpdateAsync().ContinueWith(x =>
+			CheckUpdateAppAvailableAsync().ContinueWith(x =>
 			{
 				if (x.Result)
-					CanUpdateApp = true;
+					IsUpdateAppAvailable = true;
 			});
 		}
 
@@ -317,11 +328,29 @@ namespace HashPad.ViewModels
 		public IAsyncRelayCommand OpenLicenseCommand => _openLicenseCommand ??= new(() => OpenUrlAsync(Properties.Resources.LicenseUrl));
 		private AsyncRelayCommand _openLicenseCommand;
 
-		public IAsyncRelayCommand UpdateAppCommand => _updateAppCommand ??= new(() => StoreHelper.ProceedUpdateAsync(Application.Current.MainWindow), () => CanUpdateApp);
+		public IAsyncRelayCommand UpdateAppCommand => _updateAppCommand ??= new(() => UpdateAppAsync(), () => CanUpdateApp);
 		private AsyncRelayCommand _updateAppCommand;
 
 		#endregion
 
 		private static Task OpenUrlAsync(string url) => Launcher.LaunchUriAsync(new Uri(url)).AsTask();
+
+		private Task<bool> CheckUpdateAppAvailableAsync() => StoreHelper.CheckUpdateAsync();
+
+		private async Task UpdateAppAsync()
+		{
+			try
+			{
+				CanUpdateApp = false;
+
+				await Task.WhenAll(
+					Task.Delay(TimeSpan.FromSeconds(2)),
+					StoreHelper.ProceedUpdateAsync(Application.Current.MainWindow));
+			}
+			finally
+			{
+				CanUpdateApp = true;
+			}
+		}
 	}
 }

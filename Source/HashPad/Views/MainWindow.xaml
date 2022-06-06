@@ -106,6 +106,23 @@
 						<Setter Property="TextElement.FontSize" Value="11.5"/>
 					</Style>
 
+					<Style x:Key="TextButtonStyle" TargetType="{x:Type Button}">
+						<Setter Property="Foreground" Value="{StaticResource App.Foreground}"/>
+						<Setter Property="Cursor" Value="Hand"/>
+						<Setter Property="Template">
+							<Setter.Value>
+								<ControlTemplate TargetType="{x:Type Button}">
+									<ContentPresenter/>
+								</ControlTemplate>
+							</Setter.Value>
+						</Setter>
+						<Style.Triggers>
+							<Trigger Property="IsEnabled" Value="False">
+								<Setter Property="Foreground" Value="{StaticResource Button.Disabled.Foreground}"/>
+							</Trigger>
+						</Style.Triggers>
+					</Style>
+
 					<SolidColorBrush x:Key="CheckBox.Static.Border" Color="#FF707070"/>
 					<SolidColorBrush x:Key="CheckBox.Static.Background" Color="#FFFFFFFF"/>
 					<SolidColorBrush x:Key="CheckBox.Static.Glyph" Color="#FFFFFFFF"/>
@@ -442,13 +459,10 @@
 							</Run.InputBindings>
 						</Run>
 					</TextBlock>
-					<TextBlock Cursor="Hand"
-							   Text="{x:Static properties:Resources.Update}"
-							   Visibility="{Binding CanUpdateApp, Converter={StaticResource BooleanToVisibilityConverterKey}}">
-						<TextBlock.InputBindings>
-							<MouseBinding MouseAction="LeftClick" Command="{Binding UpdateAppCommand}"/>
-						</TextBlock.InputBindings>
-					</TextBlock>
+					<Button Style="{StaticResource TextButtonStyle}"
+							Content="{x:Static properties:Resources.Update}"
+							Visibility="{Binding IsUpdateAppAvailable, Converter={StaticResource BooleanToVisibilityConverterKey}}"
+							Command="{Binding UpdateAppCommand}"/>
 				</StackPanel>
 			</Grid>
 		</Grid>
