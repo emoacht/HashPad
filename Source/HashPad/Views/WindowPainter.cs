@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
+using Microsoft.Win32;
 
 using static HashPad.Views.WindowHelper;
 
@@ -18,7 +19,7 @@ internal static class WindowPainter
 	[DllImport("Dwmapi.dll", SetLastError = true)]
 	private static extern int DwmSetWindowAttribute(
 		IntPtr hwnd,
-		uint dwAttribute,
+		DWMWA dwAttribute,
 		[In] ref uint pvAttribute, // IntPtr
 		uint cbAttribute);
 
@@ -48,6 +49,7 @@ internal static class WindowPainter
 		DWMWA_CAPTION_COLOR,                  // [set] COLORREF, The color of the caption
 		DWMWA_TEXT_COLOR,                     // [set] COLORREF, The color of the caption text
 		DWMWA_VISIBLE_FRAME_BORDER_THICKNESS, // [get] UINT, width of the visible border around a thick frame window
+		DWMWA_SYSTEMBACKDROP_TYPE,            // [get, set] SYSTEMBACKDROP_TYPE, Controls the system-drawn backdrop material of a window, including behind the non-client area.
 		DWMWA_LAST
 	}
 
@@ -75,6 +77,15 @@ internal static class WindowPainter
 		DWMWCP_ROUNDSMALL = 3
 	}
 
+	private enum DWMSBT : uint
+	{
+		DWMSBT_AUTO = 0,        // [Default] Let DWM automatically decide the system-drawn backdrop for this window.
+		DWMSBT_NONE,            // Do not draw any system backdrop.
+		DWMSBT_MAINWINDOW,      // Draw the backdrop material effect corresponding to a long-lived window.
+		DWMSBT_TRANSIENTWINDOW, // Draw the backdrop material effect corresponding to a transient window.
+		DWMSBT_TABBEDWINDOW     // Draw the backdrop material effect corresponding to a window with a tabbed title bar.
+	}
+
 	#endregion
 
 	public static bool SetWindowCorners(Window window, CornerPreference corner)
@@ -99,9 +110,39 @@ internal static class WindowPainter
 
 		return (DwmSetWindowAttribute(
 			windowHandle,
-			(uint)DWMWA.DWMWA_WINDOW_CORNER_PREFERENCE,
+			DWMWA.DWMWA_WINDOW_CORNER_PREFERENCE,
 			ref value,
 			(uint)Marshal.SizeOf(value)) == S_OK);
+	}
+
+	public static bool SetMicaBackground(Window window)
+	{
+		if (Environment.OSVersion.Version < new Version(10, 0, 22621) /* Windows 11 22621 */)
+			return false;
+
+		var windowHandle = new WindowInteropHelper(window).Handle;
+
+		uint value = (uint)DWMSBT.DWMSBT_MAINWINDOW;
+		return (DwmSetWindowAttribute(
+			windowHandle,
+			DWMWA.DWMWA_SYSTEMBACKDROP_TYPE,
+			ref value,
+			(uint)Marshal.SizeOf<uint>()) == S_OK);
+	}
+
+	/// <summary>
+	/// Whether the color theme for applications is dark
+	/// </summary>
+	public static bool IsAppDarkTheme => _isAppDarkTheme.Value;
+	private static readonly Lazy<bool> _isAppDarkTheme = new(() => IsDarkTheme("AppsUseLightTheme"));
+
+	private static bool IsDarkTheme(string valueName)
+	{
+		const string keyName = @"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize"; // HKCU
+
+		using var key = Registry.CurrentUser.OpenSubKey(keyName);
+
+		return (key?.GetValue(valueName) is 0);
 	}
 }
 

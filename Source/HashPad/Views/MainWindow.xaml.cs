@@ -72,6 +72,11 @@ namespace HashPad.Views
 
 			WindowPainter.SetWindowCorners(this, CornerPreference.Round);
 
+			if (WindowPainter.SetMicaBackground(this))
+			{
+				this.Resources["App.BackgroundColor"] = this.Resources["App.BackgroundColor.Mica"];
+			}
+
 			this.TitleBar.MouseDown += (_, e) =>
 			{
 				e.Handled = true;
