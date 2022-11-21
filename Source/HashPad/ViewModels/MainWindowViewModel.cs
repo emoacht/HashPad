@@ -206,11 +206,18 @@ namespace HashPad.ViewModels
 
 		#endregion
 
-		private async Task CheckFileAsync(IEnumerable<string> filePaths)
+		private async Task CheckFileAsync(IEnumerable<string> paths)
 		{
-			var filePath = filePaths?.FirstOrDefault(x => File.Exists(x));
+			var filePath = paths?.FirstOrDefault(x => File.Exists(x));
 			if (filePath is null)
+			{
+				var filePaths = PathHelper.Restore(paths.ToArray());
+				if (filePaths is { Length: 1 })
+				{
+					filePath = filePaths.Single();
+				}
 				return;
+			}
 
 			SourceFilePath = Path.GetFullPath(filePath);
 
