@@ -1,66 +1,60 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using IWshRuntimeLibrary;
 using File = System.IO.File;
 
-using IWshRuntimeLibrary;
+namespace HashPad.Models;
 
-namespace HashPad.Models
+internal static class ShortcutHelper
 {
-	internal static class ShortcutHelper
+	public static (string name, string executablePath, string aliasPath) GetNamePaths()
 	{
-		public static (string name, string executablePath, string aliasPath) GetNamePaths()
+		string aliasPath = null;
+		if (PlatformInfo.IsPackaged)
 		{
-			string aliasPath = null;
-			if (PlatformInfo.IsPackaged)
-			{
-				// Get path to app execution alias.
-				var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-					@"Microsoft\WindowsApps",
-					Path.GetFileName(ProductInfo.Location));
-				if (File.Exists(path))
-					aliasPath = path;
-			}
-
-			return ((ProductInfo.Title ?? ProductInfo.Product), ProductInfo.Location, aliasPath);
+			// Get path to app execution alias.
+			var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+				@"Microsoft\WindowsApps",
+				Path.GetFileName(ProductInfo.Location));
+			if (File.Exists(path))
+				aliasPath = path;
 		}
 
-		private static string GetShortcutPath(string name) =>
-			Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo), $"{name}.lnk");
+		return ((ProductInfo.Title ?? ProductInfo.Product), ProductInfo.Location, aliasPath);
+	}
 
-		public static bool Exists()
-		{
-			var (name, executablePath, aliasPath) = GetNamePaths();
+	private static string GetShortcutPath(string name) =>
+		Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo), $"{name}.lnk");
 
-			var shortcutPath = GetShortcutPath(name);
-			if (!File.Exists(shortcutPath))
-				return false;
+	public static bool Exists()
+	{
+		var (name, executablePath, aliasPath) = GetNamePaths();
 
-			var shell = new WshShell();
-			var shortcut = (IWshShortcut)shell.CreateShortcut(shortcutPath);
-			return (shortcut.TargetPath == (aliasPath ?? executablePath));
-		}
+		var shortcutPath = GetShortcutPath(name);
+		if (!File.Exists(shortcutPath))
+			return false;
 
-		public static void Create()
-		{
-			var (name, executablePath, aliasPath) = GetNamePaths();
+		var shell = new WshShell();
+		var shortcut = (IWshShortcut)shell.CreateShortcut(shortcutPath);
+		return (shortcut.TargetPath == (aliasPath ?? executablePath));
+	}
 
-			var shell = new WshShell();
-			var shortcut = (IWshShortcut)shell.CreateShortcut(GetShortcutPath(name));
-			shortcut.Description = name;
-			shortcut.TargetPath = (aliasPath ?? executablePath);
-			shortcut.IconLocation = executablePath;
-			shortcut.Save();
-		}
+	public static void Create()
+	{
+		var (name, executablePath, aliasPath) = GetNamePaths();
 
-		public static void Remove()
-		{
-			var (name, _, _) = GetNamePaths();
+		var shell = new WshShell();
+		var shortcut = (IWshShortcut)shell.CreateShortcut(GetShortcutPath(name));
+		shortcut.Description = name;
+		shortcut.TargetPath = (aliasPath ?? executablePath);
+		shortcut.IconLocation = executablePath;
+		shortcut.Save();
+	}
 
-			File.Delete(GetShortcutPath(name));
-		}
+	public static void Remove()
+	{
+		var (name, _, _) = GetNamePaths();
+
+		File.Delete(GetShortcutPath(name));
 	}
 }
