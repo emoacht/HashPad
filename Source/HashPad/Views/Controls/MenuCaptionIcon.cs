@@ -11,7 +11,7 @@ public class MenuCaptionIcon : CaptionIcon
 		var line = new Pen(Stroke, Math.Round(StrokeThickness * factor, MidpointRounding.AwayFromZero) / factor);
 		var lineRadius = line.Thickness / 2D;
 
-		var topCenterY = StrokeThickness / 2D; // Y coordinate of top line's center
+		var topCenterY = lineRadius; // Y coordinate of upper line's center
 		var topStartPoint = new Point(0, topCenterY - lineRadius);
 		var topEndPoint = new Point(Width, topCenterY - lineRadius);
 
@@ -19,7 +19,7 @@ public class MenuCaptionIcon : CaptionIcon
 		var middleStartPoint = new Point(0, middleCenterY - lineRadius);
 		var middleEndPoint = new Point(Width, middleCenterY - lineRadius);
 
-		var bottomCenterY = Height - (StrokeThickness / 2D); // Y coordinate of bottom line's center
+		var bottomCenterY = Height - lineRadius; // Y coordinate of lower line's center
 		var bottomStartPoint = new Point(0, bottomCenterY - lineRadius);
 		var bottomEndPoint = new Point(Width, bottomCenterY - lineRadius);
 
