@@ -117,8 +117,27 @@ public class MainWindowViewModel : ObservableObject
 
 	public Settings Settings { get; } = new Settings();
 
-	public MainWindowViewModel() : this(HashType.Sha1, HashType.Sha256, HashType.Sha384, HashType.Sha512, HashType.Md5)
+	public MainWindowViewModel() : this(EnumerateHashTypes().ToArray())
 	{ }
+
+	private static IEnumerable<HashType> EnumerateHashTypes()
+	{
+		yield return HashType.Sha1;
+		yield return HashType.Sha2_256;
+		yield return HashType.Sha2_384;
+		yield return HashType.Sha2_512;
+
+		// SHA-3 algorithms are supported by the OS on Windows 11 24H2 or greater.
+		// https://learn.microsoft.com/en-us/windows/whats-new/whats-new-windows-11-version-24h2#sha-3-support
+		if (OsVersion.Is11Build26100OrGreater)
+		{
+			yield return HashType.Sha3_256;
+			yield return HashType.Sha3_384;
+			yield return HashType.Sha3_512;
+		}
+
+		yield return HashType.Md5;
+	}
 
 	public MainWindowViewModel(params HashType[] types)
 	{
