@@ -2,7 +2,7 @@
 
 Hash Pad is a simple tool to compute and compare hash value including from Explorer's context menu. It is specially designed to complete hash check in the minimum steps.
 
-Currently, SHA1, SHA256, SHA384, SHA512 and MD5 are supported.
+Currently, SHA-1, SHA-2 (256bit, 384bit, 512bit), SHA-3 (256bit, 384bit, 512bit, only on Windows 11 24H2) and MD5 are supported.
 
 ![Screenshot](Images/Screenshot_main_win10.png)<br>
 (DPI: 175%)
@@ -17,7 +17,7 @@ Additonal languages:
 ## Requirements
 
  * Windows 10, 11
- * .NET 6.0
+ * .NET 8.0
 
 ## Download
 
@@ -49,6 +49,15 @@ To remove the shortcut of this app from `Send to` if you checked `Add to 'Send t
 ![Jump list](Images/JumpList.png)
 
 ## History
+
+v2.13 2025-8-17
+
+ - Add support of SHA-3 (only on Windows 11 24H2)
+ - Migrate to .NET 8.0
+
+v2.12 2022-6-12
+
+ - Apply Mica (light theme)
 
 v2.11 2022-3-15
 
