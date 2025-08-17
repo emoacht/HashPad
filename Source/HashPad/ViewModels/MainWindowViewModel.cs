@@ -191,7 +191,7 @@ public class MainWindowViewModel : ObservableObject
 					Hashes.First().IsTarget = true;
 			}
 		}
-		else if (HashTypeHelper.TryGetHashType(expectedValue.Length, out HashType type))
+		else if (HashTypeHelper.TryGetHashType(expectedValue.Length, (OsVersion.Is11Build26100OrGreater && Settings.PrefersSha3), out HashType type))
 		{
 			foreach (var h in Hashes.Where(x => !(x.IsTarget && (x.IsReading || x.HasRead))))
 				h.IsTarget = (h.HashType == type);
@@ -263,7 +263,7 @@ public class MainWindowViewModel : ObservableObject
 	private void ReadClipboard()
 	{
 		if (ClipboardHelper.TryReadHexText(out string text) &&
-			HashTypeHelper.TryGetHashType(text.Trim().Length, out _))
+			HashTypeHelper.TryGetHashType(text.Trim().Length, (OsVersion.Is11Build26100OrGreater && Settings.PrefersSha3), out _))
 		{
 			ExpectedValue = text;
 		}

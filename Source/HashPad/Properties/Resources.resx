@@ -156,6 +156,9 @@
   <data name="MenuCompute" xml:space="preserve">
     <value>Compute hash value automatically after file path is filled</value>
   </data>
+  <data name="MenuPrefer" xml:space="preserve">
+    <value>Prefer SHA-3 over SHA-2 when detecting hash algorithm</value>
+  </data>
   <data name="MenuRead" xml:space="preserve">
     <value>Read clipboard automatically before computing hash value</value>
   </data>

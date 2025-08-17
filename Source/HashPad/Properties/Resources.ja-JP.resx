@@ -150,6 +150,9 @@
   <data name="MenuCompute" xml:space="preserve">
     <value>ファイルパスが与えられた後に自動的にハッシュ値を計算する</value>
   </data>
+  <data name="MenuPrefer" xml:space="preserve">
+    <value>ハッシュアルゴリズムを判別する際にSHA-2よりSHA-3を優先する</value>
+  </data>
   <data name="MenuRead" xml:space="preserve">
     <value>ハッシュ値を計算する前に自動的にクリップボードから読む</value>
   </data>

@@ -19,6 +19,13 @@ public class Settings : ObservableObject
 	}
 	private bool _readsAutomatically = true;
 
+	public bool PrefersSha3
+	{
+		get => GetValue(ref _prefersSha3);
+		set => SetValue(ref _prefersSha3, value);
+	}
+	private bool _prefersSha3;
+
 	internal string LastSourceFolderPath
 	{
 		get => GetValue(ref _lastSourceFolderPath);

@@ -178,6 +178,15 @@ namespace HashPad.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Prefer SHA-3 over SHA-2 when detecting hash algorithm.
+        /// </summary>
+        public static string MenuPrefer {
+            get {
+                return ResourceManager.GetString("MenuPrefer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Read clipboard automatically before computing hash value.
         /// </summary>
         public static string MenuRead {

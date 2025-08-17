@@ -445,6 +445,14 @@
 						<TextBlock TextWrapping="Wrap"
 								   Text="{x:Static properties:Resources.MenuRead}"/>
 					</CheckBox>
+
+					<CheckBox Margin="4"
+							  Style="{StaticResource CheckBoxStyle}"
+							  Visibility="{Binding Settings.IsPersistent, Mode=OneTime, Converter={StaticResource BooleanToVisibilityConverterKey}}"
+							  IsChecked="{Binding Settings.PrefersSha3, Mode=TwoWay}">
+						<TextBlock TextWrapping="Wrap"
+								   Text="{x:Static properties:Resources.MenuPrefer}"/>
+					</CheckBox>
 				</StackPanel>
 
 				<StackPanel Margin="12,4,12,12" VerticalAlignment="Bottom">

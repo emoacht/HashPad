@@ -66,9 +66,10 @@ internal static class HashTypeHelper
 		return GetBitArrayLength(type) / 4;
 	}
 
-	public static bool TryGetHashType(int hexStringLength, out HashType type)
+	public static bool TryGetHashType(int hexStringLength, bool preferSha3, out HashType type)
 	{
 		type = Enum.GetValues(typeof(HashType)).Cast<HashType>()
+			.Where(x => !preferSha3 || (x is not (HashType.Sha2_256 or HashType.Sha2_384 or HashType.Sha2_512)))
 			.FirstOrDefault(x => x.GetHexStringLength() == hexStringLength);
 
 		return type != default;
